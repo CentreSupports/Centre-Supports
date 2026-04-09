@@ -528,7 +528,38 @@ chatClose.addEventListener("click", () => {
   </div>
   
   <style>
+.partners-scroll-section,
+.app-viewer {
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 10px;
+}
 
+.partners-scroll {
+  overflow: hidden;
+  min-height: 300px;
+  height: auto;
+}
+
+.slide img {
+  width: 100%;
+  height: auto;
+  max-height: 420px;
+  object-fit: contain;
+}
+
+.article-container {
+  max-width: 800px;
+  padding: 0 15px;
+}
+
+@media (max-width: 768px) {
+  .slide:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}
   </style>
 
   <!-- RIGHT SIDE -->
