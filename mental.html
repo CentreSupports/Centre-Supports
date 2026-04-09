@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Community Hub</title>
+  <link rel="stylesheet" href="styles.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geom:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=search" />
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
+<!--TARA copy and paste here (START) -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script> 
+(function(){
+emailjs.init("x3ShtMp_Po7CPnzlu");
+})();
+</script> 
+<!--TARA copy and paste here (END) -->
+</head>
+<body class="mentalhealth">
+  
+<style>
+  body.mentalhealth .hero {
+  position: relative;
+  background-image: url('MentalH.png');
+}
+</style>
+  
+<div id="pageContent">
+  <header class="navbar">
+    <a href="index.html">
+    <div class="logo">
+   <img src="centrespprts.png" alt="Centre Supports Logo"> 
+    </div>
+    </a>
+    <nav class="nav-links">
+      <a href="mission2.html">Mission</a>
+      <a href="resources.html">Resources</a>
+      <a href="abusehotlines.html">Hotlines</a>
+      <a href="documentation.html">Documentation</a>
+    </nav>
+<div class="nav-actions">
+<form class="search-bar" id="searchForm" action="/search" method="get">
+  <span class="material-symbols-outlined search-icon">search</span>
+  <input type="text"  id="searchInput" name="q" placeholder="Search...">
+</form>
+  <div class="pinned-container">
+
+  <a href="#" class="saved" id="pinButton">
+    PINNED
+    <svg class="pin-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+      <path d="M16 9V4l1-1V2H7v1l1 1v5l-3 3v1h6v7l1-1 1 1v-7h6v-1l-3-3z"/>
+    </svg>
+  </a>
+  </div>
+  </header>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const searchBar = document.querySelector(".search-bar");
+  const searchIcon = document.querySelector(".search-icon");
+  const form = document.getElementById("searchForm");
+  const input = document.getElementById("searchInput");
+  const loader = document.getElementById("pageLoader");
+
+  document.addEventListener('click', (e) => {
+    if (!searchBar.contains(e.target) && searchBar.classList.contains("active")) {
+      searchBar.classList.remove('active');
+    }
+  });
+  
+    const pages = [
+    { title: "Aging Services", keywords: ["aging","age","senior","seniors","elderly","retirement","retiree","older","nurse","old","ACAP","Eagle Valley","The Village","RSVP","retired"], url: "aging.html" },
+      { title: "Youth Services", keywords: ["child","children","youth","kids","young","adolescent","juvenile","teen","childcare","baby","babies","daycare","grand","childspace", "ymca", "bureau", "united way", "key"], url: "youth.html" },
+      { title: "Food Services", keywords: ["food","meal","meals","nutrition","groceries","pantry","kitchen","hunger","hungry","stomach","restaurant","food bank","faith","action","CPCA","commonFood","lion","pantry"], url: "food.html" },
+      { title: "Substance Abuse Services", keywords: ["drugs","drug","substance","help","narcotics","remission","recovery","joseph","applegate","crossroads","INC", "pinnacle"], url: "substance.html" },
+      { title: "Transportation Services", keywords: ["transport","transportation","bus","buses","transit","ride","travel","commute","cata","greyhound","megabus","active"], url: "transport.html" },
+      { title: "Abuse Hotlines", keywords: ["suicide","intervention","prevention","helpline","support","safe","988","crisis","assault","violence"], url: "abusehotlines.html" },
+      { title: "Clothing Services", keywords: ["clothing","clothes","attire","shirt","pants","shoes","Vincent","Mommy","goodwill","salvation army", "peace"], url: "clothing.html" },
+      { title: "Employment and Finance Services", keywords: ["employment","job","jobs","career","work","finance","money","income","CROG","CRCOG","careerlink","interfaith","liHeap","skills"], url: "finance.html" },
+      { title: "Physical Health Services", keywords: ["physical","health","healthcare","abuse","fitness","hospital","medical","medicine","wellness","doctor", "medics", "dental", "teeth", "back", "pain", "hurt", "heart","CVIM","public","nittany","orthodontics","orthodontist","pregnancy","clinic"], url: "physical.html" },
+      { title: "Housing Services", keywords: ["housing","house","home","apartment","rent","rental","lease","shelter","Out of the cold","transitions","land trust","authority"], url: "housing.html" },
+      { title: "Mental Health Services", keywords: ["mental","mind","psychological","therapy","treatment","wellness","awareness", "sad", "depression", "anxiety","alone","jana marie","community","mental illness","NAMI","psychiatry"], url: "mental.html" },
+      { title: "Volunteering Services", keywords: ["volunteer","volunteering","community service","help","discovery space","schlow","library","centre care","PVCA","Environment","AAUW","summer"], url: "volunteer.html" }
+  ];
+
+
+  const fuse = new Fuse(pages, {
+    keys: ["title","keywords"],
+    threshold: 0.4
+  });
+
+form.addEventListener("submit", e => {
+  e.preventDefault();
+
+  const query = input.value.trim();
+  if (!query) return;
+
+  const results = fuse.search(query);
+
+  // show loader ONLY here
+  loader.classList.add("active");
+
+  setTimeout(() => {
+    if (results.length > 0) {
+      window.location.assign(results[0].item.url);
+    } else {
+      loader.classList.remove("active"); // hide if no results
+      alert("No results found.");
+    }
+  }, 700);
+});
+
+});
+</script>
+  </header>
+
+  <section class="hero">
+    <div class="overlay"></div>
+    
+    <div class="hero-content">
+      <h1>
+       Mental Health Services
+      </h1>
+    </div>
+    <div class="page-caption">
+      Photo: Jana Marie Foundation Mental Health Summit
+</div>
+  </section>
+  
+<!-- Aging Resource #1: DO NOT MODIFY  -->
+   <section class="assistance" id="janamarie">
+  <div class="assistance-container">
+
+    <div class="assistance-image">
+      <img src="https://www.buzzsprout.com/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBCQVFrVmdFPSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--3636bfef840cadbfcb94b388bc400d8cbf7cfe27/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdDam9MWm05eWJXRjBPZ2hxY0djNkUzSmxjMmw2WlY5MGIxOW1hV3hzV3docEFuZ0ZhUUo0QlhzR09nbGpjbTl3T2d0alpXNTBjbVU2RUdSbFptRjFiSFJmZFhKc1NTSTVhSFIwY0hNNkx5OTNkM2N1WW5WNmVuTndjbTkxZEM1amIyMHZhVzFoWjJWekwyRnlkSGR2Y210elgyeGhjbWRsTG1wd1p3WTZCa1ZVT2dwellYWmxjbnNHT2d4eGRXRnNhWFI1YVVFNkVHTnZiRzkxY25Od1lXTmxTU0lKYzNKbllnWTdDMVE9IiwiZXhwIjpudWxsLCJwdXIiOiJ2YXJpYXRpb24ifX0=--2a89ede784d6e184500689d6dcbd55b204c8d4ad/47684796_1967781970002055_1688089870095876096_n.jpg" alt="Applying for assistance">
+    </div>
+
+    <div class="assistance-content">
+      <h3> Business Spotlight Mental Health Services:</h3>
+      <h2> Jana Marie Foundation</h2> 
+      <h4>Contact: (814) 954-5920 </h4><br>
+      <p>
+        Jana Marie Foundation aims to harness dialogue and creative expression to start conversations, build connections, and promote mental well-being among youth and their families.
+      </p>
+    <div class="card-actions">
+  
+  <a class="learn-more-btn"
+     href="https://janamariefoundation.org/meet-us/"
+     target="_blank">
+
+   <svg class="learn-more-icon" viewBox="0 0 24 24">
+  <path d="M10.59 13.41a1.996 1.996 0 0 1 0-2.82l3.59-3.59a2 2 0 1 1 2.83 2.83l-1.17 1.17 1.41 1.41 1.17-1.17a4 4 0 0 0-5.66-5.66l-3.59 3.59a4 4 0 0 0 5.66 5.66l1.17-1.17-1.41-1.41-1.17 1.17a2 2 0 0 1-2.83 0z"/>
+  <path d="M13.41 10.59a1.996 1.996 0 0 1 0 2.82l-3.59 3.59a2 2 0 1 1-2.83-2.83l1.17-1.17-1.41-1.41-1.17 1.17a4 4 0 1 0 5.66 5.66l3.59-3.59a4 4 0 0 0-5.66-5.66l-1.17 1.17 1.41 1.41 1.17-1.17a2 2 0 0 1 2.83 0z"/>
+</svg>
+
+  </a>
+
+  <button class="pin-item bookmark-btn"
+      data-title="Jana Marie Foundation"
+      data-url="https://janamariefoundation.org/meet-us/">
+
+    <svg class="bookmark-icon" viewBox="0 0 24 24" width="20" height="20">
+      <path d="M16 9V3L17 2H7L8 3V9L5 12V13H11V22H13V13H19V12L16 9Z"/>
+    </svg>
+
+  </button>
+
+</div>
+</section>
+
+
+<!-- Aging Resource #2:  -->
+
+
+
+ <section class="assistance" id="centercommunityresources">
+  <div class="assistance-container">
+
+    <div class="assistance-image">
+<!-- Tara here -->      <img src="https://images.squarespace-cdn.com/content/v1/645e7398b9994e6d67a032da/1770670514579-N1ODYSCQKF69U1MKHSB3/Centre+County+Suicide+Prevention+Walk+%234.jpg" alt="RSVP">
+    </div>
+
+    <div class="assistance-content">
+<!-- Tara here -->      <h2>Center for Community Resources</h2>
+                        <h4>Contact: (814) 699-8544 </h4><br>
+      <p>
+  <!-- Tara here -->     Center for Community Resources aims to make a positive difference in everyday lives by connecting people to a network of supports and services to learn, work, and live peacefully in the community. They connect people with the services they need and promote mental wellbeing.
+      </p>
+    <div class="card-actions">
+  
+  <a class="learn-more-btn"
+     href="https://www.ccrinfo.org/"
+     target="_blank">
+
+   <svg class="learn-more-icon" viewBox="0 0 24 24">
+  <path d="M10.59 13.41a1.996 1.996 0 0 1 0-2.82l3.59-3.59a2 2 0 1 1 2.83 2.83l-1.17 1.17 1.41 1.41 1.17-1.17a4 4 0 0 0-5.66-5.66l-3.59 3.59a4 4 0 0 0 5.66 5.66l1.17-1.17-1.41-1.41-1.17 1.17a2 2 0 0 1-2.83 0z"/>
+  <path d="M13.41 10.59a1.996 1.996 0 0 1 0 2.82l-3.59 3.59a2 2 0 1 1-2.83-2.83l1.17-1.17-1.41-1.41-1.17 1.17a4 4 0 1 0 5.66 5.66l3.59-3.59a4 4 0 0 0-5.66-5.66l-1.17 1.17 1.41 1.41 1.17-1.17a2 2 0 0 1 2.83 0z"/>
+</svg>
+
+  </a>
+
+  <button class="pin-item bookmark-btn"
+      data-title="CCR"
+      data-url="https://www.ccrinfo.org/">
+
+    <svg class="bookmark-icon" viewBox="0 0 24 24" width="20" height="20">
+      <path d="M16 9V3L17 2H7L8 3V9L5 12V13H11V22H13V13H19V12L16 9Z"/>
+    </svg>
+
+  </button>
+
+</div>
+</section>
+
+<!-- Aging Resource #3:  -->
+
+
+
+  <section class="assistance" id="nami">
+  <div class="assistance-container">
+
+    <div class="assistance-image">
+  <!-- Tara here -->    <img src="NAMICC.png" alt="Applying for assistance">
+    </div>
+
+    <div class="assistance-content">
+ <!-- Tara here -->     <h2>NAMI, Centre County</h2>
+                        <h4>Contact: (814) 355-6786 </h4><br>
+      <p>
+<!-- Tara here -->       The National Alliance on Mental Illness provides advocacy, education, support and public awareness so that all individuals and families affected by mental illness can build better lives. They provide support services, resources, and counseling.
+
+      </p>
+    <div class="card-actions">
+  
+  <a class="learn-more-btn"
+     href="https://www.nami.org/affiliate/pennsylvania/nami-pa-centre-county/"
+     target="_blank">
+
+   <svg class="learn-more-icon" viewBox="0 0 24 24">
+  <path d="M10.59 13.41a1.996 1.996 0 0 1 0-2.82l3.59-3.59a2 2 0 1 1 2.83 2.83l-1.17 1.17 1.41 1.41 1.17-1.17a4 4 0 0 0-5.66-5.66l-3.59 3.59a4 4 0 0 0 5.66 5.66l1.17-1.17-1.41-1.41-1.17 1.17a2 2 0 0 1-2.83 0z"/>
+  <path d="M13.41 10.59a1.996 1.996 0 0 1 0 2.82l-3.59 3.59a2 2 0 1 1-2.83-2.83l1.17-1.17-1.41-1.41-1.17 1.17a4 4 0 1 0 5.66 5.66l3.59-3.59a4 4 0 0 0-5.66-5.66l-1.17 1.17 1.41 1.41 1.17-1.17a2 2 0 0 1 2.83 0z"/>
+</svg>
+
+  </a>
+
+  <button class="pin-item bookmark-btn"
+      data-title="NAMI"
+      data-url="https://www.nami.org/affiliate/pennsylvania/nami-pa-centre-county/">
+
+    <svg class="bookmark-icon" viewBox="0 0 24 24" width="20" height="20">
+      <path d="M16 9V3L17 2H7L8 3V9L5 12V13H11V22H13V13H19V12L16 9Z"/>
+    </svg>
+
+  </button>
+
+</div>
+</section>
+
+
+<section class="assistance" id="ccmentalhealth">
+  <div class="assistance-container">
+
+    <div class="assistance-image">
+  <!-- Tara here -->    <img src="https://centrecountypa.gov/ImageRepository/Document?documentId=32710" alt="Applying for assistance">
+    </div>
+
+    <div class="assistance-content">
+ <!-- Tara here -->     <h2>Centre County Mental Health </h2>
+                        <h4>Contact: (814) 355-6786 </h4><br>
+      <p>
+<!-- Tara here -->        Centre County Mental Health (CCMH) aids those who are diagnosed with emotional disorders or mental illness through case management services. CCMH administrative and blended case management, providing resources to those eligible in Centre County.
+
+      </p>
+   <div class="card-actions">
+  
+  <a class="learn-more-btn"
+     href="https://centrecountypa.gov/341/Mental-Health"
+     target="_blank">
+
+   <svg class="learn-more-icon" viewBox="0 0 24 24">
+  <path d="M10.59 13.41a1.996 1.996 0 0 1 0-2.82l3.59-3.59a2 2 0 1 1 2.83 2.83l-1.17 1.17 1.41 1.41 1.17-1.17a4 4 0 0 0-5.66-5.66l-3.59 3.59a4 4 0 0 0 5.66 5.66l1.17-1.17-1.41-1.41-1.17 1.17a2 2 0 0 1-2.83 0z"/>
+  <path d="M13.41 10.59a1.996 1.996 0 0 1 0 2.82l-3.59 3.59a2 2 0 1 1-2.83-2.83l1.17-1.17-1.41-1.41-1.17 1.17a4 4 0 1 0 5.66 5.66l3.59-3.59a4 4 0 0 0-5.66-5.66l-1.17 1.17 1.41 1.41 1.17-1.17a2 2 0 0 1 2.83 0z"/>
+</svg>
+
+  </a>
+
+  <button class="pin-item bookmark-btn"
+      data-title="CCMH"
+      data-url="https://centrecountypa.gov/341/Mental-Health">
+
+    <svg class="bookmark-icon" viewBox="0 0 24 24" width="20" height="20">
+      <path d="M16 9V3L17 2H7L8 3V9L5 12V13H11V22H13V13H19V12L16 9Z"/>
+    </svg>
+
+  </button>
+
+</div>
+</section>
+
+
+
+
+<section class="assistance" id="anxietydepressionaid">
+  <div class="assistance-container">
+
+    <div class="assistance-image">
+  <!-- Tara here -->    <img src="https://photos.psychologytoday.com/71b3e429-d9e0-4d3b-b24a-e5bfffa6948a/1/320x400.jpeg" alt="Applying for assistance">
+    </div>
+
+    <div class="assistance-content">
+ <!-- Tara here -->     <h2>Anxiety/Depression Aid </h2>
+                        <h4>Contact: (814) 409-7744 </h4><br>
+      <p>
+<!-- Tara here -->        Anxiety/Depression aid is hosted by psychologist Tessa Bills. For those who are struggling to manage their anxiety or depression on their own, this class offers management techniques to improve mental health. 
+
+      </p>
+   <div class="card-actions">
+  
+  <a class="learn-more-btn"
+     href="https://www.psychologytoday.com/us/groups/anxietydepression-group-state-college-pa/283840"
+     target="_blank">
+
+   <svg class="learn-more-icon" viewBox="0 0 24 24">
+  <path d="M10.59 13.41a1.996 1.996 0 0 1 0-2.82l3.59-3.59a2 2 0 1 1 2.83 2.83l-1.17 1.17 1.41 1.41 1.17-1.17a4 4 0 0 0-5.66-5.66l-3.59 3.59a4 4 0 0 0 5.66 5.66l1.17-1.17-1.41-1.41-1.17 1.17a2 2 0 0 1-2.83 0z"/>
+  <path d="M13.41 10.59a1.996 1.996 0 0 1 0 2.82l-3.59 3.59a2 2 0 1 1-2.83-2.83l1.17-1.17-1.41-1.41-1.17 1.17a4 4 0 1 0 5.66 5.66l3.59-3.59a4 4 0 0 0-5.66-5.66l-1.17 1.17 1.41 1.41 1.17-1.17a2 2 0 0 1 2.83 0z"/>
+</svg>
+
+  </a>
+
+  <button class="pin-item bookmark-btn"
+      data-title="Anxiety/Depression Aid"
+      data-url="https://www.psychologytoday.com/us/groups/anxietydepression-group-state-college-pa/283840">
+
+    <svg class="bookmark-icon" viewBox="0 0 24 24" width="20" height="20">
+      <path d="M16 9V3L17 2H7L8 3V9L5 12V13H11V22H13V13H19V12L16 9Z"/>
+    </svg>
+
+  </button>
+
+</div>
+</section>
+
+<!-- Aging Resource #4:  -->
+<section class="assistance" id="mentalpeace">
+  <div class="assistance-container">
+
+    <div class="assistance-image">
+  <!-- Tara here -->    <img src="https://mentalpeacepsych.com/img/about.jpg" alt="Applying for assistance">
+    </div>
+
+    <div class="assistance-content">
+ <!-- Tara here -->     <h2>Mental Peace Psychiatry </h2>
+                        <h4>Contact: (717) 910-6769 </h4><br>
+      <p>
+<!-- Tara here -->        Mental Peace offers effective, professional health services for mental, physical, or behavioral disorders. Led by Abigail Frimpong, Psychiatric Nurse Practitioner, they use medical-based findings to improve clients' quality of life.
+
+      </p>
+   <div class="card-actions">
+  
+  <a class="learn-more-btn"
+     href="ttps://mentalpeacepsych.com/about.php"
+     target="_blank">
+
+   <svg class="learn-more-icon" viewBox="0 0 24 24">
+  <path d="M10.59 13.41a1.996 1.996 0 0 1 0-2.82l3.59-3.59a2 2 0 1 1 2.83 2.83l-1.17 1.17 1.41 1.41 1.17-1.17a4 4 0 0 0-5.66-5.66l-3.59 3.59a4 4 0 0 0 5.66 5.66l1.17-1.17-1.41-1.41-1.17 1.17a2 2 0 0 1-2.83 0z"/>
+  <path d="M13.41 10.59a1.996 1.996 0 0 1 0 2.82l-3.59 3.59a2 2 0 1 1-2.83-2.83l1.17-1.17-1.41-1.41-1.17 1.17a4 4 0 1 0 5.66 5.66l3.59-3.59a4 4 0 0 0-5.66-5.66l-1.17 1.17 1.41 1.41 1.17-1.17a2 2 0 0 1 2.83 0z"/>
+</svg>
+
+  </a>
+
+  <button class="pin-item bookmark-btn"
+      data-title="Mental Peace"
+      data-url="ttps://mentalpeacepsych.com/about.php">
+
+    <svg class="bookmark-icon" viewBox="0 0 24 24" width="20" height="20">
+      <path d="M16 9V3L17 2H7L8 3V9L5 12V13H11V22H13V13H19V12L16 9Z"/>
+    </svg>
+
+  </button>
+
+</div>
+</section>
+<button id="chatToggle">💬</button>
+
+<div id="chatContainer">
+  <button id="chatClose">✖</button>
+  
+  <iframe 
+    src="https://star7982luv-arch.github.io/centresupportschatbot/"
+    width="100%" 
+    height="100%" 
+    style="border: none;">
+  </iframe>
+</div>
+<script>
+const chatToggle = document.getElementById("chatToggle");
+const chatContainer = document.getElementById("chatContainer");
+const chatClose = document.getElementById("chatClose");
+
+// Open chat
+chatToggle.addEventListener("click", () => {
+  chatContainer.style.display = "block";
+  chatToggle.style.display = "none"; // hide icon
+});
+
+// Close chat
+chatClose.addEventListener("click", () => {
+  chatContainer.style.display = "none";
+  chatToggle.style.display = "block"; // show icon again
+});
+</script>
+<section class="hub-section">
+
+  <!-- LEFT SIDE -->
+  <div class="hub-left">
+    <h2>SUPPORT THE COMMUNITY</h2>
+    <p>
+      We strive to showcase accessible resources in Centre County that benefit all residents. 
+      <br> Support our community by contributing a resource to add to our library!
+    </p>
+
+   <button class="submit-btn" onclick="window.location.href='feedback.html'">
+  ADD YOUR RESOURCES →
+</button>
+  </div>
+  
+  <style>
+
+  </style>
+
+  <!-- RIGHT SIDE -->
+  <div class="hub-right">
+    <h2>JOIN OUR<br>SEASONAL NEWSLETTER</h2>
+
+    <form id="signupForm" class="signup-form">
+      <input type="email" placeholder="EMAIL ADDRESS" required>
+      <button type="submit">JOIN</button>
+    </form>
+  </div>
+
+</section>
+<footer class="footer">
+  <div class="footer-container">
+
+    <!-- LEFT: Logo -->
+    <div class="footer-left">
+      <div class="logo-box">
+        <span>CENTRE<br>SUPPORTS</span>
+      </div>
+    </div>
+<style>
+  .footer-left img{
+    position: relative;
+    width: 150px;
+    height: 150px;
+  }
+</style>
+    <!-- CENTER: Links + Button -->
+    <div class="footer-center">
+      <div class="links">
+        <div class="col">
+          <a href="index.html">HOME</a>
+          <a href="resources.html">RESOURCES</a>
+        </div>
+        <div class="col">
+          <a href="news.html">NEWS</a>
+          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=centrespprts@gmail.com" target="_blank">CONTACT</a>
+        </div>
+      </div>
+      </div>
+
+    <!-- RIGHT: Social + Copyright -->
+    <div class="footer-right">
+      <h3>CONNECT WITH CS</h3>
+      <div class="socials">
+     <a href="https://www.facebook.com/people/Centre-Supports/61586017081439/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://x.com/CentreSupports" target="_blank"><i class="fab fa-twitter"></i></a>
+      <a href="https://www.instagram.com/centresupports/" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.linkedin.com/in/centre-supports-5114113a2/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+      <a href="https://www.youtube.com/playlist?list=PLQtjomygFu7FzsSw1Zo_9mo25dHefECaw" target= "_blank"><i class="fab fa-youtube"></i></a>
+      </div>
+<p>
+  © 2026 CS | 
+  <a href="privacy.html">Privacy Policy</a> | 
+  <a href="terms.html">Terms</a>
+</p>
+</div>
+
+  </div>
+</footer>
+
+<script>
+document.getElementById("signupForm").addEventListener("submit", function(e){
+
+  e.preventDefault()
+
+  const email = this.querySelector("input").value
+
+  alert("Thanks for joining! " + email)
+
+  this.reset()
+
+})
+</script>
+
+ <script>
+    const navbar = document.querySelector('.navbar');
+
+  function handleScroll() {
+    if (window.pageYOffset > 50) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  }
+
+  window.addEventListener('scroll', handleScroll);
+  const searchBar = document.querySelector('.search-bar');
+const searchIcon = searchBar.querySelector('.search-icon');
+const searchInput = searchBar.querySelector('input');
+</script>
+<div id="pageLoader">
+  <div class="loader-content">
+  <img src="centrespprts.png" alt="logo">
+  <div class="spinner"></div>
+</div>
+</div>
+  
+</div> <!--END OF PAGE CONTENT DIV-->
+
+<div id="pageOverlay" class="page-overlay"></div>
+<div id="savedPanel" class="saved-panel">
+
+  <div class="saved-header">
+    <h3>Your Pinned Resources</h3>
+    <span id="closeSaved">Close</span>
+  </div>
+
+  <div class="saved-body">
+
+    <p>Pinned resources will appear here:</p>
+
+    <div id="savedItems"></div>
+
+    <div class="saved-email">
+      <input type="email" id="emailInput" placeholder="Email Address">
+      <button id="sendPins">Email Pinned Resources</button>
+    </div>
+
+  </div>
+
+</div>
+<style>
+  @media(max-width: 768px){
+    .saved-email button{
+      appearance: none;
+  -webkit-appearance: none; /* iOS fix */
+    }
+  }
+  .no-scroll {
+  overflow: hidden;
+}
+
+html {
+  scrollbar-gutter: stable;
+}
+.saved-panel {
+  position: fixed;
+  top: 0;
+  right: 0; /* always anchored */
+
+  width: min(500px, calc(100dvw - 60px));
+  max-width: calc(100dvw - 60px);
+  height: 100vh;
+
+  background: white;
+  border-radius: 0;
+  box-shadow: -10px 0 30px rgba(0,0,0,0.2);
+
+  transform: translateX(100%); /* hidden off screen */
+  transition: transform 0.6s ease;
+
+  z-index: 2000;
+}
+
+.saved-panel.open {
+  transform: translateX(0); /* slide in */
+}
+
+#pageContent{
+  transition:transform 0.35s ease;
+}
+
+#pageContent.shift {
+  transform: translateX(-30px);
+}
+
+.page-overlay{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.4);
+  opacity:0;
+  visibility:hidden;
+  transition:opacity 0.3s ease;
+  z-index:1500;
+}
+.page-overlay{
+  transition: opacity 0.7s cubic-bezier(.22,1,.36,1);
+  transition-delay: 0.05s;
+}
+
+.page-overlay.show{
+  opacity:1;
+  visibility:visible;
+}
+</style>
+<script>
+const savedPanel = document.getElementById("savedPanel")
+const pinButton = document.getElementById("pinButton")
+const closeSaved = document.getElementById("closeSaved")
+const overlay = document.getElementById("pageOverlay")
+const page = document.getElementById("pageContent")
+
+let scrollPosition = 0;
+
+pinButton.addEventListener("click", e => {
+  e.preventDefault();
+
+  scrollPosition = window.scrollY;
+
+  document.body.style.position = "fixed";
+  document.body.style.top = `-${scrollPosition}px`;
+  document.body.style.width = "100%";
+
+  savedPanel.classList.add("open");
+  overlay.classList.add("show");
+  page.classList.add("shift");
+})
+
+closeSaved.addEventListener("click", closePanel)
+overlay.addEventListener("click", closePanel)
+
+function closePanel(){
+  savedPanel.classList.remove("open")
+  overlay.classList.remove("show")
+  page.classList.remove("shift")
+
+  // temporarily disable smooth scrolling (if any)
+  const scrollBehavior = document.documentElement.style.scrollBehavior
+  document.documentElement.style.scrollBehavior = "auto"
+
+  // restore body
+  document.body.style.position = ""
+  document.body.style.top = ""
+  document.body.style.width = ""
+
+  // instantly jump back WITHOUT animation
+  window.scrollTo(0, scrollPosition)
+
+  // restore scroll behavior
+  document.documentElement.style.scrollBehavior = scrollBehavior
+}
+
+function loadSaved(){
+
+  const savedItems = document.getElementById("savedItems")
+  const resources = JSON.parse(localStorage.getItem("pinnedItems")) || []
+
+  savedItems.innerHTML = ""
+
+  resources.forEach((r,index) => {
+
+    const div = document.createElement("div")
+    div.className = "saved-resource"
+
+    div.innerHTML = `
+      <a href="${r.url}" target="_blank">${r.title}</a>
+      <button class="delete-pin" data-index="${index}">✕</button>
+    `
+
+    savedItems.appendChild(div)
+
+  })
+}
+
+document.addEventListener("click", function(e){
+
+  if(e.target.classList.contains("delete-pin")){
+
+    let pins = JSON.parse(localStorage.getItem("pinnedItems")) || []
+
+    const index = parseInt(e.target.dataset.index, 10)
+    const removedItem = pins[index]
+
+    // remove safely
+    pins.splice(index, 1)
+    localStorage.setItem("pinnedItems", JSON.stringify(pins))
+
+    // only run if item exists (prevents crash)
+    if (removedItem && removedItem.url) {
+      document.querySelectorAll(".pin-item").forEach(btn => {
+        if (btn.dataset.url === removedItem.url) {
+          btn.classList.remove("pinned")
+        }
+      })
+    }
+
+    loadSaved()
+
+  }
+
+})
+
+document.querySelectorAll(".pin-item").forEach(btn=>{
+
+  btn.addEventListener("click", ()=>{
+
+    const title = btn.dataset.title
+    const url = btn.dataset.url
+
+    let pins = JSON.parse(localStorage.getItem("pinnedItems")) || []
+
+    const exists = pins.some(p => p.url === url)
+
+    if (exists) {
+  // UNPIN
+    pins = pins.filter(p => p.url !== url)
+    btn.classList.remove("pinned")
+}   else {
+  // PIN
+  pins.push({ title, url })
+  btn.classList.add("pinned")
+}
+
+    localStorage.setItem("pinnedItems", JSON.stringify(pins))
+
+    loadSaved()
+
+  })
+
+})
+
+loadSaved()
+
+
+</script>
+<script>
+let scrollPosition = 0;
+const savedPanel = document.getElementById("savedPanel")
+const pinButton = document.getElementById("pinButton")
+const closeSaved = document.getElementById("closeSaved")
+
+const overlay = document.getElementById("pageOverlay")
+const page = document.getElementById("pageContent")
+
+pinButton.addEventListener("click", e=>{
+  e.preventDefault()
+
+  scrollPosition = window.scrollY;
+
+  document.body.style.top = `-${scrollPosition}px`;
+  document.body.classList.add("no-scroll");
+
+  savedPanel.classList.add("open")
+  overlay.classList.add("show")
+  page.classList.add("shift")
+})
+
+closeSaved.addEventListener("click", closePanel)
+overlay.addEventListener("click", closePanel)
+
+function closePanel(){
+
+  savedPanel.classList.remove("open")
+  overlay.classList.remove("show")
+  page.classList.remove("shift")
+
+  if(document.body.classList.contains("no-scroll")){
+    document.body.classList.remove("no-scroll")
+    document.body.style.top = ""
+    window.scrollTo(0, scrollPosition)
+  }
+
+}
+
+function loadSaved(){
+
+  const savedItems = document.getElementById("savedItems")
+  const resources = JSON.parse(localStorage.getItem("pinnedItems")) || []
+
+  savedItems.innerHTML = ""
+
+  resources.forEach((r,index) => {
+
+    const div = document.createElement("div")
+    div.className = "saved-resource"
+
+    div.innerHTML = `
+      <a href="${r.url}" target="_blank">${r.title}</a>
+      <button class="delete-pin" data-index="${index}">✕</button>
+    `
+
+    savedItems.appendChild(div)
+
+  })
+}
+
+document.addEventListener("click", function(e){
+
+  if(e.target.classList.contains("delete-pin")){
+
+    let pins = JSON.parse(localStorage.getItem("pinnedItems")) || []
+    pins.splice(e.target.dataset.index,1)
+
+    localStorage.setItem("pinnedItems", JSON.stringify(pins))
+
+    loadSaved()
+
+  }
+
+})
+
+document.querySelectorAll(".pin-item").forEach(btn=>{
+
+  btn.addEventListener("click", ()=>{
+
+    const title = btn.dataset.title
+    const url = btn.dataset.url
+
+    let pins = JSON.parse(localStorage.getItem("pinnedItems")) || []
+
+    const exists = pins.some(p => p.url === url)
+
+    if(!exists){
+      pins.push({title,url})
+      btn.classList.add("pinned")
+    }
+
+    localStorage.setItem("pinnedItems", JSON.stringify(pins))
+
+    loadSaved()
+
+  })
+
+})
+
+loadSaved()
+
+
+</script>
+
+<!---EMAIL.JS SECTION (TARA 5) COPY AND PASTE)-->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+<script>
+(function(){
+emailjs.init("x3ShtMp_Po7CPnzlu");
+})();
+</script>
+<script>
+const emailInput = document.getElementById("emailInput");
+const sendPins = document.getElementById("sendPins");
+
+sendPins.addEventListener("click", function(e){
+
+  e.preventDefault(); // IMPORTANT
+
+  const email = emailInput.value;
+
+  if(!email){
+    alert("Please enter an email address.");
+    return;
+  }
+
+  const pins = JSON.parse(localStorage.getItem("pinnedItems")) || [];
+
+  if(pins.length === 0){
+    alert("No pinned resources.");
+    return;
+  }
+
+  let resourceList = "";
+
+  pins.forEach(p=>{
+    resourceList += `${p.title} - ${p.url}\n`;
+  });
+
+  emailjs.send("service_1gljyes","template_bm2vwwj",{
+    to_email: email,
+    resources: resourceList
+  })
+  .then(function(response){
+    console.log("SUCCESS", response);
+    alert("Email sent!");
+  })
+  .catch(function(error){
+    console.log("FAILED", error);
+    alert("Email failed to send.");
+  });
+
+});
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+
+  const searchBar = document.querySelector('.search-bar');
+  const searchIcon = searchBar.querySelector('.search-icon');
+  const searchInput = searchBar.querySelector('input');
+
+  // Toggle search bar when clicking the icon
+  searchIcon.addEventListener('click', (e) => {
+    searchBar.classList.toggle('active');
+
+    if (searchBar.classList.contains('active')) {
+      searchInput.focus();
+    }
+
+    e.stopPropagation();
+  });
+
+  // Close search bar if click is outside
+  document.addEventListener('click', (e) => {
+    if (!searchBar.contains(e.target)) {
+      searchBar.classList.remove('active');
+    }
+  });
+
+});
+</script>
+<script src="script.js"></script>
+  
+  </body>

@@ -1,0 +1,2284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Community Hub</title>
+  <link rel="stylesheet" href="styles.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geom:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=search" />
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
+<!--TARA copy and paste here (START) -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script> 
+(function(){
+emailjs.init("x3ShtMp_Po7CPnzlu");
+})();
+</script> 
+<!--TARA copy and paste here (END) -->
+</head>
+<body class="resources">
+  
+<div id="pageContent">
+  <header class="navbar">
+    <a href="index.html">
+    <div class="logo">
+   <img src="centrespprts.png" alt="Centre Supports Logo"> 
+    </div>
+    </a>
+    <nav class="nav-links">
+      <a href="mission2.html">Mission</a>
+      <a href="resources.html">Resources</a>
+      <a href="abusehotlines.html">Hotlines</a>
+      <a href="documentation.html">Documentation</a>
+    </nav>
+<div class="nav-actions">
+<form class="search-bar" id="searchForm" action="/search" method="get">
+  <span class="material-symbols-outlined search-icon">search</span>
+  <input type="text"  id="searchInput" name="q" placeholder="Search...">
+</form>
+  <div class="pinned-container">
+
+  <a href="#" class="saved" id="pinButton">
+    PINNED
+    <svg class="pin-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+      <path d="M16 9V4l1-1V2H7v1l1 1v5l-3 3v1h6v7l1-1 1 1v-7h6v-1l-3-3z"/>
+    </svg>
+  </a>
+  </div>
+  </header>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const searchBar = document.querySelector(".search-bar");
+  const searchIcon = document.querySelector(".search-icon");
+  const form = document.getElementById("searchForm");
+  const input = document.getElementById("searchInput");
+  const loader = document.getElementById("pageLoader");
+
+  document.addEventListener('click', (e) => {
+    if (!searchBar.contains(e.target) && searchBar.classList.contains("active")) {
+      searchBar.classList.remove('active');
+    }
+  });
+  
+    const pages = [
+    { title: "Aging Services", keywords: ["aging","age","senior","seniors","elderly","retirement","retiree","older","nurse","old","ACAP","Eagle Valley","The Village","RSVP","retired"], url: "aging.html" },
+      { title: "Youth Services", keywords: ["child","children","youth","kids","young","adolescent","juvenile","teen","childcare","baby","babies","daycare","grand","childspace", "ymca", "bureau", "united way", "key"], url: "youth.html" },
+      { title: "Food Services", keywords: ["food","meal","meals","nutrition","groceries","pantry","kitchen","hunger","hungry","stomach","restaurant","food bank","faith","action","CPCA","commonFood","lion","pantry"], url: "food.html" },
+      { title: "Substance Abuse Services", keywords: ["drugs","drug","substance","help","narcotics","remission","recovery","joseph","applegate","crossroads","INC", "pinnacle"], url: "substance.html" },
+      { title: "Transportation Services", keywords: ["transport","transportation","bus","buses","transit","ride","travel","commute","cata","greyhound","megabus","active"], url: "transport.html" },
+      { title: "Abuse Hotlines", keywords: ["suicide","intervention","prevention","helpline","support","safe","988","crisis","assault","violence"], url: "abusehotlines.html" },
+      { title: "Clothing Services", keywords: ["clothing","clothes","attire","shirt","pants","shoes","Vincent","Mommy","goodwill","salvation army", "peace"], url: "clothing.html" },
+      { title: "Employment and Finance Services", keywords: ["employment","job","jobs","career","work","finance","money","income","CROG","CRCOG","careerlink","interfaith","liHeap","skills"], url: "finance.html" },
+      { title: "Physical Health Services", keywords: ["physical","health","healthcare","abuse","fitness","hospital","medical","medicine","wellness","doctor", "medics", "dental", "teeth", "back", "pain", "hurt", "heart","CVIM","public","nittany","orthodontics","orthodontist","pregnancy","clinic"], url: "physical.html" },
+      { title: "Housing Services", keywords: ["housing","house","home","apartment","rent","rental","lease","shelter","Out of the cold","transitions","land trust","authority"], url: "housing.html" },
+      { title: "Mental Health Services", keywords: ["mental","mind","psychological","therapy","treatment","wellness","awareness", "sad", "depression", "anxiety","alone","jana marie","community","mental illness","NAMI","psychiatry"], url: "mental.html" },
+      { title: "Volunteering Services", keywords: ["volunteer","volunteering","community service","help","discovery space","schlow","library","centre care","PVCA","Environment","AAUW","summer"], url: "volunteer.html" }
+  ];
+
+
+  const fuse = new Fuse(pages, {
+    keys: ["title","keywords"],
+    threshold: 0.4
+  });
+
+form.addEventListener("submit", e => {
+  e.preventDefault();
+
+  const query = input.value.trim();
+  if (!query) return;
+
+  const results = fuse.search(query);
+
+  // show loader ONLY here
+  loader.classList.add("active");
+
+  setTimeout(() => {
+    if (results.length > 0) {
+      window.location.assign(results[0].item.url);
+    } else {
+      loader.classList.remove("active"); // hide if no results
+      alert("No results found.");
+    }
+  }, 700);
+});
+
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const searchBar = document.querySelector('.search-bar');
+  const searchIcon = searchBar.querySelector('.search-icon');
+  const searchInput = searchBar.querySelector('input');
+
+  // Toggle search bar when clicking the icon
+  searchIcon.addEventListener('click', (e) => {
+    searchBar.classList.toggle('active');
+
+    if (searchBar.classList.contains('active')) {
+      searchInput.focus();
+    }
+
+    e.stopPropagation();
+  });
+
+  // Close search bar if click is outside
+  document.addEventListener('click', (e) => {
+    if (!searchBar.contains(e.target)) {
+      searchBar.classList.remove('active');
+    }
+  });
+
+});
+</script>
+</header>
+
+<section class="hero">
+    <div class="overlay"></div>
+    <div class="hero-content">
+      <h1>
+        Resources 
+      </h1>
+    </div>
+    
+  </section>
+<section class="work-section">
+  <div class="work-container">
+    <h1 class="work-title">CATALOG</h1>
+
+    <p class="work-text">
+      Welcome to the Centre Supports Resource Catalog, with over 50 resources and counting added to our website!
+      To use the catalog, simply search by keyword or use the category filter for more specific results. Thank you for choosing Centre Supports!
+    </p>
+  </div>
+</section>
+<style>
+/* SECTION BACKGROUND */
+.work-section {
+   padding: 80px 20px;
+   max-width: 900px;
+  margin: 0 auto;   /* 👈 THIS centers the whole block */
+  text-align: center;
+}
+
+/* CONTAINER (controls left alignment + width) */
+.work-container {
+  max-width: 900px;
+  text-align: center;
+}
+
+/* TITLE */
+.work-title {
+  font-family: "Oswald", sans-serif;
+  font-size: 5.5rem;
+  font-weight: 700;
+  margin-bottom: 30px;
+  letter-spacing: -1px;
+}
+
+/* PARAGRAPH */
+.work-text {
+    font-family: "Oswald", sans-serif;
+  font-weight: 200;
+  font-size: 1.5rem;
+  line-height: 1.5;
+  margin: 0 auto;
+  margin-bottom: 0;
+  width: clamp(280px, 90vw, 1000px);
+}
+
+</style>
+<div class="container">
+  <!-- Sidebar -->
+<aside class="sidebar">
+
+<!-- SEARCH -->
+<div class="search-box filter-search-box">
+  <input 
+    type="text" 
+    id="filterSearch" 
+    placeholder="Search All Resources"
+  >
+
+  <svg class="search-icon" viewBox="0 0 24 24">
+    <circle cx="11" cy="11" r="8"></circle>
+    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+</div>
+
+<style>
+  .filter-section span{
+    color: black;
+  }
+</style>
+
+<!-- TOPIC -->
+<div class="filter-section">
+  <button class="filter-header toggle">
+    <span>Filter by Category </span>
+    <span class="arrow">▼</span>
+  </button>
+
+  <div class="filter-content">
+    <label><input type="checkbox" value="aging"> Aging</label>
+    <label><input type="checkbox" value="finance"> Employment and Finance</label>
+    <label><input type="checkbox" value="transport"> Transportation</label>
+    <label><input type="checkbox" value="substance"> Substance Abuse</label>
+    <label><input type="checkbox" value="food"> Food</label>
+    <label><input type="checkbox" value="clothing"> Clothing</label>
+    <label><input type="checkbox" value="housing"> Housing</label>
+    <label><input type="checkbox" value="youth"> Youth</label>
+    <label><input type="checkbox" value="mental-health"> Mental Health</label>
+    <label><input type="checkbox" value="volunteer"> Volunteering</label>
+    <label><input type="checkbox" value="physical"> Physical Health</label>
+    <label><input type="checkbox" value="abuse-hotlines"> Abuse Hotlines</label>
+
+
+  </div>
+  
+</div>
+<button id="clearFilters" class="clear-filters">
+  Clear All Filters
+</button>
+</aside>
+
+<style>
+.clear-filters {
+  margin-top: 20px;
+  padding: 10px 10px;
+  font-family: "Oswald", sans-serif;
+  font-size: 16px;
+  background: #f9f9f9;
+  border: 2px solid black;
+  cursor: pointer;
+  width: 220px;
+  transition: 0.4s cubic-bezier(0.25, 0.1, 0.25, 1.0);.;
+}
+
+@media(max-width:768px){
+  .clear-filters{
+    color: black;
+  }
+}
+
+.clear-filters:hover {
+  background: #333;
+  transform: scale(1.05); /* Grows by 5% */
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2); /* Adds depth */
+  color: white;
+}
+  .sidebar{
+  width:280px;
+  font-family:'Oswald', sans-serif;
+}
+
+#noResults {
+  display: none;
+  text-align: center;
+  margin: 60px auto;
+  max-width: 600px;
+}
+
+#noResults p:first-of-type {
+  font-size: 1.2rem;
+  color: #555;
+}
+
+#noResults h2 {
+  font-size: 2rem;
+  margin-bottom: 15px;
+}
+
+#noResults p {
+  font-size: 1.1rem;
+}
+
+#noResults ul {
+  list-style-position: inside;
+  padding: 0;
+}
+
+#noResults ul {
+  list-style-position: inside;
+  padding: 0;
+  margin: 10px auto;
+  text-align: left;
+  display: inline-block;
+}
+
+#noResults li {
+  margin: 5px 0;
+}
+
+.filter-section{
+  border-bottom:1px solid #ccc;
+  padding:20px 0;
+}
+
+.filter-header{
+  font-family: 'Oswald', sans-serif;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-size:28px;
+  font-weight:600;
+  cursor:pointer;
+  background:none;
+  border:none;
+  width:100%;
+}
+
+.filter-header .icon{
+  width:28px;
+  height:28px;
+  stroke:black;
+  fill:none;
+  stroke-width:2;
+}
+
+.arrow{
+  font-size:20px;
+}
+
+/* checkbox list */
+
+.filter-content{
+  display:none;
+  flex-direction:column;
+  margin-top:20px;
+  gap:12px;
+}
+
+.filter-content label{
+  display:flex;
+  gap:10px;
+  font-size:18px;
+  font-family: 'Oswald', sans-serif;
+}
+
+.filter-content.open{
+  display:flex;
+}
+
+.filter-search-box{
+  position: relative;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.filter-search-box input{
+  width: 100%;
+  padding: 14px 40px 10px 0;
+  border: none;
+  border-bottom: 2px solid black;
+  font-size: 26px;
+  font-weight: 600;
+  font-family: "Oswald", sans-serif;
+  outline: none;
+  background: transparent;
+}
+
+.filter-search-box input::placeholder{
+  color: black;
+}
+
+.filter-search-box .search-icon{
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  stroke: black;
+  stroke-width: 2;
+  fill: none;
+  pointer-events: none;
+}
+
+.card {
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+/* hidden = fading out + shrinking */
+.card.hidden {
+  opacity: 0;
+  transform: scale(0.96);
+  pointer-events: none; /* optional, prevents interaction */
+}
+
+/* removed = fully gone from layout */
+.card.removed {
+  display: none;
+}
+</style>
+<div id="noResults" class="no-results" style="display: none;">
+  <h2>No results found</h2>
+    <img src="lion5.png">
+    <p>Try:</p>
+  <ul>
+    <li>Checking your spelling</li>
+    <li>Using fewer filters</li>
+    <li>Trying more general keywords</li>
+  </ul>
+</div>
+<!-- Filter and Cards Script -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const search = document.getElementById("filterSearch");
+  const cards = document.querySelectorAll(".card");
+  const checkboxes = document.querySelectorAll(".filter-content input[type='checkbox']");
+  const noResults = document.getElementById("noResults");
+  const filterContent = document.querySelector(".filter-content");
+  const clearBtn = document.getElementById("clearFilters");
+
+clearBtn.addEventListener("click", () => {
+  checkboxes.forEach(cb => cb.checked = false);
+
+  // re-run filter so UI updates correctly
+  filterCards();
+});
+  // Build a set of all keywords for suggestions
+  const allKeywords = new Set();
+  cards.forEach(card => {
+    const keywords = (card.dataset.keywords || "").toLowerCase().split(/\s+/);
+    keywords.forEach(k => allKeywords.add(k.trim()));
+  });
+
+  // Helper: fuzzy suggestions for search
+  function getSuggestions(query, keywords) {
+    if (!query) return [];
+    query = query.toLowerCase();
+    return [...keywords]
+      .map(word => {
+        let score = 0;
+        if (word.includes(query)) score += 2;
+        let matches = 0;
+        for (let char of query) if (word.includes(char)) matches++;
+        score += matches / query.length;
+        return { word, score };
+      })
+      .filter(item => item.score > 0.5)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 3)
+      .map(item => item.word);
+  }
+
+  // Helper: get best matching topic for suggestions
+  function getSuggestedTopic(query, cards) {
+    query = query.toLowerCase();
+    const topicScores = {};
+    cards.forEach(card => {
+      const keywords = (card.dataset.keywords || "").toLowerCase();
+      const topic = card.dataset.topic || "";
+      if (keywords.includes(query)) {
+        topicScores[topic] = (topicScores[topic] || 0) + 1;
+      }
+    });
+    return Object.entries(topicScores).sort((a, b) => b[1] - a[1])[0]?.[0] || "";
+  }
+  
+  
+
+  // Show/hide cards with smooth transitions
+function showCard(card) {
+  // Cancel any pending hide transition
+  if (card._hideListener) {
+    card.removeEventListener("transitionend", card._hideListener);
+    card._hideListener = null;
+  }
+
+  card.classList.remove("removed");
+
+  requestAnimationFrame(() => {
+    card.classList.remove("hidden");
+  });
+}
+
+ function hideCard(card) {
+  card.classList.add("hidden");
+
+  if (card._hideListener) {
+    card.removeEventListener("transitionend", card._hideListener);
+  }
+
+  const handleTransitionEnd = e => {
+    if (e.propertyName === "opacity") {
+      card.classList.add("removed");
+      card.removeEventListener("transitionend", handleTransitionEnd);
+      card._hideListener = null;
+    }
+  };
+
+  card._hideListener = handleTransitionEnd;
+  card.addEventListener("transitionend", handleTransitionEnd);
+}
+function fuzzyMatch(word, keywords) {
+  const maxDistance = 2; // allow small typos
+
+  function levenshtein(a, b) {
+    const matrix = Array.from({ length: a.length + 1 }, () =>
+      Array(b.length + 1).fill(0)
+    );
+
+    for (let i = 0; i <= a.length; i++) matrix[i][0] = i;
+    for (let j = 0; j <= b.length; j++) matrix[0][j] = j;
+
+    for (let i = 1; i <= a.length; i++) {
+      for (let j = 1; j <= b.length; j++) {
+        const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+        matrix[i][j] = Math.min(
+          matrix[i - 1][j] + 1,     // deletion
+          matrix[i][j - 1] + 1,     // insertion
+          matrix[i - 1][j - 1] + cost // substitution
+        );
+      }
+    }
+
+    return matrix[a.length][b.length];
+  }
+
+  return keywords.some(k => levenshtein(word, k) <= maxDistance);
+}
+  // Main filter function
+function filterCards() {
+  const keyword = search.value.toLowerCase().trim();
+  const activeFilters = [...checkboxes]
+    .filter(cb => cb.checked)
+    .map(cb => cb.value.toLowerCase());
+
+  const selectedTopic = activeFilters[0] || "";
+
+  // If nothing selected, show all
+  if (keyword === "" && activeFilters.length === 0) {
+    cards.forEach(card => {
+      card.classList.remove("hidden", "removed");
+    });
+    noResults.style.display = "none";
+    return;
+  }
+
+  let visibleCount = 0;
+
+  cards.forEach(card => {
+    const cardKeywords = (card.dataset.keywords || "").toLowerCase();
+    const cardTopic = (card.dataset.topic || "").toLowerCase();
+
+    const words = keyword.split(/\s+/).filter(word => word.length > 0);
+    const keywordList = cardKeywords.split(/\s+/);
+
+    const matchCount = words.filter(word => {
+      return (
+        keywordList.includes(word) ||
+        keywordList.some(k => k.includes(word)) ||
+        fuzzyMatch(word, keywordList)
+      );
+    }).length;
+
+    const keywordMatch =
+      keyword === "" ||
+      matchCount >= Math.ceil(words.length * 0.6);
+
+    const checkboxMatch =
+      activeFilters.length === 0 ||
+      activeFilters.includes(cardTopic);
+
+    if (keywordMatch && checkboxMatch) {
+      showCard(card);
+      visibleCount++;
+    } else {
+      hideCard(card);
+    }
+  });
+
+  // No results UI
+  if (visibleCount === 0) {
+    const suggestions = getSuggestions(keyword, allKeywords);
+    const suggestedKeyword = suggestions[0] || "";
+    const suggestedTopic = getSuggestedTopic(keyword, cards);
+
+    noResults.innerHTML = `
+      <img src="lion5.png" class="no-results-img" />
+      <h2>No results found for "${keyword}"${selectedTopic ? ` in "${selectedTopic}"` : ""}</h2>
+      ${
+        suggestedKeyword && suggestedTopic
+          ? `<p>Were you looking for "<span class="suggestion">${suggestedKeyword}</span>" in "${suggestedTopic}"?</p>`
+          : ""
+      }
+      <p>Try:</p>
+      <ul>
+        <li>Using the designated category</li>
+        <li>Searching a broader term</li>
+        <li>Clearing all filters</li>
+      </ul>
+    `;
+    noResults.style.display = "block";
+  } else {
+    noResults.style.display = "none";
+  }
+}
+
+  // Debounce function for input
+  function debounce(fn, delay = 200) {
+    let timer;
+    return (...args) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => fn(...args), delay);
+    };
+  }
+
+  const debouncedFilter = debounce(filterCards, 200);
+
+  // Event listeners
+  search.addEventListener("input", debouncedFilter);
+checkboxes.forEach(cb => cb.addEventListener("change", debouncedFilter));
+  document.addEventListener("click", e => {
+    if (e.target.classList.contains("suggestion")) {
+      search.value = e.target.textContent;
+      filterCards();
+    }
+  });
+
+  // Run once on page load
+  filterCards();
+});
+</script>
+<style>
+  .no-results-img {
+    width: 500px;
+  height: auto;
+  transform: scale(1.2);
+  display: block;
+  margin: 0 auto;
+}
+</style>
+<style>
+.body{
+  background-color: white;
+}
+</style>
+  <!-- Cards -->
+  <main class="content" id="cardContainer">
+
+ <div class="card" data-keywords="aging age senior seniors elderly retirement retiree older nurse aging services centre county retired"
+
+         data-topic="aging">
+
+      <img class="card-image aging-services-img"
+src="CCGovNew.png"
+alt = 'Centre County Government'>
+      <h3>Centre County Aging Services</h3>
+      <p>The Centre County Office of Aging offers services for seniors...</p>
+<a href="aging.html#aging-services" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+
+</div>
+    <div class="card" data-keywords="aging age senior seniors elderly retirement retiree older nurse RSVP services retired"
+         data-topic="aging">
+
+      <img class="card-image rsvp-services-img" 
+      src="RSVP2.png"
+      alt="RSVP image">
+      <h3>RSVP Aging Services</h3>
+      <p>RSVP of Centre County connects seniors to helpful resources that can benefit them.</p>
+<a href="aging.html#rsvp" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+    
+    
+<div class="card" data-keywords="aging age senior seniors elderly retirement retiree older nurse CCAC Centre County Senior Centers retired"
+         data-topic="aging">
+
+      <img class="card-image ccac-services-img" 
+      src="CCActiveAdultNew.png"
+      alt="Centre County Senior Centers image">
+      <h3>Centre County Senior Centers</h3>
+      <p>There are six senior centers in Centre County, offering varying resources to assist seniors in their quality of life.</p>
+<a href="aging.html#ccsc" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+    
+    
+    <div class="card" data-keywords="aging age senior seniors elderly retirement retiree older nurse Eagle Valley valley eagle retired"
+         data-topic="aging">
+
+      <img class="card-image eagle-valley-services-img" 
+      src="EBNew.png"
+      alt="Eagle valley image">
+      <h3>Eagle Valley Retirement Home</h3>
+      <p> Eagle Valley Personal Care Home provides a place for the elderly to live.</p>
+<a href="aging.html#eagle-valley" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+    
+    
+     <div class="card" data-keywords="aging age senior seniors elderly retirement retiree older nurse the Village village penn state PSU psu retired"
+         data-topic="aging">
+
+      <img class="card-image the-village-services-img" 
+      src="https://villageatpennstate.org/wp-content/uploads/sites/3/2022/11/entranceway.jpg" alt="The Village">
+      <h3>The Village at Penn State</h3>
+      <p>The Village at Penn State serves as a residence to assist seniors.</p>
+<a href="aging.html#the-village" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+    
+    
+   <div class="card" data-keywords="aging age senior seniors elderly retirement retiree older nurse ACAP acap retired"
+         data-topic="aging">
+
+      <img class="card-image acap-services-img" 
+      src="ACAP3.png" alt="ACAP Logo">
+      <h3>ACAP</h3>
+      <p>The Adult Children of Aging Parents program helps adult caregivers support their aging parents</p>
+<a href="aging.html#acap" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+    
+    
+  <div class="card" data-keywords="child children youth kids young adolescent juvenile teen childcare baby babies daycare grandchildren grandchild childspace"
+       data-topic="youth">
+
+      <img class="card-image childspace-services-img" 
+      src="https://childspacedaycarecenters.org/wp-content/uploads/2023/05/CS-2020-MtAiry-music-edited.jpg" alt="Childspace Logo">
+      <h3>Childspace</h3>
+      <p>Childspace provides personalized care for children of 18 months to 5 years old.</p>
+<a href="youth.html#childspace" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+   <div class="card" data-keywords="child children youth kids young adolescent juvenile teen childcare baby babies daycare grandchild grandchildren ymca"
+       data-topic="youth">
+
+      <img class="card-image ymca-services-img" 
+      src="YMCA2.png" alt="YMCA Services">
+      <h3>YMCA</h3>
+      <p>  The YMCA’s School Age Child Care (SACC) program serves as a nurturing place for children.</p>
+<a href="youth.html#ymca" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+    <div class="card" data-keywords="child children youth kids young adolescent juvenile teen childcare baby babies daycare grandchild grandchildren youth services bureau"
+       data-topic="youth">
+
+      <img class="card-image ccysb-services-img" 
+      src="youthhelp.png" alt="Centre County Youth Service Bureau Services">
+      <h3>Youth Services Bureau</h3>
+      <p>  The Youth Service Bureau helps ensure that children and their families have ample resources to</p>
+<a href="youth.html#bureau" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+  
+    <div class="card" data-keywords="child children youth kids young adolescent juvenile teen childcare baby babies daycare grandchild grandchildren united way"
+       data-topic="youth">
+
+      <img class="card-image ccuw-services-img" 
+      src="UnitedNew.png" alt="United Way Services">
+      <h3>Centre County United Way</h3>
+      <p>United Way works to give everyone access to quality education. They fund programs with proven outcomes that provide child care and preschool opportunities or literacy education</p>
+<a href="youth.html#united-way" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+    
+      <div class="card" data-keywords="child children youth kids young adolescent juvenile teen childcare baby babies daycare grandchild grandchildren pennsylvania PA pa key"
+       data-topic="youth">
+
+      <img class="card-image pakey-services-img" 
+      src="PAKeyNew.png" alt="Pennsylvania Key Services">
+      <h3>The Pennsylvania Key</h3>
+      <p>The Pennsylvania Key works with partners and Centre County organizations to provide educational, professional, and administrative services to educators, supporting improvement in early learning experiences for young children.
+</p>
+<a href="youth.html#pa-key" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+    
+      <div class="card" data-keywords="child children youth kids young adolescent juvenile teen childcare baby babies daycare grandchild grandchildren youth services children and YOUTH help youth advisory"
+       data-topic="youth">
+
+      <img class="card-image cccys-services-img" 
+      src="youthservices.png" alt="Centre County Children and Youth Services">
+      <h3>Children & Youth Services</h3>
+      <p>  Centre County Children & Youth Services is dedicated to ensuring a safe environment for kids.</p>
+<a href="youth.html#youth-services" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+  
+  <div class="card" data-keywords="food meal meals nutrition groceries pantry kitchen hunger hungry stomach restaurant food bank SC FOOD"
+     data-topic="food">
+
+      <img class="card-image scfoodbank-services-img" 
+      src="https://cdn.givecloud.co/s/files/1/0000/0620/files/1a524ad2-b3e2-466e-834f-ad7d64369678.jpeg" alt="Food Bank Services">
+      <h3>State College Food Bank</h3>
+      <p>The State College Food Bank supplies food for everyone to provide a stable source of food security.</p>
+<a href="food.html#food-bank" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+    <div class="card" data-keywords="food meal meals nutrition groceries pantry kitchen hunger hungry stomach restaurant food faith centre Faith"
+     data-topic="food">
+
+      <img class="card-image faithcentre-services-img" 
+      src="https://faithcentre.info/wp-content/uploads/2022/07/food-bank-front.png" alt="Faith Centre Services">
+      <h3>Faith Centre</h3>
+      <p>  Faith Centre is a Christian faith-based umbrella of food security resources and programs to benefit individuals.</p>
+<a href="food.html#faith-centre" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+    <div class="card" data-keywords="food meal meals nutrition groceries pantry kitchen hunger hungry stomach restaurant action CPAC cpac"
+     data-topic="food">
+
+      <img class="card-image cpac-services-img" 
+      src="https://static.wixstatic.com/media/1ede0ddbc0b64ae19c06ae2cae61653c.jpg/v1/fill/w_980,h_1196,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/1ede0ddbc0b64ae19c06ae2cae61653c.jpg" alt="CPAC Services">
+      <h3>Central PA Community Action</h3>
+      <p> CPCA partners with individuals and families in Centre and Clearfield Counties to address essential housing and health needs through community-based services.</p>
+<a href="food.html#cpca" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+  
+    <div class="card" data-keywords="food meal meals nutrition groceries pantry kitchen hunger hungry stomach restaurant food commonFood food commonfood"
+     data-topic="food">
+
+      <img class="card-image commonfood-services-img" 
+      src="https://static.wixstatic.com/media/8a0a33_22ed0daa154f4fd284d033c5da5d768f~mv2.jpg/v1/fill/w_640,h_468,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/8a0a33_22ed0daa154f4fd284d033c5da5d768f~mv2.jpg" alt="CommonFood Services">
+      <h3>CommonFood</h3>
+      <p>  CommonFood is an organization started by the Grayswoods Church. They provide resources to the elderly, single-parent families, and those who are underpaid. </p>
+<a href="food.html#common-food" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+    
+      <div class="card" data-keywords="food meal meals nutrition groceries pantry kitchen hunger hungry stomach restaurant food lion pantry lion's pantry LION"
+     data-topic="food">
+
+      <img class="card-image lionpantry-services-img" 
+      src="LionPantryNew.png" alt="Lion Pantry Services">
+      <h3>The Lion's Pantry</h3>
+      <p> The Lion’s Pantry is a student-run organization that provides support to students, faculty, and staff experiencing food insecurity.</p>
+<a href="food.html#lions-pantry" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+  
+  <div class="card" data-keywords="clothing clothes attire shirt pants shoes goodwill"
+     data-topic="clothing">
+  <img class="card-image goodwill-services-img" 
+      src="https://www.collegemagazine.com/wp-content/uploads/2018/07/14859699001_547be03cde_b.jpg" alt="Goodwill Services">
+      <h3>Goodwill</h3>
+      <p>Goodwill's network of stores and career centers provide employment opportunities and training programs while promoting sustainability. They provide secondhand items for an affordable price, and ensure that there are ample resources for people in need.</p>
+<a href="clothing.html#goodwill" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+    
+    <div class="card" data-keywords="clothing clothes attire shirt pants shoes salvation army"
+     data-topic="clothing">
+  <img class="card-image salvationarmy-services-img"
+      src="SalvationArmyNew.png" alt="Salvation Army">
+      <h3>Salvation Army</h3>
+      <p>The Salvation Army's assistance programs provide food, gifts, and necessities to those in need during the holiday season. They host toy drives, meal distribution events, and the Angel Tree program, aiming to ensure everyone gets equal opportunities during the holidays.</p>
+<a href="clothing.html#salvation-army" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+    <div class="card" data-keywords="clothing clothes attire shirt pants shoes Mommy shoppe shop mommy mom" 
+     data-topic="clothing">
+  <img class="card-image mommyshoppe-services-img" 
+      src="https://themommyshoppe.weebly.com/uploads/4/2/0/3/42031961/ms4_orig.jpg" alt="The Mommy Shoppe Services">
+      <h3>The Mommy Shoppe</h3>
+      <p>The Mommy Shoppe is a nonprofit thrift store in Houserville, PA. The give donated clothes to those who need it, and have a program for people to register so they can get free clothing for their children.</p>
+<a href="clothing.html#mommy-shoppe" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+    
+   <div class="card" data-keywords="clothing clothes attire shirt pants shoes peace PEACE" 
+     data-topic="clothing">
+  <img class="card-image centrepeace-services-img" 
+      src="https://centrepeace.org/app/cms/assets/images/0cbabfdbeac1b13db574b7df973a6cbe.jpg?v=1768507756" alt="Centre Peace Services">
+      <h3>Centre Peace</h3>
+      <p>They actively work toward restoring lives of incarcerated individuals while bringing peace and healing to all affected by crime. As part of this process, they hold clothing drives for those in need and/or incarcerated individuals to access quality clothing.</p>
+<a href="clothing.html#centre-peace" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+    
+     <div class="card" data-keywords="clothing clothes attire shirt pants shoes vincent Vincent De-Paul paul de vincent" 
+     data-topic="clothing">
+  <img class="card-image vincent-services-img" 
+      src="StVincentNew.png" alt="St. Vincent de Paul Services">
+      <h3>Vincent De Paul Store</h3>
+      <p>St. Vincent de Paul Thrift Store provides a cheap and accessible way for those under the poverty line to get free clothing and garments. They have holiday events, volunteering activities, and more!</p>
+<a href="clothing.html#vincent" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+    
+  <div class="card" data-keywords="housing homeless house home apartment rent rental lease shelter Out of the cold transitions land trust authority" 
+     data-topic="housing">
+  <img class="card-image outofthecold-services-img" 
+      src="https://www.statecollege.com/wp-content/uploads/2023/08/IMG_4019-1024x768.jpeg" alt="Out of the Cold Services">
+      <h3>Out of the Cold</h3>
+      <p> Out of the Cold is an easy-to-access homeless shelter that serves homeless citizens of Centre County. Hundreds of people are served by the shelter every single year. The shelter provides free showers, laundry, 3 meals, guidance, and more!</p>
+<a href="housing.html#out-of-cold" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+    
+     <div class="card" data-keywords="housing homeless house home apartment rent rental lease shelter Out of the cold transitions homeless" 
+     data-topic="housing">
+  <img class="card-image housingtransitions-services-img" 
+      src="HousingTransitionsNew.png" alt="Housing Transitions Services">
+      <h3>Housing Transitions</h3>
+      <p> Out of the Cold is an easy-to-access homeless shelter that serves homeless citizens of Centre County. Hundreds of people are served by the shelter every single year. The shelter provides free showers, laundry, 3 meals, guidance, and more!</p>
+<a href="housing.html#housing-transitions" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+    
+     <div class="card" data-keywords="housing homeless house home apartment rent rental lease shelter land trust" 
+     data-topic="housing">
+  <img class="card-image ccl-services-img" 
+      src="SCCLTNew.png" alt="Landtrust Services">
+      <h3>Centre County Landtrust</h3>
+      <p> State College Community Land Trust (SCCLT) keeps housing affordable by renting out community land to those in need. The house’s price is limited to meet the budgets of Centre County citizens. So far they have aided 55 Forever Homes, 83 Households, and 8 Neighborhoods. </p>
+<a href="housing.html#landtrust" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+    
+     <div class="card" data-keywords="housing homeless house home apartment rent rental lease shelter centre county housing authority" 
+     data-topic="housing">
+  <img class="card-image housingauthority-services-img" 
+      src="https://centrecountyhousingauthority.com/wp-content/uploads/2019/06/HousingChoiceVoucher_hero.jpg" alt="Housing Authority Services">
+      <h3>Centre County Housing Authority</h3>
+      <p>The Centre County Housing Authority (CCHA) helps connect people to affordable housing options. They also advise on housing decisions, assist with lower financial class housing affordability, and provide comfortable living environments for all clients. </p>
+<a href="housing.html#authority" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+  
+  
+  <!-- START COPY PASTE -->
+    <div class="card" data-keywords="housing homeless house home apartment rent rental lease shelter centre county housing services"
+     data-topic="housing"> <!-- CHANGE CATEGORY HERE (e.g transport, substance, etc.) -->
+  <img class="card-image housing-services-img" 
+      src="https://brettfurman.com/wp-content/uploads/2023/06/The-Quadrangle-Senior-Living-Community.webp" alt="Housing Services">
+      <h3>Centre County Housing</h3>
+      <p>Centre County Housing provides resources and hotlines for those in need of affordable housing. They offer resources such as community support, shelters, guides, and more!  Their services help combat homelessness around Centre County. </p>
+<a href="housing.html#housing" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div> <!--END COPY PASTE HERE -->
+    <!-- when making the ID, first write the hashtag of the name of the id in the <a href="x.html#id-name" -->
+    <!-- the id goes in <section class="assistance" id="id-name" *MAKE SURE THEY CORRESPOND (ARE THE SAME) -->
+    
+    <div class="card" data-keywords="transport transportation bus buses transit ride travel commute cata CATA" 
+     data-topic="transport"> <!-- CHANGE CATEGORY HERE (e.g transport, substance, etc.) -->
+  <img class="card-image catabusing-services-img" 
+      src="https://busride.b-cdn.net/wp-content/uploads/2018/02/WHITE-LOOP-on-Campus-2.jpg" alt="CATA Busing Services">
+      <h3>CATA Bus Services</h3>
+      <p>Centre Area Transportation Authority (CATA) serves all five Centre Region Municipalities. Their mission is to deliver safe, reliable, accessible, and affordable transportation that is environmentally friendly and appealing to riders.  </p>
+<a href="transport.html#catabusing" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+    
+    <div class="card" data-keywords="transport transportation bus buses transit ride travel commute centre county transportation office" 
+     data-topic="transport"> <!-- CHANGE CATEGORY HERE (e.g transport, substance, etc.) -->
+  <img class="card-image transportationoffice-services-img" 
+      src="https://www.statecollege.com/wp-content/uploads/2021/02/centre-county-gov-copy-scaled.jpeg" alt="Transportation Office Services">
+      <h3>Centre County Transportation Office</h3>
+      <p> The Centre County Office of Transportation provides transportation services to Centre County residents through multiple programs and agencies, maintaining the transportation methods available to the Centre County public.  </p>
+<a href="transport.html#transportationoffice" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div> 
+    
+    <div class="card" data-keywords="transport transportation bus buses transit ride travel commute hound greyhound" 
+     data-topic="transport"> <!-- CHANGE CATEGORY HERE (e.g transport, substance, etc.) -->
+  <img class="card-image greyhound-services-img" 
+      src="https://media.phillyvoice.com/media/images/greyhound-bus-station-moving.2e16d0ba.fill-735x490.jpg" alt="Greyhound Busing Services">
+      <h3>Greyhound Bus Services</h3>
+      <p> Greyhound aims to make travel easier for their customers and keep communities connected, all while making travel affordable and sustainable for all. They provide busing services not only in Centre County, but all over Pennsylvania.  </p>
+<a href="transport.html#greyhoundbusing" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div> 
+    
+    <div class="card" data-keywords="transport transportation bus buses transit ride travel megabus" 
+     data-topic="transport"> <!-- CHANGE CATEGORY HERE (e.g transport, substance, etc.) -->
+  <img class="card-image megabus-services-img" 
+      src="https://i0.wp.com/www.busandmotorcoachnews.com/wp-content/uploads/sites/4/2022/09/Left-side-view-of-a-megabus.jpg?fit=1000%2C648&ssl=1g" alt="Megabus Services">
+      <h3>Megabus: Penn State</h3>
+      <p>  Megabus's mission is to provide affordable, convenient, and reliable low-cost bus travel, connecting cities across PA. They hope to make exploration easy for travelers, and partner with local carriers of State College like Fullington Trailways to expand network reach.   </p>
+<a href="transport.html#megabus" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div> 
+    
+    <div class="card" data-keywords="transport transportation bus buses transit ride travel commute plan transportation active" 
+     data-topic="transport"> <!-- CHANGE CATEGORY HERE (e.g transport, substance, etc.) -->
+  <img class="card-image activetransportplan-services-img" 
+      src="CCATP2.png" alt="Active Transportation Plan">
+      <h3>Active Transportation Plan</h3>
+      <p>  The purpose of the Centre County Active Transportation Plan (CCATP) is to help manage projects that will improve conditions for bikes, pedestrians, and automotives. They take requests from the community and initiate action on local transportation issues.   </p>
+<a href="transport.html#ccatp" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div> 
+    
+    <div class="card" data-keywords="drugs drug substance help narcotics remission recovery applegate Apple Gate" 
+     data-topic="substance"> <!-- CHANGE CATEGORY HERE (e.g transport, substance, etc.) -->
+  <img class="card-image applegaterecovery-services-img" 
+      src="https://media.licdn.com/dms/image/v2/D5610AQGJ4oTxnYMsSQ/image-shrink_800/B56Zkaf7JLHkAg-/0/1757086201105?e=2147483647&v=beta&t=UAYfA-890bix8mt0HH3iJiKcLs1Dtpza1Au_VSXER2w" alt="Applegate Recovery">
+      <h3>Applegate Recovery</h3>
+      <p>  AppleGate provides Suboxone, Opioid, Chronic Pain, and Alcohol Treatment. They help develop personalized recovery plans, provide physical and emotional support, offer therapy sessions for clients.    </p>
+<a href="substance.html#applegaterecovery" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div> 
+    
+    
+    <div class="card" data-keywords="drugs drug substance help narcotics remission recovery centre county drugs and alcohol unit" 
+     data-topic="substance"> <!-- CHANGE CATEGORY HERE (e.g transport, substance, etc.) -->
+  <img class="card-image drugandalcohol-services-img" 
+      src="https://www.rehab.com/wp-content/uploads/2023/07/entrance1-centre-county-drug-and-alcohol-state-college-pa-16801.jpg" alt="Applegate Recovery Services">
+      <h3>Centre County: Drug and Alcohol</h3>
+      <p>  Centre County Drug and Alcohol directs prevention, intervention, treatment, and recovery support services for residents of Centre County and their families who are affected by drug addiction. They provide recovery funding, local opportunities, and more.    </p>
+<a href="substance.html#drugandalcohol" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div> 
+    
+    <div class="card" data-keywords="drugs drug substance help narcotics remission recovery crossroads" 
+     data-topic="substance"> <!-- CHANGE CATEGORY HERE (e.g transport, substance, etc.) -->
+  <img class="card-image crossroadscounseling-services-img" 
+      src="Crossroads2.png" alt="Crossroads Counseling Services">
+      <h3>Crossroads Counseling, INC</h3>
+      <p>  Crossroads Counseling provides individual and group counseling for patients recovering from drug addictions. They have flexible hours, specializing in alcohol  drug counseling and domestic violence treatments.    </p>
+<a href="substance.html#crossroadscounseling" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div> 
+    
+    <div class="card" data-keywords="drugs drug substance help narcotics remission recovery drug rehab opioid treatment pinnacle" 
+     data-topic="substance"> <!-- CHANGE CATEGORY HERE (e.g transport, substance, etc.) -->
+  <img class="card-image pinnacletreatment-services-img" 
+      src="https://www.naatp.org/sites/default/files/styles/main_news_image/public/content/Pinnacle_5.jpg.webp?itok=puJA-9Uy" alt="Pinnacle Treatment Services">
+      <h3>Pinnacle Treatment Centers</h3>
+      <p>  Pinnacle Treatment Centers is a Drug Rehab & Opioid Treatment Program (OTP) in State College, PA. It offers medication-assisted treatment for opioid addiction, supervised by experienced staff. It includes comprehensive evaluations and a variety of counseling services, including CBT and motivational interviewing.    </p>
+<a href="substance.html#pinnacletreatment" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div> 
+    
+    <div class="card" data-keywords="drugs drug substance help narcotics remission recovery joseph st. joseph's counseling" 
+     data-topic="substance"> <!-- CHANGE CATEGORY HERE (e.g transport, substance, etc.) -->
+  <img class="card-image stjosephcounseling-services-img" 
+      src="https://rehabs.org/wp-content/uploads/2021/09/st-josephs-institute-port-matilda-pa-front.jpg" alt="St. Joseph Counseling">
+      <h3>St. Joseph Counseling</h3>
+      <p>  St. Joseph Counseling provides hollistic addiction and mental health treatment to help addicts reclaim their lives and cope with the side effects of quitting drugs. They have therapy services, acess to specialists, and support groups availible to anyone in need.    </p>
+<a href="substance.html#stjoseph" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div> 
+    
+    
+    <div class="card" data-keywords="employment job jobs career work finance money income CROG CRCOG COGR" 
+     data-topic="finance"> <!-- CHANGE CATEGORY HERE (e.g transport, substance, etc.) -->
+  <img class="card-image crcog-services-img" 
+      src="CCCOVNew.png" alt="CRCOG Employment">
+      <h3>CRCOG Employment</h3>
+      <p>  CRCOG Employment Services  provide up-to-date information on job opportunities throughout Centre County, and provide counseling on Life Insurance, Medical Insurance, and Retirement programs.   </p>
+<a href="finance.html#crcog" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div> 
+    
+    <div class="card" data-keywords="employment job jobs career work finance money income careerlink" 
+     data-topic="finance"> <!-- CHANGE CATEGORY HERE (e.g transport, substance, etc.) -->
+  <img class="card-image pacareerlink-img" 
+      src="https://images.squarespace-cdn.com/content/v1/6501c53504216434eab6c528/093751ef-8eb8-4521-aa77-eac30cfd37a1/image000000.jpg" alt="PA Careerlink">
+      <h3>PA Careerlink</h3>
+      <p>  PA CareerLink® is part of the Pennsylvania Department of Labor & Industry’s initiative to allow job-seekers to find family sustaining jobs, and help employers find the skilled candidates that they need. They have a user-friendly job-matching system to help bridge the gap that currently exists between job-seekers and employers.   </p>
+<a href="finance.html#pacareerlink" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+    
+    <div class="card" data-keywords="employment job jobs career work finance money income interfaith" 
+     data-topic="finance"> <!-- CHANGE CATEGORY HERE (e.g transport, substance, etc.) -->
+  <img class="card-image interfaithhuman-img" 
+      src="https://www.ccunitedway.org/sites/ccunitedway/files/styles/team/public/JaNae%20Camp%20Pages/PA%20Resize%20Logo/IHS.png?h=038a9462&itok=5W7ut4pC" alt="Interfaith Human Services">
+      <h3>Interfaith Human Services</h3>
+      <p>  They actively work toward restoring lives incarcerated individuals while bringing peace and healing to all affected by crime. The ultimate goal of CentrePeace is to allow formerly incarcerated individuals to reenter their communities prepared to work, and live peacefully among others.   </p>
+<a href="finance.html#interfaithhuman" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+    
+    <div class="card" data-keywords="employment job jobs career work finance money income liHeap" 
+     data-topic="finance"> <!-- CHANGE CATEGORY HERE (e.g transport, substance, etc.) -->
+  <img class="card-image liheapoffices-img" 
+      src="https://www.liheapoffices.com/gallery/5017_jcprzvhx.png" alt="LIHEAP Offices">
+      <h3>LIHEAP Offices</h3>
+      <p>  The Low Income Home Energy Assistance Program assists low income families with their heating and energy bills. This year-long program is available around the clock, and the organization aims to make energy affordable for all.   </p>
+<a href="finance.html#liheap" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+    
+    <div class="card" data-keywords="employment job jobs career work finance money income SKILL skills" 
+     data-topic="finance"> <!-- CHANGE CATEGORY HERE (e.g transport, substance, etc.) -->
+  <img class="card-image skillsofcentralpa-img" 
+      src="https://media.glassdoor.com/sqll/602194/skills-of-central-pennsylvania-squarelogo-1495784514540.png" alt="Skills of Central PA">
+      <h3>Skills of Central PA</h3>
+      <p>  They provide behavioral health and disability support services in Centre County, helping build trust and independence in the disabled community. From medical treatment guidance to group therapy, they aim to better the lives of Centre County citizens.    </p>
+<a href="finance.html#skillsofcentralpa" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+    
+    
+    
+    <div class="card" data-keywords="volunteer volunteering community service help discovery space"
+     data-topic="volunteer"> <!-- CHANGE CATEGORY HERE (e.g transport, substance, etc.) -->
+  <img class="card-image discoveryspace-img" 
+      src="https://lh3.googleusercontent.com/p/AF1QipOOwYuCERfTEjicZoBaZJkcKoTnCf2e_iTe-vA=s1360-w1360-h1020-rw" alt="Discovery Space Services">
+      <h3>Discovery Space</h3>
+      <p>   Discovery Space is a scientific playground where children can learn about STEM. Through internships like SPARK, aiding with summer camps, or helping on the playground, volunteers ages 14 and up can contribute to the learning environment.    </p>
+<a href="volunteer.html#discoveryspace" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+    
+    <div class="card" data-keywords="volunteer volunteering community service help schlow library"
+     data-topic="volunteer"> <!-- CHANGE CATEGORY HERE (e.g transport, substance, etc.) -->
+  <img class="card-image schlowlibrary-img" 
+      src="https://tse2.mm.bing.net/th/id/OIP.ykFmEsJ5G9ocCcvxTO6vKwHaJS?pid=Api" alt="Schlow Library Services">
+      <h3>Schlow Library</h3>
+      <p>   Schlow Library is a public library for all ages full of books and events. Those over the age of can become permanent volunteers around the library, while kids aged 13-16 can be a summer reading volunteer. For more information on how to apply, click below!   </p>
+<a href="volunteer.html#schlow" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+    
+    <div class="card" data-keywords="volunteer volunteering community service help centre care"
+     data-topic="volunteer"> <!-- CHANGE CATEGORY HERE (e.g transport, substance, etc.) -->
+  <img class="card-image centrecare-img" 
+      src="https://www.ccunitedway.org/sites/ccunitedway/files/styles/team/public/JaNae%20Camp%20Pages/PA%20Resize%20Logo/Centre%20Care%20Volunteers.png?h=038a9462&itok=hPsnLo39" alt="Centre Care">
+      <h3>Centre Care</h3>
+      <p>    Centre Care is a nonprofit nursing care community with various volunteering opportunities, from arranging flowers for the elderly to helping care for them. They welcome volunteers every day of the week! Find more information in the link below.   </p>
+<a href="volunteer.html#centrecare" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+    
+    <div class="card" data-keywords="volunteer volunteering community service help PVCA Environment"
+     data-topic="volunteer"> <!-- CHANGE CATEGORY HERE (e.g transport, substance, etc.) -->
+  <img class="card-image pvcaenviroeducators-img" 
+      src="https://media.istockphoto.com/id/1994445045/photo/above-view-of-students-drawing-a-planet-on-art-class-at-elementary-school.jpg?s=612x612&w=0&k=20&c=tBthsAuUMQYE7SoUlTf4q8nXFzk49rXVhQHjtDOYp_M=" alt="PVCA Environmental Educators">
+      <h3>PVCA Environmental Educators</h3>
+      <p>    Do you love helping young people learn about ecology, conservation, and our natural environment? Volunteer as an environmental educator with Penns Valley Conservation Association to help a child realize how important our natural environment is - help train our future to recognize the earth’s goodness!   </p>
+<a href="volunteer.html#pvcaenviro" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+    
+    <div class="card" data-keywords="volunteer volunteering community service help AAUW summer"
+     data-topic="volunteer"> <!-- CHANGE CATEGORY HERE (e.g transport, substance, etc.) -->
+  <img class="card-image aauwbookdrive-img" 
+      src="https://vcc-prod-env-data.s3.amazonaws.com/uploads/project/5f0b6081-62cf-4e7c-bb0e-02851df0c45d/df10586d-f8b7-4284-ade1-3aa6338889f7.webp" alt="AAUW Book Drive Volunteering">
+      <h3>AAUW Book Drive Volunteering</h3>
+      <p>    AAUW State College is accepting books, CDs, DVDs, puzzles and games for their annual used book sale! Be a workshop volunteer to help sort and price the books for redistribution to the State College community!   </p>
+<a href="volunteer.html#aauwbooks" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+    
+    <div class="card" data-keywords="volunteer volunteering community service help summer camp jana marie"
+     data-topic="volunteer"> <!-- CHANGE CATEGORY HERE (e.g transport, substance, etc.) -->
+  <img class="card-image janamariesummercamp-img" 
+      src="https://janamariefoundation.org/wp-content/uploads/2025/12/Explore-Junior.png" alt="Jana Marie Summer Camp">
+      <h3>Jana Marie Summer Camp</h3>
+      <p>    The Jana Marie Foundation is looking for volunteers to help supervise their Junior and Senior summer camps! Help kids with crafting, teach about mental health, and gain community service hours!   </p>
+<a href="volunteer.html#janamariesummer" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+    
+    
+    <div class="card" data-keywords="mental mind psychological therapy treatment wellness awareness sad depression anxiety alone jana marie mental help"
+     data-topic="mental-health"> <!-- CHANGE CATEGORY HERE (e.g transport, substance, etc.) -->
+  <img class="card-image janamariefoundation-img" 
+      src="JanaMarieNew.png" alt="Jana Marie Foundation">
+      <h3>Jana Marie Foundation</h3>
+      <p>    Jana Marie Foundation aims to harness dialogue and creative expression to start conversations, build connections, and promote mental well-being among youth and their families.   </p>
+<a href="mental.html#janamarie" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+    
+     <div class="card" data-keywords="mental mind psychological therapy treatment wellness awareness sad depression anxiety alone community mental illness"
+     data-topic="mental-health"> <!-- CHANGE CATEGORY HERE (e.g transport, substance, etc.) -->
+  <img class="card-image centercommresources-img" 
+      src="https://images.squarespace-cdn.com/content/v1/645e7398b9994e6d67a032da/1770670514579-N1ODYSCQKF69U1MKHSB3/Centre+County+Suicide+Prevention+Walk+%234.jpg" alt="Center for Community Resources">
+      <h3>Center for Community Resources</h3>
+      <p>    Center for Community Resources aims to make a positive difference in everyday lives by connecting people to a network of supports and services to learn, work, and live peacefully in the community. They connect people with the services they need and promote mental wellbeing.   </p>
+<a href="mental.html#centercommunityresources" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+    
+    <div class="card" data-keywords="mental mind psychological therapy treatment wellness awareness sad depression anxiety alone mental illness NAMI"
+     data-topic="mental-health"> <!-- CHANGE CATEGORY HERE (e.g transport, substance, etc.) -->
+  <img class="card-image nami-img" 
+      src="NAMINew.png" alt="NAMI, Centre County">
+      <h3>NAMI, Centre County</h3>
+      <p>   The National Alliance on Mental Illness provides advocacy, education, support and public awareness so that all individuals and families affected by mental illness can build better lives. They provide support services, resources, and counseling.   </p>
+<a href="mental.html#nami" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+    
+    <div class="card" data-keywords="mental mind psychological therapy treatment wellness awareness sad depression anxiety alone centre county mental health assistance"
+     data-topic="mental-health"> <!-- CHANGE CATEGORY HERE (e.g transport, substance, etc.) -->
+  <img class="card-image ccmentalhealth-img" 
+      src="CCGovNew.png" alt="Centre County Mental Health">
+      <h3>Centre County Mental Health</h3>
+      <p>   Centre County Mental Health (CCMH) aids those who are diagnosed with emotional disorders or mental illness through case management services. CCMH administrative and blended case management, providing resources to those eligible in Centre County.   </p>
+<a href="mental.html#ccmentalhealth" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+    
+    <div class="card" data-keywords="mental mind psychological therapy treatment wellness awareness sad depression anxiety alone tessa bills lessons improvement mental health"
+     data-topic="mental-health"> <!-- CHANGE CATEGORY HERE (e.g transport, substance, etc.) -->
+  <img class="card-image anxietydepressionaid-img" 
+      src="RiseNew.png" alt="Anxiety & Depression Aid">
+      <h3>Anxiety/Depression Aid</h3>
+      <p>  Anxiety/Depression aid is hosted by psychologist Tessa Bills. For those who are struggling to manage their anxiety or depression on their own, this class offers management techniques to improve mental health.    </p>
+<a href="mental.html#anxietydepressionaid" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+    
+    <div class="card" data-keywords="mental mind psychological therapy treatment wellness awareness sad depression anxiety alone mental peace psychiatry"
+     data-topic="mental-health"> <!-- CHANGE CATEGORY HERE (e.g transport, substance, etc.) -->
+  <img class="card-image mentalpeace-img" 
+      src="https://mentalpeacepsych.com/img/about.jpg" alt="Mental Peace Psychiatry">
+      <h3>Mental Peace Psychiatry</h3>
+      <p>   Mental Peace offers effective, professional health services for mental, physical, or behavioral disorders. Led by Abigail Frimpong, Psychiatric Nurse Practitioner, they use medical-based findings to improve clients' quality of life.    </p>
+<a href="mental.html#mentalpeace" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+    
+    
+    <div class="card" data-keywords="physical health healthcare abuse fitness hospital medical medicine wellness doctor medics dental teeth back pain hurt heart"
+     data-topic="physical"> <!-- CHANGE CATEGORY HERE (e.g transport, substance, etc.) -->
+  <img class="card-image cvim-img" 
+      src="https://bloximages.newyork1.vip.townnews.com/psucollegian.com/content/tncms/assets/v3/editorial/c/f0/cf0c56d6-fc64-11ee-85ce-5b03b5c76292/661f38378d30d.image.jpg?resize=750%2C500" alt="Centre Volunteers in Medicine">
+      <h3>Centre Volunteers in Medicine</h3>
+      <p>   Centre Volunteers in Medicine (CVIM) is Centre County’s only free clinic, offering high-quality care to uninsured individuals. They provide medical, dental, and behavioral aid free of charge.     </p>
+<a href="physical.html#cvim" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+    
+    <div class="card" data-keywords="physical health healthcare abuse fitness hospital medical medicine wellness doctor medics dental teeth back pain hurt heart nittany mount health"
+     data-topic="physical"> <!-- CHANGE CATEGORY HERE (e.g transport, substance, etc.) -->
+  <img class="card-image mountnittany-img" 
+      src="https://mountnittany.org/wp-content/uploads/2024/01/Mount-Nittany-Medical-Center-Main-Entrance-01-1024x712.jpg" alt="Mount Nittany Health">
+      <h3>Mount Nittany Health</h3>
+      <p>   Mount Nittany Health provides nationally-recognized healthcare, working to make healthier people and a  stronger community. They are committed to utilizing resources to meet the healthcare needs of the community, providing 24/7 healthcare and insurance.     </p>
+<a href="physical.html#mountnittany" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+    
+    <div class="card" data-keywords="physical health healthcare abuse fitness hospital medical medicine wellness doctor medics dental teeth back pain hurt heart public division"
+     data-topic="physical"> <!-- CHANGE CATEGORY HERE (e.g transport, substance, etc.) -->
+  <img class="card-image publichealth-img" 
+      src="SCPUBLICNew.png" alt="SC Public Health Division">
+      <h3>SC Public Health Division</h3>
+      <p>   The mission of the Public Health Division is to prevent and control disease, promote healthy lifestyles protect public health to enhance the quality of life in State College. They conduct restaurant and business inspections, educational courses on public health, and more.     </p>
+<a href="physical.html#publichealthdiv" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+    
+    <div class="card" data-keywords="physical health healthcare abuse fitness hospital medical medicine wellness doctor medics dental teeth back pain hurt heart orthodontics orthodontist dental care"
+     data-topic="physical"> <!-- CHANGE CATEGORY HERE (e.g transport, substance, etc.) -->
+  <img class="card-image scorthodontics-img" 
+      src="https://statecollegeortho.com/wp-content/uploads/2025/05/SCO-team-group-7783.jpg" alt="State College Orthodontics">
+      <h3>State College Orthodontics</h3>
+      <p>   State College Orthodontics cares for your teeth with aid from local experts, a designated doctor each time, and fewer yet more thorough appointments than various other facilities. They aim to make dental health a right, not a privilege.      </p>
+<a href="physical.html#scorthodontics" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+    
+    <div class="card" data-keywords="physical health healthcare abuse fitness hospital medical medicine wellness doctor medics dental teeth back pain hurt heart pregnancy clinic"
+     data-topic="physical"> <!-- CHANGE CATEGORY HERE (e.g transport, substance, etc.) -->
+  <img class="card-image pregnancyclinic-img" 
+      src="https://lh3.googleusercontent.com/gps-cs-s/AHVAwergwAhMcgGC4-dXR3moExUmHty4SVb3tgc2krEKRXT8bv60eQhL7tQhF_o3v39ynG6385q3y8dMFbCTm980H8MUW6tmh2ganqSSM1n4QFlhda2M-0tFCEW_QAx7UwUPnZqLg3o=w650-h437-n-k-no" alt="Pregnancy Clinic">
+      <h3>Pregnancy Resource Clinic</h3>
+      <p>   Pregnancy Resource Clinic in State College exists to educate, encourage, and empower men and women to make informed life choices by providing services related to pregnancy, parenting, sexual health, and abortion recovery care.      </p>
+<a href="physical.html#pregnancyclinic" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+    
+    <div class="card" data-keywords="physical health healthcare abuse fitness hospital medical medicine wellness doctor medics dental teeth back pain hurt heart transitional care adults"
+     data-topic="physical"> <!-- CHANGE CATEGORY HERE (e.g transport, substance, etc.) -->
+  <img class="card-image adulttransition-img" 
+      src="https://img1.wsimg.com/isteam/stock/V5oE1Vk/:/cr=t:0%25,l:0%25,w:100%25,h:100%25/rs=w:751,h:500,cg:true" alt="Adult Transitional Care">
+      <h3>Adult Transitional Care</h3>
+      <p>   Adult Transitional Care provides personalized in-home senior care, specializing in assisted living at home, companion care, and personal care services to assist with life transitions.      </p>
+<a href="physical.html#adulttransition" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+    
+    
+    
+    <div class="card" data-keywords="suicide intervention prevention helpline support centre safe crisis line hotline"
+     data-topic="abuse-hotlines"> <!-- CHANGE CATEGORY HERE (e.g transport, substance, etc.) -->
+  <img class="card-image centresafe-img" 
+      src="CentreSafe2.png" alt="Centre Safe Hotline">
+      <h3>Centre Safe Hotline</h3>
+      <p>   Centre Safe empowers survivors through trauma-informed and client-centered services that are equitable, inclusive, diverse, confidential and professional. Their team of certified professionals are always responsive to  clients and community needs.       </p>
+<a href="abusehotlines.html#centresafe" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+    
+    <div class="card" data-keywords="suicide intervention prevention helpline support 988 crisis"
+     data-topic="abuse-hotlines"> <!-- CHANGE CATEGORY HERE (e.g transport, substance, etc.) -->
+  <img class="card-image 988-img" 
+      src="https://suicideprevention.osu.edu/posts/images/988-square-navy-4x-640x480.png" alt="988 Suicide Prevention">
+      <h3>988 Suicide Prevention</h3>
+      <p>   The 988 hotline is available 24/7 to any resident seeking help. It provides support to immediate needs associated with mental health struggles, alcohol/drug addiction, or any other help necessary. It provides free and private communication to anyone seeking a call.       </p>
+<a href="abusehotlines.html#988" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+    
+    <div class="card" data-keywords="suicide intervention prevention helpline support crisis line centre county"
+     data-topic="abuse-hotlines"> <!-- CHANGE CATEGORY HERE (e.g transport, substance, etc.) -->
+  <img class="card-image cccrisis-img" 
+      src="CCGovNew.png" alt="Centre County Crisis">
+      <h3>Centre County Crisis Line</h3>
+      <p>    Crisis Intervention provides mental health intervention, assessment, support, screening, and referral services 24/7. Clients can call, chat, text, or walk in to get help from a Crisis Specialist. They assess the situation, find a hospital or facility close to you, provide a safe space, and will connect you to resources. Crisis Line aims to help support those in danger or in need of assistance.      </p>
+<a href="abusehotlines.html#cccrisis" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+    
+    <div class="card" data-keywords="suicide intervention prevention helpline support safe penn state psu assault violence"
+     data-topic="abuse-hotlines"> <!-- CHANGE CATEGORY HERE (e.g transport, substance, etc.) -->
+  <img class="card-image assaultrelationviolence-img" 
+      src="https://harrisburg.psu.edu/sites/default/files/penn-state-shield.jpg" alt="Assault & Relationship Violence">
+      <h3>Assault & Relationship Violence</h3>
+      <p>    Penn State's Sexual Assault and Relationship Violence Hotline is available 24 hours a day, seven days a week, for all Penn State campuses. Since on-campus support services for abuse victims are limited at the campuses, this arrangement will make appropriate referrals to services available in their local communities.       </p>
+<a href="abusehotlines.html#arviolenceline" target=_blank class="read-more">
+  Read More
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+       stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14"></path>
+    <path d="M13 5l7 7-7 7"></path>
+  </svg>
+</a>
+    </div>
+    
+  </main>
+
+</div> 
+<button id="chatToggle">💬</button>
+
+<div id="chatContainer">
+  <button id="chatClose">✖</button>
+  
+  <iframe 
+    src="https://star7982luv-arch.github.io/centresupportschatbot/"
+    width="100%" 
+    height="100%" 
+    style="border: none;">
+  </iframe>
+</div>
+<script>
+const chatToggle = document.getElementById("chatToggle");
+const chatContainer = document.getElementById("chatContainer");
+const chatClose = document.getElementById("chatClose");
+
+// Open chat
+chatToggle.addEventListener("click", () => {
+  chatContainer.style.display = "block";
+  chatToggle.style.display = "none"; // hide icon
+});
+
+// Close chat
+chatClose.addEventListener("click", () => {
+  chatContainer.style.display = "none";
+  chatToggle.style.display = "block"; // show icon again
+});
+</script>
+<section class="hub-section">
+
+  <!-- LEFT SIDE -->
+  <div class="hub-left">
+    <h2>SUPPORT THE COMMUNITY</h2>
+    <p>
+      We strive to showcase accessible resources in Centre County that benefit all residents. 
+      <br> Support our community by contributing a resource to add to our library!
+    </p>
+
+   <button class="submit-btn" onclick="window.location.href='feedback.html'">
+  ADD YOUR RESOURCES →
+</button>
+  </div>
+  
+  <style>
+
+  </style>
+
+  <!-- RIGHT SIDE -->
+  <div class="hub-right">
+    <h2>JOIN OUR<br>SEASONAL NEWSLETTER</h2>
+
+    <form id="signupForm" class="signup-form">
+      <input type="email" placeholder="EMAIL ADDRESS" required>
+      <button type="submit">JOIN</button>
+    </form>
+  </div>
+
+</section>
+<footer class="footer">
+  <div class="footer-container">
+
+    <!-- LEFT: Logo -->
+    <div class="footer-left">
+      <div class="logo-box">
+        <span>CENTRE<br>SUPPORTS</span>
+      </div>
+    </div>
+<style>
+  .footer-left img{
+    position: relative;
+    width: 150px;
+    height: 150px;
+  }
+</style>
+    <!-- CENTER: Links + Button -->
+    <div class="footer-center">
+      <div class="links">
+        <div class="col">
+          <a href="index.html">HOME</a>
+          <a href="resources.html">RESOURCES</a>
+        </div>
+        <div class="col">
+          <a href="news.html">NEWS</a>
+          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=centrespprts@gmail.com" target="_blank">CONTACT</a>
+        </div>
+      </div>
+      </div>
+
+    <!-- RIGHT: Social + Copyright -->
+    <div class="footer-right">
+      <h3>CONNECT WITH CS</h3>
+      <div class="socials">
+     <a href="https://www.facebook.com/people/Centre-Supports/61586017081439/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://x.com/CentreSupports" target="_blank"><i class="fab fa-twitter"></i></a>
+      <a href="https://www.instagram.com/centresupports/" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.linkedin.com/in/centre-supports-5114113a2/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+      <a href="https://www.youtube.com/playlist?list=PLQtjomygFu7FzsSw1Zo_9mo25dHefECaw" target= "_blank"><i class="fab fa-youtube"></i></a>
+      </div>
+<p>
+  © 2026 CS | 
+  <a href="privacy.html">Privacy Policy</a> | 
+  <a href="terms.html">Terms</a>
+</p>
+</div>
+
+  </div>
+</footer>
+
+<script>
+document.getElementById("signupForm").addEventListener("submit", function(e){
+
+  e.preventDefault()
+
+  const email = this.querySelector("input").value
+
+  alert("Thanks for joining! " + email)
+
+  this.reset()
+
+})
+</script>
+  </body>
+  
+  
+  
+   
+  
+
+<script>
+    const navbar = document.querySelector('.navbar');
+
+  function handleScroll() {
+    if (window.pageYOffset > 50) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  }
+
+  window.addEventListener('scroll', handleScroll);
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const searchBar = document.querySelector('.search-bar');
+  const searchIcon = searchBar.querySelector('.search-icon');
+  const searchInput = searchBar.querySelector('input');
+
+  // Toggle search bar when clicking the icon
+  searchIcon.addEventListener('click', (e) => {
+    searchBar.classList.toggle('active');
+
+    if (searchBar.classList.contains('active')) {
+      searchInput.focus();
+    }
+
+    e.stopPropagation();
+  });
+
+  // Close search bar if click is outside
+  document.addEventListener('click', (e) => {
+    if (!searchBar.contains(e.target)) {
+      searchBar.classList.remove('active');
+    }
+  });
+
+});
+</script>
+</div> <!--END OF PAGE CONTENT DIV-->
+
+<div id="pageOverlay" class="page-overlay"></div>
+<div id="savedPanel" class="saved-panel">
+
+  <div class="saved-header">
+    <h3>Your Pinned Resources</h3>
+    <span id="closeSaved">Close</span>
+  </div>
+
+  <div class="saved-body">
+
+    <p>Pinned resources will appear here:</p>
+
+    <div id="savedItems"></div>
+
+    <div class="saved-email">
+      <input type="email" id="emailInput" placeholder="Email Address">
+      <button id="sendPins">Email Pinned Resources</button>
+    </div>
+
+  </div>
+<style>
+  @media(max-width: 768px){
+    .saved-email button{
+      appearance: none;
+  -webkit-appearance: none; /* iOS fix */
+    }
+  }
+  .no-scroll {
+  overflow: hidden;
+}
+
+html {
+  scrollbar-gutter: stable;
+}
+.saved-panel {
+  position: fixed;
+  top: 0;
+  right: 0; /* always anchored */
+
+  width: min(500px, calc(100dvw - 60px));
+  max-width: calc(100dvw - 60px);
+  height: 100vh;
+
+  background: white;
+  border-radius: 0;
+  box-shadow: -10px 0 30px rgba(0,0,0,0.2);
+
+  transform: translateX(100%); /* hidden off screen */
+  transition: transform 0.6s ease;
+
+  z-index: 2000;
+}
+
+.saved-panel.open {
+  transform: translateX(0); /* slide in */
+}
+
+#pageContent{
+  transition:transform 0.35s ease;
+}
+
+#pageContent.shift {
+  transform: translateX(-30px);
+}
+
+.page-overlay{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.4);
+  opacity:0;
+  visibility:hidden;
+  transition:opacity 0.3s ease;
+  z-index:1500;
+}
+.page-overlay{
+  transition: opacity 0.7s cubic-bezier(.22,1,.36,1);
+  transition-delay: 0.05s;
+}
+
+.page-overlay.show{
+  opacity:1;
+  visibility:visible;
+}
+</style>
+</div>
+
+<script>
+  const toggles = document.querySelectorAll(".toggle");
+
+toggles.forEach(btn => {
+  btn.addEventListener("click", () => {
+
+    const content = btn.nextElementSibling;
+    const arrow = btn.querySelector(".arrow");
+
+    content.classList.toggle("open");
+
+    arrow.textContent =
+      content.classList.contains("open") ? "▲" : "▼";
+
+  });
+});
+</script>
+
+
+<style>
+.no-scroll {
+  overflow: hidden;
+}
+
+html {
+  scrollbar-gutter: stable;
+}
+.saved-panel{
+  position:fixed;
+  top:0;
+  right:-500px;          /* hide it off screen */
+  width:500px;
+  height:100vh;          /* full height panel */
+
+  background:white;
+  border-radius:0;       /* remove corner since it's a panel */
+  box-shadow:-10px 0 30px rgba(0,0,0,0.2);
+
+  transition:right 0.6s ease; /* sliding animation */
+  z-index:2000;
+}
+
+.saved-panel.open{
+  transform: translateX(0);
+  right:0;
+}
+#pageContent{
+  transition:transform 0.35s ease;
+}
+
+#pageContent.shift{
+  transform:translateX(-120px);
+}
+
+.page-overlay{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.4);
+  opacity:0;
+  visibility:hidden;
+  transition:opacity 0.3s ease;
+  z-index:1500;
+}
+.page-overlay{
+  transition: opacity 0.7s cubic-bezier(.22,1,.36,1);
+  transition-delay: 0.05s;
+}
+
+.page-overlay.show{
+  opacity:1;
+  visibility:visible;
+}
+</style>
+<script>
+const savedPanel = document.getElementById("savedPanel")
+const pinButton = document.getElementById("pinButton")
+const closeSaved = document.getElementById("closeSaved")
+const overlay = document.getElementById("pageOverlay")
+const page = document.getElementById("pageContent")
+
+let scrollPosition = 0;
+
+pinButton.addEventListener("click", e => {
+  e.preventDefault();
+
+  scrollPosition = window.scrollY;
+
+  document.body.style.position = "fixed";
+  document.body.style.top = `-${scrollPosition}px`;
+  document.body.style.width = "100%";
+
+  savedPanel.classList.add("open");
+  overlay.classList.add("show");
+  page.classList.add("shift");
+})
+
+closeSaved.addEventListener("click", closePanel)
+overlay.addEventListener("click", closePanel)
+
+function closePanel(){
+  savedPanel.classList.remove("open")
+  overlay.classList.remove("show")
+  page.classList.remove("shift")
+
+  // temporarily disable smooth scrolling (if any)
+  const scrollBehavior = document.documentElement.style.scrollBehavior
+  document.documentElement.style.scrollBehavior = "auto"
+
+  // restore body
+  document.body.style.position = ""
+  document.body.style.top = ""
+  document.body.style.width = ""
+
+  // instantly jump back WITHOUT animation
+  window.scrollTo(0, scrollPosition)
+
+  // restore scroll behavior
+  document.documentElement.style.scrollBehavior = scrollBehavior
+}
+
+function loadSaved(){
+
+  const savedItems = document.getElementById("savedItems")
+  const resources = JSON.parse(localStorage.getItem("pinnedItems")) || []
+
+  savedItems.innerHTML = ""
+
+  resources.forEach((r,index) => {
+
+    const div = document.createElement("div")
+    div.className = "saved-resource"
+
+    div.innerHTML = `
+      <a href="${r.url}" target="_blank">${r.title}</a>
+      <button class="delete-pin" data-index="${index}">✕</button>
+    `
+
+    savedItems.appendChild(div)
+
+  })
+}
+
+document.addEventListener("click", function(e){
+
+  if(e.target.classList.contains("delete-pin")){
+
+    let pins = JSON.parse(localStorage.getItem("pinnedItems")) || []
+
+    const index = parseInt(e.target.dataset.index, 10)
+    const removedItem = pins[index]
+
+    // remove safely
+    pins.splice(index, 1)
+    localStorage.setItem("pinnedItems", JSON.stringify(pins))
+
+    // only run if item exists (prevents crash)
+    if (removedItem && removedItem.url) {
+      document.querySelectorAll(".pin-item").forEach(btn => {
+        if (btn.dataset.url === removedItem.url) {
+          btn.classList.remove("pinned")
+        }
+      })
+    }
+
+    loadSaved()
+
+  }
+
+})
+
+document.querySelectorAll(".pin-item").forEach(btn=>{
+
+  btn.addEventListener("click", ()=>{
+
+    const title = btn.dataset.title
+    const url = btn.dataset.url
+
+    let pins = JSON.parse(localStorage.getItem("pinnedItems")) || []
+
+    const exists = pins.some(p => p.url === url)
+
+    if (exists) {
+  // UNPIN
+    pins = pins.filter(p => p.url !== url)
+    btn.classList.remove("pinned")
+}   else {
+  // PIN
+  pins.push({ title, url })
+  btn.classList.add("pinned")
+}
+
+    localStorage.setItem("pinnedItems", JSON.stringify(pins))
+
+    loadSaved()
+
+  })
+
+})
+
+loadSaved()
+
+
+</script>
+<!---EMAIL.JS SECTION (TARA 5) COPY AND PASTE)-->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+<script>
+(function(){
+emailjs.init("x3ShtMp_Po7CPnzlu");
+})();
+</script>
+<script>
+const emailInput = document.getElementById("emailInput");
+const sendPins = document.getElementById("sendPins");
+
+sendPins.addEventListener("click", function(e){
+
+  e.preventDefault(); // IMPORTANT
+
+  const email = emailInput.value;
+
+  if(!email){
+    alert("Please enter an email address.");
+    return;
+  }
+
+  const pins = JSON.parse(localStorage.getItem("pinnedItems")) || [];
+
+  if(pins.length === 0){
+    alert("No pinned resources.");
+    return;
+  }
+
+  let resourceList = "";
+
+  pins.forEach(p=>{
+    resourceList += `${p.title} - ${p.url}\n`;
+  });
+
+  emailjs.send("service_1gljyes","template_bm2vwwj",{
+    to_email: email,
+    resources: resourceList
+  })
+  .then(function(response){
+    console.log("SUCCESS", response);
+    alert("Email sent!");
+  })
+  .catch(function(error){
+    console.log("FAILED", error);
+    alert("Email failed to send.");
+  });
+
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const searchBar = document.querySelector('.search-bar');
+  const searchIcon = searchBar.querySelector('.search-icon');
+  const searchInput = searchBar.querySelector('input');
+
+  // Toggle search bar when clicking the icon
+  searchIcon.addEventListener('click', (e) => {
+    searchBar.classList.toggle('active');
+
+    if (searchBar.classList.contains('active')) {
+      searchInput.focus();
+    }
+
+    e.stopPropagation();
+  });
+
+  // Close search bar if click is outside
+  document.addEventListener('click', (e) => {
+    if (!searchBar.contains(e.target)) {
+      searchBar.classList.remove('active');
+    }
+  });
+
+});
+</script>
+<div id="pageLoader">
+  <div class="loader-content">
+  <img src="centrespprts.png" alt="logo">
+  <div class="spinner"></div>
+</div>
+</div>
+  
+  <script src="script.js"></script>
+  </body>

@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Community Hub</title>
+  <link rel="stylesheet" href="styles.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geom:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=search" />
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
+<!--TARA copy and paste here (START) -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script> 
+(function(){
+emailjs.init("x3ShtMp_Po7CPnzlu");
+})();
+</script> 
+<!--TARA copy and paste here (END) -->
+</head>
+<body class="news">
+  <style>
+     body.news .hero {
+  position: relative;
+  background-image: url('newsimg.png');
+}
+  </style>
+<div id="pageContent">
+  <header class="navbar">
+    <a href="index.html">
+    <div class="logo">
+   <img src="centrespprts.png" alt="Centre Supports Logo"> 
+    </div>
+    </a>
+    <nav class="nav-links">
+      <a href="mission2.html">Mission</a>
+      <a href="resources.html">Resources</a>
+      <a href="abusehotlines.html">Hotlines</a>
+      <a href="documentation.html">Documentation</a>
+    </nav>
+<div class="nav-actions">
+<form class="search-bar" id="searchForm" action="/search" method="get">
+  <span class="material-symbols-outlined search-icon">search</span>
+  <input type="text"  id="searchInput" name="q" placeholder="Search...">
+</form>
+  <div class="pinned-container">
+
+  <a href="#" class="saved" id="pinButton">
+    PINNED
+    <svg class="pin-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+      <path d="M16 9V4l1-1V2H7v1l1 1v5l-3 3v1h6v7l1-1 1 1v-7h6v-1l-3-3z"/>
+    </svg>
+  </a>
+  </div>
+  </header>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const searchBar = document.querySelector(".search-bar");
+  const searchIcon = document.querySelector(".search-icon");
+  const form = document.getElementById("searchForm");
+  const input = document.getElementById("searchInput");
+  const loader = document.getElementById("pageLoader");
+
+  document.addEventListener('click', (e) => {
+    if (!searchBar.contains(e.target) && searchBar.classList.contains("active")) {
+      searchBar.classList.remove('active');
+    }
+  });
+  
+    const pages = [
+    { title: "Aging Services", keywords: ["aging","age","senior","seniors","elderly","retirement","retiree","older","nurse","old","ACAP","Eagle Valley","The Village","RSVP","retired"], url: "aging.html" },
+      { title: "Youth Services", keywords: ["child","children","youth","kids","young","adolescent","juvenile","teen","childcare","baby","babies","daycare","grand","childspace", "ymca", "bureau", "united way", "key"], url: "youth.html" },
+      { title: "Food Services", keywords: ["food","meal","meals","nutrition","groceries","pantry","kitchen","hunger","hungry","stomach","restaurant","food bank","faith","action","CPCA","commonFood","lion","pantry"], url: "food.html" },
+      { title: "Substance Abuse Services", keywords: ["drugs","drug","substance","help","narcotics","remission","recovery","joseph","applegate","crossroads","INC", "pinnacle"], url: "substance.html" },
+      { title: "Transportation Services", keywords: ["transport","transportation","bus","buses","transit","ride","travel","commute","cata","greyhound","megabus","active"], url: "transport.html" },
+      { title: "Abuse Hotlines", keywords: ["suicide","intervention","prevention","helpline","support","safe","988","crisis","assault","violence"], url: "abusehotlines.html" },
+      { title: "Clothing Services", keywords: ["clothing","clothes","attire","shirt","pants","shoes","Vincent","Mommy","goodwill","salvation army", "peace"], url: "clothing.html" },
+      { title: "Employment and Finance Services", keywords: ["employment","job","jobs","career","work","finance","money","income","CROG","CRCOG","careerlink","interfaith","liHeap","skills"], url: "finance.html" },
+      { title: "Physical Health Services", keywords: ["physical","health","healthcare","abuse","fitness","hospital","medical","medicine","wellness","doctor", "medics", "dental", "teeth", "back", "pain", "hurt", "heart","CVIM","public","nittany","orthodontics","orthodontist","pregnancy","clinic"], url: "physical.html" },
+      { title: "Housing Services", keywords: ["housing","house","home","apartment","rent","rental","lease","shelter","Out of the cold","transitions","land trust","authority"], url: "housing.html" },
+      { title: "Mental Health Services", keywords: ["mental","mind","psychological","therapy","treatment","wellness","awareness", "sad", "depression", "anxiety","alone","jana marie","community","mental illness","NAMI","psychiatry"], url: "mental.html" },
+      { title: "Volunteering Services", keywords: ["volunteer","volunteering","community service","help","discovery space","schlow","library","centre care","PVCA","Environment","AAUW","summer"], url: "volunteer.html" }
+  ];
+
+
+  const fuse = new Fuse(pages, {
+    keys: ["title","keywords"],
+    threshold: 0.4
+  });
+
+form.addEventListener("submit", e => {
+  e.preventDefault();
+
+  const query = input.value.trim();
+  if (!query) return;
+
+  const results = fuse.search(query);
+
+  // show loader ONLY here
+  loader.classList.add("active");
+
+  setTimeout(() => {
+    if (results.length > 0) {
+      window.location.assign(results[0].item.url);
+    } else {
+      loader.classList.remove("active"); // hide if no results
+      alert("No results found.");
+    }
+  }, 700);
+});
+
+});
+</script>
+  <section class="hero">
+    <div class="overlay"></div>
+    
+    <div class="hero-content">
+      <h1>
+       Centre Supports News
+      </h1>
+    </div>
+    <div class="page-caption">
+      Photo: Downtown State College 
+</div>
+  </section>
+<section class="partners-scroll-section">
+
+  <h1 class="carousel-title">Previous Newsletters:</h1>
+
+  <div class="partners-scroll">
+    <div class="partners-track">
+
+      <div class="slide"><img src="springletter.png"></div>
+      <div class="slide"><img src="summerletter.png"></div>
+      <div class="slide"><img src="fallnewsletter.png"></div>
+      <div class="slide"><img src="winterletter.png"></div>
+      <div class="slide"><img src="spring26letter.png"></div>
+<button class="carousel-pause-btn">❚❚</button>
+    </div>
+  </div>
+
+</section>
+  <style>
+  section {
+  margin-bottom: 80px;
+  }
+  .carousel-pause-btn {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+
+  padding: 8px 12px;
+  font-size: 14px;
+
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 6px;
+
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+
+  z-index: 9999; /* 🔥 KEY FIX */
+}
+.carousel-title h1{
+  font-size: 1.3rem;
+}
+.carousel-pause-btn:hover {
+  transform: scale(1.05);
+}
+.partners-scroll-section {
+  width: 800px;
+  margin: auto;
+  text-align: center;
+}
+
+.partners-scroll {
+  overflow: hidden;
+  height: 420px;
+  position: relative;
+}
+
+.partners-track {
+  display: flex;
+  transition: transform 0.6s ease;
+  will-change: transform;
+}
+
+.slide {
+  flex: 0 0 100%;
+  height: 420px;
+  display: flex;
+  justify-content: center;
+  
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.slide img {
+  width: auto;
+  height: 100%;
+  object-fit: contain;
+}
+
+.slide:hover {
+   transform: scale(1.05);
+  z-index: 5;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+  </style>
+<div class="page-wrapper">
+
+  <section class="app-viewer partners-scroll-section" >
+    <div class="app-viewer-content">
+      <h1>Coming 2027: Centre Search</h1>
+      <div class="app-image-wrapper" id="app">
+        <img src="app.png" alt="App Preview">
+      </div>
+    </div>
+  </section>
+
+</div>
+  <section class="featured-article">
+  <div class="article-container">
+
+    <h1 class="article-title">Centre Supports Expands Community Impact in 2026</h1>
+
+    <p class="article-meta">By CS Times • 2026</p>
+
+    <img src="newsimg.png" class="article-hero-img" alt="Centre County">
+
+    <div class="article-content">
+
+      <p>
+        Since its recent establishment, <strong>Centre Supports</strong>, a local community resource hub, has launched a forward effort to build a website consolidating local businesses and nonprofits in Centre County, PA.
+      </p>
+
+      <p>
+        Starting in 2026, the organization has implemented new initiatives to improve user experience and expand outreach.
+      </p>
+
+      <blockquote>
+        “We support victims and survivors of sexual assault, dating, and domestic violence… we really are a safety net for people of all ages.”
+        <span>— Jennifer Pancek, Centre Safe</span>
+      </blockquote>
+
+      <p>
+        Through partnerships, the platform highlights organizations like Childspace and the Office of Aging, showcasing their impact on families, children, and seniors.
+      </p>
+
+      <blockquote>
+        “...child-centered environment to be in…a lot of families don’t have the kinds of equipment and materials that we have here in a space where kids can be with peers and learn from peers more than they can when they’re at home.”
+        <span>— Kelly Carpenter, Childspace</span>
+      </blockquote>
+      <p>
+        Action is being taken on a county-wide level as well; the Centre County Office of Aging has increased their number of programs.
+      </p>
+      <blockquote>
+        “Our goal is to keep elderly people at home as long as possible ...our services are based on supporting an individual of 60 years age or older; in most cases they surround trying to allow the older adult to maintain their living situation for as long as possible.”
+        <span>— Quentin Burchfield, Office of Aging</span>
+      </blockquote>
+      <p>
+         Centre Supports aims to highlight these initiatives through their <strong>Youtube channel.</strong>
+      </p>
+      <br>
+      <p>
+        The platform offers:
+      </p>
+
+      <ul class="article-list">
+        <li>Emergency hotlines</li>
+        <li>Childcare services</li>
+        <li>Mental health & substance support</li>
+        <li>Job & financial resources</li>
+        <li>Housing & transportation help</li>
+      </ul>
+      <p>
+        Each category offers different services that are tailored to help those struggling with various issues. It gives any Centre County individual access to local resources, shedding light on both small nonprofits and county-wide organizations. Centre Supports managers aim to create a cohesive, effective environment for the exploration of resources in Centre County. Additionally, the site includes a feedback page, allowing residents to request the inclusion of additional sites. 
+      </p>
+      <br>
+      <p>
+        As for improvements around the county, interviewees have described great progress. Director Pancek describes, “We just launched our annual $50,000 holiday campaign to raise $50,000 to use for…our services and clients during the year” (Centre Safe). “I recently got a grant for $2,000.00 worth of outdoor equipment…we’re gonna be getting some new, more expensive equipment that I can’t usually afford on my regular budget… I just recently started offering drop-in services as well, so people who don’t need a consistent spot but might need something like a babysitter once in a while…have a place to bring their child that is convenient,” adds Ms. Carpenter. Learn more about progress and changes in Centre County in our seasonal newsletter!
+      </p>
+      <p>
+        With continued growth, Centre Supports aims to strengthen partnerships and expand access across the county.
+      </p>
+
+      <p class="article-end">
+        Stay tuned with <strong>CS Times</strong> for more updates.
+      </p>
+
+    </div>
+  </div>
+</section>
+<style>
+body {
+  background: #f4f6f9;
+}
+.featured-article {
+  background: #ffffff;
+  padding: 80px 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.article-container {
+  max-width: 800px;
+  width: 100%;
+}
+
+.article-title {
+  font-size: 2.8rem;
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+.article-meta {
+  color: #888;
+  margin-bottom: 30px;
+  font-size: 0.9rem;
+}
+
+.article-hero-img {
+  width: 100%;
+  border-radius: 16px;
+  margin-bottom: 30px;
+}
+
+.article-content p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.article-content strong {
+  color: #0a2a4a;
+}
+
+blockquote {
+  border-left: 4px solid #0a2a4a;
+  padding: 15px 20px;
+  margin: 30px 0;
+  background: #f5f8fb;
+  font-style: italic;
+}
+
+blockquote span {
+  display: block;
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.article-list {
+  margin: 20px 0;
+  padding-left: 20px;
+}
+
+.article-list li {
+  margin-bottom: 10px;
+  font-size: 1.05rem;
+}
+
+.article-end {
+  margin-top: 40px;
+  font-weight: bold;
+  text-align: center;
+}
+.app-image-wrapper img{
+  height: 90%;
+  width: 90%;
+}
+/* Optional: If you want the inner content to remain 800px but centered */
+.partners-scroll-section {
+  background: transparent;   /* Makes the inner section clear */
+  margin: 0 auto;            /* Centers the app block within the white wrapper */
+}
+  .app-viewer {
+  padding-top: 120px;
+  padding: 100px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.3s ease;
+  background: #f7f7f7; /* optional clean section background */
+}
+.partners-scroll-section,
+.app-viewer {
+  width: 800px;
+  margin: auto;
+  text-align: center;
+}
+
+.app-viewer-content {
+  text-align: center;
+  max-width: 900px;
+}
+
+.app-viewer h1 {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+}
+
+.app-subtitle {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+}
+
+.app-image-wrapper img {
+  border-radius: 30px;
+  display: block;
+}
+
+.app-image-wrapper img:hover {
+  transform: scale(1.03);
+}
+</style>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const track = document.querySelector(".partners-track");
+  const slides = document.querySelectorAll(".slide");
+  const container = document.querySelector(".partners-scroll-section");
+  const pauseBtn = document.querySelector(".carousel-pause-btn");
+
+  let index = 0;
+  let interval;
+  let isPaused = false;
+
+  const speed = 3000;
+
+  function getSlideWidth() {
+    return container.offsetWidth;
+  }
+
+  function moveSlide() {
+    index++;
+
+    if (index >= slides.length) {
+      index = 0;
+    }
+
+    track.style.transform = `translateX(-${index * getSlideWidth()}px)`;
+  }
+
+  function startAuto() {
+    interval = setInterval(moveSlide, speed);
+  }
+
+  function stopAuto() {
+    clearInterval(interval);
+  }
+
+  pauseBtn.addEventListener("click", () => {
+    isPaused = !isPaused;
+
+    if (isPaused) {
+      stopAuto();
+      pauseBtn.textContent = "Play";
+    } else {
+      startAuto();
+      pauseBtn.textContent = "Pause";
+    }
+  });
+
+  container.addEventListener("mouseenter", stopAuto);
+  container.addEventListener("mouseleave", () => {
+    if (!isPaused) startAuto();
+  });
+
+  window.addEventListener("resize", () => {
+    track.style.transform = `translateX(-${index * getSlideWidth()}px)`;
+  });
+
+  startAuto();
+});
+</script>
+<button id="chatToggle">💬</button>
+
+<div id="chatContainer">
+  <button id="chatClose">✖</button>
+  
+  <iframe 
+    src="https://star7982luv-arch.github.io/centresupportschatbot/"
+    width="100%" 
+    height="100%" 
+    style="border: none;">
+  </iframe>
+</div>
+<script>
+const chatToggle = document.getElementById("chatToggle");
+const chatContainer = document.getElementById("chatContainer");
+const chatClose = document.getElementById("chatClose");
+
+// Open chat
+chatToggle.addEventListener("click", () => {
+  chatContainer.style.display = "block";
+  chatToggle.style.display = "none"; // hide icon
+});
+
+// Close chat
+chatClose.addEventListener("click", () => {
+  chatContainer.style.display = "none";
+  chatToggle.style.display = "block"; // show icon again
+});
+</script>
+<section class="hub-section">
+
+  <!-- LEFT SIDE -->
+  <div class="hub-left">
+    <h2>SUPPORT THE COMMUNITY</h2>
+    <p>
+      We strive to showcase accessible resources in Centre County that benefit all residents. 
+      <br> Support our community by contributing a resource to add to our library!
+    </p>
+
+   <button class="submit-btn" onclick="window.location.href='feedback.html'">
+  ADD YOUR RESOURCES →
+</button>
+  </div>
+  
+  <style>
+
+  </style>
+
+  <!-- RIGHT SIDE -->
+  <div class="hub-right">
+    <h2>JOIN OUR<br>SEASONAL NEWSLETTER</h2>
+
+    <form id="signupForm" class="signup-form">
+      <input type="email" placeholder="EMAIL ADDRESS" required>
+      <button type="submit">JOIN</button>
+    </form>
+  </div>
+
+</section>
+<footer class="footer">
+  <div class="footer-container">
+
+    <!-- LEFT: Logo -->
+    <div class="footer-left">
+      <div class="logo-box">
+        <span>CENTRE<br>SUPPORTS</span>
+      </div>
+    </div>
+<style>
+  .footer-left img{
+    position: relative;
+    width: 150px;
+    height: 150px;
+  }
+</style>
+    <!-- CENTER: Links + Button -->
+    <div class="footer-center">
+      <div class="links">
+        <div class="col">
+          <a href="index.html">HOME</a>
+          <a href="resources.html">RESOURCES</a>
+        </div>
+        <div class="col">
+          <a href="news.html">NEWS</a>
+          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=centrespprts@gmail.com" target="_blank">CONTACT</a>
+        </div>
+      </div>
+      </div>
+
+    <!-- RIGHT: Social + Copyright -->
+    <div class="footer-right">
+      <h3>CONNECT WITH CS</h3>
+      <div class="socials">
+     <a href="https://www.facebook.com/people/Centre-Supports/61586017081439/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://x.com/CentreSupports" target="_blank"><i class="fab fa-twitter"></i></a>
+      <a href="https://www.instagram.com/centresupports/" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.linkedin.com/in/centre-supports-5114113a2/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+      <a href="https://www.youtube.com/playlist?list=PLQtjomygFu7FzsSw1Zo_9mo25dHefECaw" target= "_blank"><i class="fab fa-youtube"></i></a>
+      </div>
+<p>
+  © 2026 CS | 
+  <a href="privacy.html">Privacy Policy</a> | 
+  <a href="terms.html">Terms</a>
+</p>
+</div>
+
+  </div>
+</footer>
+
+<script>
+document.getElementById("signupForm").addEventListener("submit", function(e){
+
+  e.preventDefault()
+
+  const email = this.querySelector("input").value
+
+  alert("Thanks for joining! " + email)
+
+  this.reset()
+
+})
+</script>
+  <script>
+    const navbar = document.querySelector('.navbar');
+
+  function handleScroll() {
+    if (window.pageYOffset > 50) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  }
+
+  window.addEventListener('scroll', handleScroll);
+  const searchBar = document.querySelector('.search-bar');
+const searchIcon = searchBar.querySelector('.search-icon');
+const searchInput = searchBar.querySelector('input');
+</script>
+<div id="pageLoader">
+  <div class="loader-content">
+  <img src="centrespprts.png" alt="logo">
+  <div class="spinner"></div>
+</div>
+</div>
+  
+</div> <!--END OF PAGE CONTENT DIV-->
+
+<div id="pageOverlay" class="page-overlay"></div>
+<div id="savedPanel" class="saved-panel">
+
+  <div class="saved-header">
+    <h3>Your Pinned Resources</h3>
+    <span id="closeSaved">Close</span>
+  </div>
+
+  <div class="saved-body">
+
+    <p>Pinned resources will appear here:</p>
+
+    <div id="savedItems"></div>
+
+    <div class="saved-email">
+      <input type="email" id="emailInput" placeholder="Email Address">
+      <button id="sendPins">Email Pinned Resources</button>
+    </div>
+
+  </div>
+
+</div>
+<style>
+/* WHY FEEDBACK MATTERS SECTION */
+.feedback-benefits {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-top: 60px;
+  padding-top: 40px;
+  padding-right: 20px;
+  padding-left: 20px;
+  border-top: 1px solid rgba(10, 42, 74, 0.1); /* Subtle separator line */
+  text-align: center;
+  background: #0a2a4a;
+}
+
+.benefit-item h3 {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin: 15px 0 10px 0;
+  color: #ffffff;
+}
+
+.benefit-item p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #ffffff; /* Slightly softer color for body text */
+  margin-bottom: 0;
+}
+
+.benefit-icon {
+  font-size: 24px;
+  background: #f0f4f8;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  border-radius: 50%;
+  margin: 0 auto;
+}
+
+/* Mobile Responsive */
+@media (max-width: 600px) {
+  .feedback-benefits {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+  @media(max-width: 768px){
+    .saved-email button{
+      appearance: none;
+  -webkit-appearance: none; /* iOS fix */
+    }
+  }
+  .no-scroll {
+  overflow: hidden;
+}
+
+html {
+  scrollbar-gutter: stable;
+}
+.saved-panel {
+  position: fixed;
+  top: 0;
+  right: 0; /* always anchored */
+
+  width: min(500px, calc(100dvw - 60px));
+  max-width: calc(100dvw - 60px);
+  height: 100vh;
+
+  background: white;
+  border-radius: 0;
+  box-shadow: -10px 0 30px rgba(0,0,0,0.2);
+
+  transform: translateX(100%); /* hidden off screen */
+  transition: transform 0.6s ease;
+
+  z-index: 2000;
+}
+
+.saved-panel.open {
+  transform: translateX(0); /* slide in */
+}
+
+#pageContent{
+  transition:transform 0.35s ease;
+}
+
+#pageContent.shift {
+  transform: translateX(-30px);
+}
+
+.page-overlay{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.4);
+  opacity:0;
+  visibility:hidden;
+  transition:opacity 0.3s ease;
+  z-index:1500;
+}
+.page-overlay{
+  transition: opacity 0.7s cubic-bezier(.22,1,.36,1);
+  transition-delay: 0.05s;
+}
+
+.page-overlay.show{
+  opacity:1;
+  visibility:visible;
+}
+</style>
+<script>
+const savedPanel = document.getElementById("savedPanel")
+const pinButton = document.getElementById("pinButton")
+const closeSaved = document.getElementById("closeSaved")
+const overlay = document.getElementById("pageOverlay")
+const page = document.getElementById("pageContent")
+
+let scrollPosition = 0;
+
+pinButton.addEventListener("click", e => {
+  e.preventDefault();
+
+  scrollPosition = window.scrollY;
+
+  document.body.style.position = "fixed";
+  document.body.style.top = `-${scrollPosition}px`;
+  document.body.style.width = "100%";
+
+  savedPanel.classList.add("open");
+  overlay.classList.add("show");
+  page.classList.add("shift");
+})
+
+closeSaved.addEventListener("click", closePanel)
+overlay.addEventListener("click", closePanel)
+
+function closePanel(){
+  savedPanel.classList.remove("open")
+  overlay.classList.remove("show")
+  page.classList.remove("shift")
+
+  // temporarily disable smooth scrolling (if any)
+  const scrollBehavior = document.documentElement.style.scrollBehavior
+  document.documentElement.style.scrollBehavior = "auto"
+
+  // restore body
+  document.body.style.position = ""
+  document.body.style.top = ""
+  document.body.style.width = ""
+
+  // instantly jump back WITHOUT animation
+  window.scrollTo(0, scrollPosition)
+
+  // restore scroll behavior
+  document.documentElement.style.scrollBehavior = scrollBehavior
+}
+
+function loadSaved(){
+
+  const savedItems = document.getElementById("savedItems")
+  const resources = JSON.parse(localStorage.getItem("pinnedItems")) || []
+
+  savedItems.innerHTML = ""
+
+  resources.forEach((r,index) => {
+
+    const div = document.createElement("div")
+    div.className = "saved-resource"
+
+    div.innerHTML = `
+      <a href="${r.url}" target="_blank">${r.title}</a>
+      <button class="delete-pin" data-index="${index}">✕</button>
+    `
+
+    savedItems.appendChild(div)
+
+  })
+}
+
+document.addEventListener("click", function(e){
+
+  if(e.target.classList.contains("delete-pin")){
+
+    let pins = JSON.parse(localStorage.getItem("pinnedItems")) || []
+
+    const index = parseInt(e.target.dataset.index, 10)
+    const removedItem = pins[index]
+
+    // remove safely
+    pins.splice(index, 1)
+    localStorage.setItem("pinnedItems", JSON.stringify(pins))
+
+    // only run if item exists (prevents crash)
+    if (removedItem && removedItem.url) {
+      document.querySelectorAll(".pin-item").forEach(btn => {
+        if (btn.dataset.url === removedItem.url) {
+          btn.classList.remove("pinned")
+        }
+      })
+    }
+
+    loadSaved()
+
+  }
+
+})
+
+document.querySelectorAll(".pin-item").forEach(btn=>{
+
+  btn.addEventListener("click", ()=>{
+
+    const title = btn.dataset.title
+    const url = btn.dataset.url
+
+    let pins = JSON.parse(localStorage.getItem("pinnedItems")) || []
+
+    const exists = pins.some(p => p.url === url)
+
+    if (exists) {
+  // UNPIN
+    pins = pins.filter(p => p.url !== url)
+    btn.classList.remove("pinned")
+}   else {
+  // PIN
+  pins.push({ title, url })
+  btn.classList.add("pinned")
+}
+
+    localStorage.setItem("pinnedItems", JSON.stringify(pins))
+
+    loadSaved()
+
+  })
+
+})
+
+loadSaved()
+
+
+</script>
+<script>
+let scrollPosition = 0;
+const savedPanel = document.getElementById("savedPanel")
+const pinButton = document.getElementById("pinButton")
+const closeSaved = document.getElementById("closeSaved")
+
+const overlay = document.getElementById("pageOverlay")
+const page = document.getElementById("pageContent")
+
+pinButton.addEventListener("click", e=>{
+  e.preventDefault()
+
+  scrollPosition = window.scrollY;
+
+  document.body.style.top = `-${scrollPosition}px`;
+  document.body.classList.add("no-scroll");
+
+  savedPanel.classList.add("open")
+  overlay.classList.add("show")
+  page.classList.add("shift")
+})
+
+closeSaved.addEventListener("click", closePanel)
+overlay.addEventListener("click", closePanel)
+
+function closePanel(){
+
+  savedPanel.classList.remove("open")
+  overlay.classList.remove("show")
+  page.classList.remove("shift")
+
+  if(document.body.classList.contains("no-scroll")){
+    document.body.classList.remove("no-scroll")
+    document.body.style.top = ""
+    window.scrollTo(0, scrollPosition)
+  }
+
+}
+function loadSaved(){
+
+  const savedItems = document.getElementById("savedItems")
+  const resources = JSON.parse(localStorage.getItem("pinnedItems")) || []
+
+  savedItems.innerHTML = ""
+
+  resources.forEach((r,index) => {
+
+    const div = document.createElement("div")
+    div.className = "saved-resource"
+
+    div.innerHTML = `
+      <a href="${r.url}" target="_blank">${r.title}</a>
+      <button class="delete-pin" data-index="${index}">✕</button>
+    `
+
+    savedItems.appendChild(div)
+
+  })
+}
+
+document.addEventListener("click", function(e){
+
+  if(e.target.classList.contains("delete-pin")){
+
+    let pins = JSON.parse(localStorage.getItem("pinnedItems")) || []
+    pins.splice(e.target.dataset.index,1)
+
+    localStorage.setItem("pinnedItems", JSON.stringify(pins))
+
+    loadSaved()
+
+  }
+
+})
+
+document.querySelectorAll(".pin-item").forEach(btn=>{
+
+  btn.addEventListener("click", ()=>{
+
+    const title = btn.dataset.title
+    const url = btn.dataset.url
+
+    let pins = JSON.parse(localStorage.getItem("pinnedItems")) || []
+
+    const exists = pins.some(p => p.url === url)
+
+    if(!exists){
+      pins.push({title,url})
+      btn.classList.add("pinned")
+    }
+
+    localStorage.setItem("pinnedItems", JSON.stringify(pins))
+
+    loadSaved()
+
+  })
+
+})
+
+loadSaved()
+
+
+</script>
+
+<!---EMAIL.JS SECTION (TARA 5) COPY AND PASTE)-->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+<script>
+(function(){
+emailjs.init("x3ShtMp_Po7CPnzlu");
+})();
+</script>
+<script>
+const emailInput = document.getElementById("emailInput");
+const sendPins = document.getElementById("sendPins");
+
+sendPins.addEventListener("click", function(e){
+
+  e.preventDefault(); // IMPORTANT
+
+  const email = emailInput.value;
+
+  if(!email){
+    alert("Please enter an email address.");
+    return;
+  }
+
+  const pins = JSON.parse(localStorage.getItem("pinnedItems")) || [];
+
+  if(pins.length === 0){
+    alert("No pinned resources.");
+    return;
+  }
+
+  let resourceList = "";
+
+  pins.forEach(p=>{
+    resourceList += `${p.title} - ${p.url}\n`;
+  });
+
+  emailjs.send("service_1gljyes","template_bm2vwwj",{
+    to_email: email,
+    resources: resourceList
+  })
+  .then(function(response){
+    console.log("SUCCESS", response);
+    alert("Email sent!");
+  })
+  .catch(function(error){
+    console.log("FAILED", error);
+    alert("Email failed to send.");
+  });
+
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const searchBar = document.querySelector('.search-bar');
+  const searchIcon = searchBar.querySelector('.search-icon');
+  const searchInput = searchBar.querySelector('input');
+
+  // Toggle search bar when clicking the icon
+  searchIcon.addEventListener('click', (e) => {
+    searchBar.classList.toggle('active');
+
+    if (searchBar.classList.contains('active')) {
+      searchInput.focus();
+    }
+
+    e.stopPropagation();
+  });
+
+  // Close search bar if click is outside
+  document.addEventListener('click', (e) => {
+    if (!searchBar.contains(e.target)) {
+      searchBar.classList.remove('active');
+    }
+  });
+
+});
+</script>
+</script>
+<script src="script.js"></script>
+    </body>

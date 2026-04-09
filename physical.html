@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Community Hub</title>
+  <link rel="stylesheet" href="styles.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geom:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=search" />
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
+<!--TARA copy and paste here (START) -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script> 
+(function(){
+emailjs.init("x3ShtMp_Po7CPnzlu");
+})();
+</script> 
+<!--TARA copy and paste here (END) -->
+</head>
+<body class="physicalhealth">
+
+<style>
+  body.physicalhealth .hero {
+  position: relative;
+  background-image: url('https://mountnittany.org/wp-content/uploads/2024/01/Mount-Nittany-Health-Surgical-Center-05.jpg');
+}
+</style>
+  
+<div id="pageContent">
+  <header class="navbar">
+    <a href="index.html">
+    <div class="logo">
+   <img src="centrespprts.png" alt="Centre Supports Logo"> 
+    </div>
+    </a>
+    <nav class="nav-links">
+      <a href="mission2.html">Mission</a>
+      <a href="resources.html">Resources</a>
+      <a href="abusehotlines.html">Hotlines</a>
+      <a href="documentation.html">Documentation</a>
+    </nav>
+<div class="nav-actions">
+<form class="search-bar" id="searchForm" action="/search" method="get">
+  <span class="material-symbols-outlined search-icon">search</span>
+  <input type="text"  id="searchInput" name="q" placeholder="Search...">
+</form>
+  <div class="pinned-container">
+
+  <a href="#" class="saved" id="pinButton">
+    PINNED
+    <svg class="pin-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+      <path d="M16 9V4l1-1V2H7v1l1 1v5l-3 3v1h6v7l1-1 1 1v-7h6v-1l-3-3z"/>
+    </svg>
+  </a>
+  </div>
+  </header>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const searchBar = document.querySelector(".search-bar");
+  const searchIcon = document.querySelector(".search-icon");
+  const form = document.getElementById("searchForm");
+  const input = document.getElementById("searchInput");
+  const loader = document.getElementById("pageLoader");
+
+  document.addEventListener('click', (e) => {
+    if (!searchBar.contains(e.target) && searchBar.classList.contains("active")) {
+      searchBar.classList.remove('active');
+    }
+  });
+  
+    const pages = [
+    { title: "Aging Services", keywords: ["aging","age","senior","seniors","elderly","retirement","retiree","older","nurse","old","ACAP","Eagle Valley","The Village","RSVP","retired"], url: "aging.html" },
+      { title: "Youth Services", keywords: ["child","children","youth","kids","young","adolescent","juvenile","teen","childcare","baby","babies","daycare","grand","childspace", "ymca", "bureau", "united way", "key"], url: "youth.html" },
+      { title: "Food Services", keywords: ["food","meal","meals","nutrition","groceries","pantry","kitchen","hunger","hungry","stomach","restaurant","food bank","faith","action","CPCA","commonFood","lion","pantry"], url: "food.html" },
+      { title: "Substance Abuse Services", keywords: ["drugs","drug","substance","help","narcotics","remission","recovery","joseph","applegate","crossroads","INC", "pinnacle"], url: "substance.html" },
+      { title: "Transportation Services", keywords: ["transport","transportation","bus","buses","transit","ride","travel","commute","cata","greyhound","megabus","active"], url: "transport.html" },
+      { title: "Abuse Hotlines", keywords: ["suicide","intervention","prevention","helpline","support","safe","988","crisis","assault","violence"], url: "abusehotlines.html" },
+      { title: "Clothing Services", keywords: ["clothing","clothes","attire","shirt","pants","shoes","Vincent","Mommy","goodwill","salvation army", "peace"], url: "clothing.html" },
+      { title: "Employment and Finance Services", keywords: ["employment","job","jobs","career","work","finance","money","income","CROG","CRCOG","careerlink","interfaith","liHeap","skills"], url: "finance.html" },
+      { title: "Physical Health Services", keywords: ["physical","health","healthcare","abuse","fitness","hospital","medical","medicine","wellness","doctor", "medics", "dental", "teeth", "back", "pain", "hurt", "heart","CVIM","public","nittany","orthodontics","orthodontist","pregnancy","clinic"], url: "physical.html" },
+      { title: "Housing Services", keywords: ["housing","house","home","apartment","rent","rental","lease","shelter","Out of the cold","transitions","land trust","authority"], url: "housing.html" },
+      { title: "Mental Health Services", keywords: ["mental","mind","psychological","therapy","treatment","wellness","awareness", "sad", "depression", "anxiety","alone","jana marie","community","mental illness","NAMI","psychiatry"], url: "mental.html" },
+      { title: "Volunteering Services", keywords: ["volunteer","volunteering","community service","help","discovery space","schlow","library","centre care","PVCA","Environment","AAUW","summer"], url: "volunteer.html" }
+  ];
+
+
+  const fuse = new Fuse(pages, {
+    keys: ["title","keywords"],
+    threshold: 0.4
+  });
+
+form.addEventListener("submit", e => {
+  e.preventDefault();
+
+  const query = input.value.trim();
+  if (!query) return;
+
+  const results = fuse.search(query);
+
+  // show loader ONLY here
+  loader.classList.add("active");
+
+  setTimeout(() => {
+    if (results.length > 0) {
+      window.location.assign(results[0].item.url);
+    } else {
+      loader.classList.remove("active"); // hide if no results
+      alert("No results found.");
+    }
+  }, 700);
+});
+
+});
+</script>
+  </header>
+
+  <section class="hero">
+    <div class="overlay"></div>
+    
+    <div class="hero-content">
+      <h1>
+       Physical Health Services
+      </h1>
+    </div>
+    <div class="page-caption">
+      Photo: Mount Nittany Medical Center 
+</div>
+  </section>
+  
+<!-- Aging Resource #1: DO NOT MODIFY  -->
+   <section class="assistance" id="cvim">
+  <div class="assistance-container">
+
+    <div class="assistance-image">
+      <img src="https://bloximages.newyork1.vip.townnews.com/psucollegian.com/content/tncms/assets/v3/editorial/c/f0/cf0c56d6-fc64-11ee-85ce-5b03b5c76292/661f38378d30d.image.jpg?resize=750%2C500" alt="Applying for assistance">
+    </div>
+
+    <div class="assistance-content">
+      <h3> Business Spotlight Physical Health Services:</h3>
+      <h2> CVIM, Centre  County</h2> 
+      <h4>Contact: (814) 231-4043 </h4><br>
+      <p>
+        Centre Volunteers in Medicine (CVIM) is Centre County’s only free clinic, offering high-quality care to uninsured individuals. They provide medical, dental, and behavioral aid free of charge. 
+      </p>
+     <div class="card-actions">
+  
+  <a class="learn-more-btn"
+     href="https://www.cvim.net/"
+     target="_blank">
+
+   <svg class="learn-more-icon" viewBox="0 0 24 24">
+  <path d="M10.59 13.41a1.996 1.996 0 0 1 0-2.82l3.59-3.59a2 2 0 1 1 2.83 2.83l-1.17 1.17 1.41 1.41 1.17-1.17a4 4 0 0 0-5.66-5.66l-3.59 3.59a4 4 0 0 0 5.66 5.66l1.17-1.17-1.41-1.41-1.17 1.17a2 2 0 0 1-2.83 0z"/>
+  <path d="M13.41 10.59a1.996 1.996 0 0 1 0 2.82l-3.59 3.59a2 2 0 1 1-2.83-2.83l1.17-1.17-1.41-1.41-1.17 1.17a4 4 0 1 0 5.66 5.66l3.59-3.59a4 4 0 0 0-5.66-5.66l-1.17 1.17 1.41 1.41 1.17-1.17a2 2 0 0 1 2.83 0z"/>
+</svg>
+
+  </a>
+
+  <button class="pin-item bookmark-btn"
+      data-title="CVIM"
+      data-url="https://www.cvim.net/">
+
+    <svg class="bookmark-icon" viewBox="0 0 24 24" width="20" height="20">
+      <path d="M16 9V3L17 2H7L8 3V9L5 12V13H11V22H13V13H19V12L16 9Z"/>
+    </svg>
+
+  </button>
+
+</div>
+</section>
+
+
+<!-- Aging Resource #2:  -->
+
+
+
+ <section class="assistance" id="mountnittany">
+  <div class="assistance-container">
+
+    <div class="assistance-image">
+<!-- Tara here -->      <img src="https://mountnittany.org/wp-content/uploads/2024/01/Mount-Nittany-Medical-Center-Main-Entrance-01-1024x712.jpg" alt="RSVP">
+    </div>
+
+    <div class="assistance-content">
+<!-- Tara here -->      <h2>Mount Nittany Health</h2>
+                        <h4>Contact: (814) 231-7000 </h4><br>
+      <p>
+  <!-- Tara here -->     Mount Nittany Health provides nationally-recognized healthcare, working to make healthier people and a  stronger community. They are committed to utilizing resources to meet the healthcare needs of the community, providing 24/7 healthcare and insurance.
+      </p>
+    <div class="card-actions">
+  
+  <a class="learn-more-btn"
+     href="https://mountnittany.org/"
+     target="_blank">
+
+   <svg class="learn-more-icon" viewBox="0 0 24 24">
+  <path d="M10.59 13.41a1.996 1.996 0 0 1 0-2.82l3.59-3.59a2 2 0 1 1 2.83 2.83l-1.17 1.17 1.41 1.41 1.17-1.17a4 4 0 0 0-5.66-5.66l-3.59 3.59a4 4 0 0 0 5.66 5.66l1.17-1.17-1.41-1.41-1.17 1.17a2 2 0 0 1-2.83 0z"/>
+  <path d="M13.41 10.59a1.996 1.996 0 0 1 0 2.82l-3.59 3.59a2 2 0 1 1-2.83-2.83l1.17-1.17-1.41-1.41-1.17 1.17a4 4 0 1 0 5.66 5.66l3.59-3.59a4 4 0 0 0-5.66-5.66l-1.17 1.17 1.41 1.41 1.17-1.17a2 2 0 0 1 2.83 0z"/>
+</svg>
+
+  </a>
+
+  <button class="pin-item bookmark-btn"
+      data-title="Mount Nittany Health"
+      data-url="https://mountnittany.org/">
+
+    <svg class="bookmark-icon" viewBox="0 0 24 24" width="20" height="20">
+      <path d="M16 9V3L17 2H7L8 3V9L5 12V13H11V22H13V13H19V12L16 9Z"/>
+    </svg>
+
+  </button>
+
+</div>
+</section>
+
+<!-- Aging Resource #3:  -->
+
+
+
+  <section class="assistance" id="publichealthdiv">
+  <div class="assistance-container">
+
+    <div class="assistance-image">
+  <!-- Tara here -->    <img src="https://pennstatehealthnews.org/wp-content/uploads/2016/07/crescent-front-800px.jpg" alt="Applying for assistance">
+    </div>
+
+    <div class="assistance-content">
+ <!-- Tara here -->     <h2>State College Public Health Division</h2>
+                        <h4>Contact: (814) 865-0932 </h4><br>
+      <p>
+<!-- Tara here -->       The mission of the Public Health Division is to prevent and control disease, promote healthy lifestyles protect public health to enhance the quality of life in State College. They conduct restaurant and business inspections, educational courses on public health, and more.
+
+      </p>
+      <div class="card-actions">
+  
+  <a class="learn-more-btn"
+     href="https://www.statecollegepa.us/337/Public-Health"
+     target="_blank">
+
+   <svg class="learn-more-icon" viewBox="0 0 24 24">
+  <path d="M10.59 13.41a1.996 1.996 0 0 1 0-2.82l3.59-3.59a2 2 0 1 1 2.83 2.83l-1.17 1.17 1.41 1.41 1.17-1.17a4 4 0 0 0-5.66-5.66l-3.59 3.59a4 4 0 0 0 5.66 5.66l1.17-1.17-1.41-1.41-1.17 1.17a2 2 0 0 1-2.83 0z"/>
+  <path d="M13.41 10.59a1.996 1.996 0 0 1 0 2.82l-3.59 3.59a2 2 0 1 1-2.83-2.83l1.17-1.17-1.41-1.41-1.17 1.17a4 4 0 1 0 5.66 5.66l3.59-3.59a4 4 0 0 0-5.66-5.66l-1.17 1.17 1.41 1.41 1.17-1.17a2 2 0 0 1 2.83 0z"/>
+</svg>
+
+  </a>
+
+  <button class="pin-item bookmark-btn"
+      data-title="SC Public Health Division"
+      data-url="https://www.statecollegepa.us/337/Public-Health">
+
+    <svg class="bookmark-icon" viewBox="0 0 24 24" width="20" height="20">
+      <path d="M16 9V3L17 2H7L8 3V9L5 12V13H11V22H13V13H19V12L16 9Z"/>
+    </svg>
+
+  </button>
+
+</div>
+</section>
+
+
+
+<section class="assistance" id="scorthodontics">
+  <div class="assistance-container">
+
+    <div class="assistance-image">
+  <!-- Tara here -->    <img src="https://statecollegeortho.com/wp-content/uploads/2025/05/SCO-team-group-7783.jpg" alt="Applying for assistance">
+    </div>
+
+    <div class="assistance-content">
+ <!-- Tara here -->     <h2>State College Orthodontics </h2>
+                        <h4>Contact: (814) 308-9504 </h4><br>
+      <p>
+<!-- Tara here -->        State College Orthodontics cares for your teeth with aid from local experts, a designated doctor each time, and fewer yet more thorough appointments than various other facilities. They aim to make dental health a right, not a privilege. 
+
+      </p>
+     <div class="card-actions">
+  
+  <a class="learn-more-btn"
+     href="https://statecollegeortho.com/"
+     target="_blank">
+
+   <svg class="learn-more-icon" viewBox="0 0 24 24">
+  <path d="M10.59 13.41a1.996 1.996 0 0 1 0-2.82l3.59-3.59a2 2 0 1 1 2.83 2.83l-1.17 1.17 1.41 1.41 1.17-1.17a4 4 0 0 0-5.66-5.66l-3.59 3.59a4 4 0 0 0 5.66 5.66l1.17-1.17-1.41-1.41-1.17 1.17a2 2 0 0 1-2.83 0z"/>
+  <path d="M13.41 10.59a1.996 1.996 0 0 1 0 2.82l-3.59 3.59a2 2 0 1 1-2.83-2.83l1.17-1.17-1.41-1.41-1.17 1.17a4 4 0 1 0 5.66 5.66l3.59-3.59a4 4 0 0 0-5.66-5.66l-1.17 1.17 1.41 1.41 1.17-1.17a2 2 0 0 1 2.83 0z"/>
+</svg>
+
+  </a>
+
+  <button class="pin-item bookmark-btn"
+      data-title="State College Orthodontics"
+      data-url="https://statecollegeortho.com/">
+
+    <svg class="bookmark-icon" viewBox="0 0 24 24" width="20" height="20">
+      <path d="M16 9V3L17 2H7L8 3V9L5 12V13H11V22H13V13H19V12L16 9Z"/>
+    </svg>
+
+  </button>
+
+</div>
+</section>
+
+
+
+
+<section class="assistance" id="pregnancyclinic">
+  <div class="assistance-container">
+
+    <div class="assistance-image">
+  <!-- Tara here -->    <img src="https://lh3.googleusercontent.com/gps-cs-s/AHVAwergwAhMcgGC4-dXR3moExUmHty4SVb3tgc2krEKRXT8bv60eQhL7tQhF_o3v39ynG6385q3y8dMFbCTm980H8MUW6tmh2ganqSSM1n4QFlhda2M-0tFCEW_QAx7UwUPnZqLg3o=w650-h437-n-k-no" alt="Applying for assistance">
+    </div>
+
+    <div class="assistance-content">
+ <!-- Tara here -->     <h2>Pregnancy Resource Clinic </h2>
+                        <h4>Contact: (814) 234-7341 </h4><br>
+      <p>
+<!-- Tara here -->        Pregnancy Resource Clinic in State College exists to educate, encourage, and empower men and women to make informed life choices by providing services related to pregnancy, parenting, sexual health, and abortion recovery care.
+
+      </p>
+     <div class="card-actions">
+  
+  <a class="learn-more-btn"
+     href="https://www.scprc.com/"
+     target="_blank">
+
+   <svg class="learn-more-icon" viewBox="0 0 24 24">
+  <path d="M10.59 13.41a1.996 1.996 0 0 1 0-2.82l3.59-3.59a2 2 0 1 1 2.83 2.83l-1.17 1.17 1.41 1.41 1.17-1.17a4 4 0 0 0-5.66-5.66l-3.59 3.59a4 4 0 0 0 5.66 5.66l1.17-1.17-1.41-1.41-1.17 1.17a2 2 0 0 1-2.83 0z"/>
+  <path d="M13.41 10.59a1.996 1.996 0 0 1 0 2.82l-3.59 3.59a2 2 0 1 1-2.83-2.83l1.17-1.17-1.41-1.41-1.17 1.17a4 4 0 1 0 5.66 5.66l3.59-3.59a4 4 0 0 0-5.66-5.66l-1.17 1.17 1.41 1.41 1.17-1.17a2 2 0 0 1 2.83 0z"/>
+</svg>
+
+  </a>
+
+  <button class="pin-item bookmark-btn"
+      data-title="Pregnancy Resource Clinic"
+      data-url="https://www.scprc.com/">
+
+    <svg class="bookmark-icon" viewBox="0 0 24 24" width="20" height="20">
+      <path d="M16 9V3L17 2H7L8 3V9L5 12V13H11V22H13V13H19V12L16 9Z"/>
+    </svg>
+
+  </button>
+
+</div>
+</section>
+
+<!-- Aging Resource #4:  -->
+<section class="assistance" id="adulttransition">
+  <div class="assistance-container">
+
+    <div class="assistance-image">
+  <!-- Tara here -->    <img src="https://img1.wsimg.com/isteam/stock/V5oE1Vk/:/cr=t:0%25,l:0%25,w:100%25,h:100%25/rs=w:751,h:500,cg:true" alt="Applying for assistance">
+    </div>
+
+    <div class="assistance-content">
+ <!-- Tara here -->     <h2>Adult Transitional Care </h2>
+                        <h4>Contact: (814) 954-2821 </h4><br>
+      <p>
+<!-- Tara here -->        Adult Transitional Care provides personalized in-home senior care, specializing in assisted living at home, companion care, and personal care services to assist with life transitions. 
+
+      </p>
+     <div class="card-actions">
+  
+  <a class="learn-more-btn"
+     href="https://adulttransitionalcare.com/"
+     target="_blank">
+
+   <svg class="learn-more-icon" viewBox="0 0 24 24">
+  <path d="M10.59 13.41a1.996 1.996 0 0 1 0-2.82l3.59-3.59a2 2 0 1 1 2.83 2.83l-1.17 1.17 1.41 1.41 1.17-1.17a4 4 0 0 0-5.66-5.66l-3.59 3.59a4 4 0 0 0 5.66 5.66l1.17-1.17-1.41-1.41-1.17 1.17a2 2 0 0 1-2.83 0z"/>
+  <path d="M13.41 10.59a1.996 1.996 0 0 1 0 2.82l-3.59 3.59a2 2 0 1 1-2.83-2.83l1.17-1.17-1.41-1.41-1.17 1.17a4 4 0 1 0 5.66 5.66l3.59-3.59a4 4 0 0 0-5.66-5.66l-1.17 1.17 1.41 1.41 1.17-1.17a2 2 0 0 1 2.83 0z"/>
+</svg>
+
+  </a>
+
+  <button class="pin-item bookmark-btn"
+      data-title="Adult Transitional Care"
+      data-url="https://adulttransitionalcare.com/">
+
+    <svg class="bookmark-icon" viewBox="0 0 24 24" width="20" height="20">
+      <path d="M16 9V3L17 2H7L8 3V9L5 12V13H11V22H13V13H19V12L16 9Z"/>
+    </svg>
+
+  </button>
+
+</div>
+</section>
+<button id="chatToggle">💬</button>
+
+<div id="chatContainer">
+  <button id="chatClose">✖</button>
+  
+  <iframe 
+    src="https://star7982luv-arch.github.io/centresupportschatbot/"
+    width="100%" 
+    height="100%" 
+    style="border: none;">
+  </iframe>
+</div>
+<script>
+const chatToggle = document.getElementById("chatToggle");
+const chatContainer = document.getElementById("chatContainer");
+const chatClose = document.getElementById("chatClose");
+
+// Open chat
+chatToggle.addEventListener("click", () => {
+  chatContainer.style.display = "block";
+  chatToggle.style.display = "none"; // hide icon
+});
+
+// Close chat
+chatClose.addEventListener("click", () => {
+  chatContainer.style.display = "none";
+  chatToggle.style.display = "block"; // show icon again
+});
+</script>
+<section class="hub-section">
+
+  <!-- LEFT SIDE -->
+  <div class="hub-left">
+    <h2>SUPPORT THE COMMUNITY</h2>
+    <p>
+      We strive to showcase accessible resources in Centre County that benefit all residents. 
+      <br> Support our community by contributing a resource to add to our library!
+    </p>
+
+   <button class="submit-btn" onclick="window.location.href='feedback.html'">
+  ADD YOUR RESOURCES →
+</button>
+  </div>
+  
+  <style>
+
+  </style>
+
+  <!-- RIGHT SIDE -->
+  <div class="hub-right">
+    <h2>JOIN OUR<br>SEASONAL NEWSLETTER</h2>
+
+    <form id="signupForm" class="signup-form">
+      <input type="email" placeholder="EMAIL ADDRESS" required>
+      <button type="submit">JOIN</button>
+    </form>
+  </div>
+
+</section>
+<footer class="footer">
+  <div class="footer-container">
+
+    <!-- LEFT: Logo -->
+    <div class="footer-left">
+      <div class="logo-box">
+        <span>CENTRE<br>SUPPORTS</span>
+      </div>
+    </div>
+<style>
+  .footer-left img{
+    position: relative;
+    width: 150px;
+    height: 150px;
+  }
+</style>
+    <!-- CENTER: Links + Button -->
+    <div class="footer-center">
+      <div class="links">
+        <div class="col">
+          <a href="index.html">HOME</a>
+          <a href="resources.html">RESOURCES</a>
+        </div>
+        <div class="col">
+          <a href="news.html">NEWS</a>
+          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=centrespprts@gmail.com" target="_blank">CONTACT</a>
+        </div>
+      </div>
+      </div>
+
+    <!-- RIGHT: Social + Copyright -->
+    <div class="footer-right">
+      <h3>CONNECT WITH CS</h3>
+      <div class="socials">
+     <a href="https://www.facebook.com/people/Centre-Supports/61586017081439/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://x.com/CentreSupports" target="_blank"><i class="fab fa-twitter"></i></a>
+      <a href="https://www.instagram.com/centresupports/" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.linkedin.com/in/centre-supports-5114113a2/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+      <a href="https://www.youtube.com/playlist?list=PLQtjomygFu7FzsSw1Zo_9mo25dHefECaw" target= "_blank"><i class="fab fa-youtube"></i></a>
+      </div>
+<p>
+  © 2026 CS | 
+  <a href="privacy.html">Privacy Policy</a> | 
+  <a href="terms.html">Terms</a>
+</p>
+</div>
+
+  </div>
+</footer>
+
+<script>
+document.getElementById("signupForm").addEventListener("submit", function(e){
+
+  e.preventDefault()
+
+  const email = this.querySelector("input").value
+
+  alert("Thanks for joining! " + email)
+
+  this.reset()
+
+})
+</script>
+
+ <script>
+    const navbar = document.querySelector('.navbar');
+
+  function handleScroll() {
+    if (window.pageYOffset > 50) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  }
+
+  window.addEventListener('scroll', handleScroll);
+  const searchBar = document.querySelector('.search-bar');
+const searchIcon = searchBar.querySelector('.search-icon');
+const searchInput = searchBar.querySelector('input');
+</script>
+<div id="pageLoader">
+  <div class="loader-content">
+  <img src="centrespprts.png" alt="logo">
+  <div class="spinner"></div>
+</div>
+</div>
+  
+</div> <!--END OF PAGE CONTENT DIV-->
+
+<div id="pageOverlay" class="page-overlay"></div>
+<div id="savedPanel" class="saved-panel">
+
+  <div class="saved-header">
+    <h3>Your Pinned Resources</h3>
+    <span id="closeSaved">Close</span>
+  </div>
+
+  <div class="saved-body">
+
+    <p>Pinned resources will appear here:</p>
+
+    <div id="savedItems"></div>
+
+    <div class="saved-email">
+      <input type="email" id="emailInput" placeholder="Email Address">
+      <button id="sendPins">Email Pinned Resources</button>
+    </div>
+
+  </div>
+
+</div>
+<style>
+  @media(max-width: 768px){
+    .saved-email button{
+      appearance: none;
+  -webkit-appearance: none; /* iOS fix */
+    }
+  }
+  .no-scroll {
+  overflow: hidden;
+}
+
+html {
+  scrollbar-gutter: stable;
+}
+.saved-panel {
+  position: fixed;
+  top: 0;
+  right: 0; /* always anchored */
+
+  width: min(500px, calc(100dvw - 60px));
+  max-width: calc(100dvw - 60px);
+  height: 100vh;
+
+  background: white;
+  border-radius: 0;
+  box-shadow: -10px 0 30px rgba(0,0,0,0.2);
+
+  transform: translateX(100%); /* hidden off screen */
+  transition: transform 0.6s ease;
+
+  z-index: 2000;
+}
+
+.saved-panel.open {
+  transform: translateX(0); /* slide in */
+}
+
+#pageContent{
+  transition:transform 0.35s ease;
+}
+
+#pageContent.shift {
+  transform: translateX(-30px);
+}
+
+.page-overlay{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.4);
+  opacity:0;
+  visibility:hidden;
+  transition:opacity 0.3s ease;
+  z-index:1500;
+}
+.page-overlay{
+  transition: opacity 0.7s cubic-bezier(.22,1,.36,1);
+  transition-delay: 0.05s;
+}
+
+.page-overlay.show{
+  opacity:1;
+  visibility:visible;
+}
+</style>
+<script>
+const savedPanel = document.getElementById("savedPanel")
+const pinButton = document.getElementById("pinButton")
+const closeSaved = document.getElementById("closeSaved")
+const overlay = document.getElementById("pageOverlay")
+const page = document.getElementById("pageContent")
+
+let scrollPosition = 0;
+
+pinButton.addEventListener("click", e => {
+  e.preventDefault();
+
+  scrollPosition = window.scrollY;
+
+  document.body.style.position = "fixed";
+  document.body.style.top = `-${scrollPosition}px`;
+  document.body.style.width = "100%";
+
+  savedPanel.classList.add("open");
+  overlay.classList.add("show");
+  page.classList.add("shift");
+})
+
+closeSaved.addEventListener("click", closePanel)
+overlay.addEventListener("click", closePanel)
+
+function closePanel(){
+  savedPanel.classList.remove("open")
+  overlay.classList.remove("show")
+  page.classList.remove("shift")
+
+  // temporarily disable smooth scrolling (if any)
+  const scrollBehavior = document.documentElement.style.scrollBehavior
+  document.documentElement.style.scrollBehavior = "auto"
+
+  // restore body
+  document.body.style.position = ""
+  document.body.style.top = ""
+  document.body.style.width = ""
+
+  // instantly jump back WITHOUT animation
+  window.scrollTo(0, scrollPosition)
+
+  // restore scroll behavior
+  document.documentElement.style.scrollBehavior = scrollBehavior
+}
+
+function loadSaved(){
+
+  const savedItems = document.getElementById("savedItems")
+  const resources = JSON.parse(localStorage.getItem("pinnedItems")) || []
+
+  savedItems.innerHTML = ""
+
+  resources.forEach((r,index) => {
+
+    const div = document.createElement("div")
+    div.className = "saved-resource"
+
+    div.innerHTML = `
+      <a href="${r.url}" target="_blank">${r.title}</a>
+      <button class="delete-pin" data-index="${index}">✕</button>
+    `
+
+    savedItems.appendChild(div)
+
+  })
+}
+
+document.addEventListener("click", function(e){
+
+  if(e.target.classList.contains("delete-pin")){
+
+    let pins = JSON.parse(localStorage.getItem("pinnedItems")) || []
+
+    const index = parseInt(e.target.dataset.index, 10)
+    const removedItem = pins[index]
+
+    // remove safely
+    pins.splice(index, 1)
+    localStorage.setItem("pinnedItems", JSON.stringify(pins))
+
+    // only run if item exists (prevents crash)
+    if (removedItem && removedItem.url) {
+      document.querySelectorAll(".pin-item").forEach(btn => {
+        if (btn.dataset.url === removedItem.url) {
+          btn.classList.remove("pinned")
+        }
+      })
+    }
+
+    loadSaved()
+
+  }
+
+})
+
+document.querySelectorAll(".pin-item").forEach(btn=>{
+
+  btn.addEventListener("click", ()=>{
+
+    const title = btn.dataset.title
+    const url = btn.dataset.url
+
+    let pins = JSON.parse(localStorage.getItem("pinnedItems")) || []
+
+    const exists = pins.some(p => p.url === url)
+
+    if (exists) {
+  // UNPIN
+    pins = pins.filter(p => p.url !== url)
+    btn.classList.remove("pinned")
+}   else {
+  // PIN
+  pins.push({ title, url })
+  btn.classList.add("pinned")
+}
+
+    localStorage.setItem("pinnedItems", JSON.stringify(pins))
+
+    loadSaved()
+
+  })
+
+})
+
+loadSaved()
+
+
+</script>
+<script>
+let scrollPosition = 0;
+const savedPanel = document.getElementById("savedPanel")
+const pinButton = document.getElementById("pinButton")
+const closeSaved = document.getElementById("closeSaved")
+
+const overlay = document.getElementById("pageOverlay")
+const page = document.getElementById("pageContent")
+
+pinButton.addEventListener("click", e=>{
+  e.preventDefault()
+
+  scrollPosition = window.scrollY;
+
+  document.body.style.top = `-${scrollPosition}px`;
+  document.body.classList.add("no-scroll");
+
+  savedPanel.classList.add("open")
+  overlay.classList.add("show")
+  page.classList.add("shift")
+})
+
+closeSaved.addEventListener("click", closePanel)
+overlay.addEventListener("click", closePanel)
+
+function closePanel(){
+
+  savedPanel.classList.remove("open")
+  overlay.classList.remove("show")
+  page.classList.remove("shift")
+
+  if(document.body.classList.contains("no-scroll")){
+    document.body.classList.remove("no-scroll")
+    document.body.style.top = ""
+    window.scrollTo(0, scrollPosition)
+  }
+
+}
+
+function loadSaved(){
+
+  const savedItems = document.getElementById("savedItems")
+  const resources = JSON.parse(localStorage.getItem("pinnedItems")) || []
+
+  savedItems.innerHTML = ""
+
+  resources.forEach((r,index) => {
+
+    const div = document.createElement("div")
+    div.className = "saved-resource"
+
+    div.innerHTML = `
+      <a href="${r.url}" target="_blank">${r.title}</a>
+      <button class="delete-pin" data-index="${index}">✕</button>
+    `
+
+    savedItems.appendChild(div)
+
+  })
+}
+
+document.addEventListener("click", function(e){
+
+  if(e.target.classList.contains("delete-pin")){
+
+    let pins = JSON.parse(localStorage.getItem("pinnedItems")) || []
+    pins.splice(e.target.dataset.index,1)
+
+    localStorage.setItem("pinnedItems", JSON.stringify(pins))
+
+    loadSaved()
+
+  }
+
+})
+
+document.querySelectorAll(".pin-item").forEach(btn=>{
+
+  btn.addEventListener("click", ()=>{
+
+    const title = btn.dataset.title
+    const url = btn.dataset.url
+
+    let pins = JSON.parse(localStorage.getItem("pinnedItems")) || []
+
+    const exists = pins.some(p => p.url === url)
+
+    if(!exists){
+      pins.push({title,url})
+      btn.classList.add("pinned")
+    }
+
+    localStorage.setItem("pinnedItems", JSON.stringify(pins))
+
+    loadSaved()
+
+  })
+
+})
+
+loadSaved()
+
+
+</script>
+
+<!---EMAIL.JS SECTION (TARA 5) COPY AND PASTE)-->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+<script>
+(function(){
+emailjs.init("x3ShtMp_Po7CPnzlu");
+})();
+</script>
+<script>
+const emailInput = document.getElementById("emailInput");
+const sendPins = document.getElementById("sendPins");
+
+sendPins.addEventListener("click", function(e){
+
+  e.preventDefault(); // IMPORTANT
+
+  const email = emailInput.value;
+
+  if(!email){
+    alert("Please enter an email address.");
+    return;
+  }
+
+  const pins = JSON.parse(localStorage.getItem("pinnedItems")) || [];
+
+  if(pins.length === 0){
+    alert("No pinned resources.");
+    return;
+  }
+
+  let resourceList = "";
+
+  pins.forEach(p=>{
+    resourceList += `${p.title} - ${p.url}\n`;
+  });
+
+  emailjs.send("service_1gljyes","template_bm2vwwj",{
+    to_email: email,
+    resources: resourceList
+  })
+  .then(function(response){
+    console.log("SUCCESS", response);
+    alert("Email sent!");
+  })
+  .catch(function(error){
+    console.log("FAILED", error);
+    alert("Email failed to send.");
+  });
+
+});
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+
+  const searchBar = document.querySelector('.search-bar');
+  const searchIcon = searchBar.querySelector('.search-icon');
+  const searchInput = searchBar.querySelector('input');
+
+  // Toggle search bar when clicking the icon
+  searchIcon.addEventListener('click', (e) => {
+    searchBar.classList.toggle('active');
+
+    if (searchBar.classList.contains('active')) {
+      searchInput.focus();
+    }
+
+    e.stopPropagation();
+  });
+
+  // Close search bar if click is outside
+  document.addEventListener('click', (e) => {
+    if (!searchBar.contains(e.target)) {
+      searchBar.classList.remove('active');
+    }
+  });
+
+});
+</script>
+<script src="script.js"></script>
+  
+  </body>

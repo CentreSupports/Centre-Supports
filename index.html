@@ -1,0 +1,1429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Community Hub</title>
+  <link rel="stylesheet" href="styles.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geom:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=search" />
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
+<!--TARA copy and paste here (START) -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script> 
+(function(){
+emailjs.init("x3ShtMp_Po7CPnzlu");
+})();
+</script> 
+<!--TARA copy and paste here (END) -->
+</head>
+<body>
+  
+<div id="pageContent">
+  <header class="navbar">
+    <a href="index.html">
+    <div class="logo">
+   <img src="centrespprts.png" alt="Centre Supports Logo"> 
+    </div>
+    </a>
+    <nav class="nav-links">
+      <a href="mission2.html">Mission</a>
+      <a href="resources.html">Resources</a>
+      <a href="abusehotlines.html">Hotlines</a>
+      <a href="documentation.html">Documentation</a>
+    </nav>
+<div class="nav-actions">
+<form class="search-bar" id="searchForm" action="/search" method="get">
+  <span class="material-symbols-outlined search-icon">search</span>
+  <input type="text"  id="searchInput" name="q" placeholder="Search...">
+</form>
+  <div class="pinned-container">
+
+  <a href="#" class="saved" id="pinButton">
+    PINNED
+    <svg class="pin-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+      <path d="M16 9V4l1-1V2H7v1l1 1v5l-3 3v1h6v7l1-1 1 1v-7h6v-1l-3-3z"/>
+    </svg>
+  </a>
+  </div>
+  </header>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const searchBar = document.querySelector(".search-bar");
+  const searchIcon = document.querySelector(".search-icon");
+  const form = document.getElementById("searchForm");
+  const input = document.getElementById("searchInput");
+  const loader = document.getElementById("pageLoader");
+
+  document.addEventListener('click', (e) => {
+    if (!searchBar.contains(e.target) && searchBar.classList.contains("active")) {
+      searchBar.classList.remove('active');
+    }
+  });
+  
+    const pages = [
+    { title: "Aging Services", keywords: ["aging","age","senior","seniors","elderly","retirement","retiree","older","nurse","old","ACAP","Eagle Valley","The Village","RSVP","retired"], url: "aging.html" },
+      { title: "Youth Services", keywords: ["child","children","youth","kids","young","adolescent","juvenile","teen","childcare","baby","babies","daycare","grand","childspace", "ymca", "bureau", "united way", "key"], url: "youth.html" },
+      { title: "Food Services", keywords: ["food","meal","meals","nutrition","groceries","pantry","kitchen","hunger","hungry","stomach","restaurant","food bank","faith","action","CPCA","commonFood","lion","pantry"], url: "food.html" },
+      { title: "Substance Abuse Services", keywords: ["drugs","drug","substance","help","narcotics","remission","recovery","joseph","applegate","crossroads","INC", "pinnacle"], url: "substance.html" },
+      { title: "Transportation Services", keywords: ["transport","transportation","bus","buses","transit","ride","travel","commute","cata","greyhound","megabus","active"], url: "transport.html" },
+      { title: "Abuse Hotlines", keywords: ["suicide","intervention","prevention","helpline","support","safe","988","crisis","assault","violence"], url: "abusehotlines.html" },
+      { title: "Clothing Services", keywords: ["clothing","clothes","attire","shirt","pants","shoes","Vincent","Mommy","goodwill","salvation army", "peace"], url: "clothing.html" },
+      { title: "Employment and Finance Services", keywords: ["employment","job","jobs","career","work","finance","money","income","CROG","CRCOG","careerlink","interfaith","liHeap","skills"], url: "finance.html" },
+      { title: "Physical Health Services", keywords: ["physical","health","healthcare","abuse","fitness","hospital","medical","medicine","wellness","doctor", "medics", "dental", "teeth", "back", "pain", "hurt", "heart","CVIM","public","nittany","orthodontics","orthodontist","pregnancy","clinic"], url: "physical.html" },
+      { title: "Housing Services", keywords: ["housing","house","home","apartment","rent","rental","lease","shelter","Out of the cold","transitions","land trust","authority"], url: "housing.html" },
+      { title: "Mental Health Services", keywords: ["mental","mind","psychological","therapy","treatment","wellness","awareness", "sad", "depression", "anxiety","alone","jana marie","community","mental illness","NAMI","psychiatry"], url: "mental.html" },
+      { title: "Volunteering Services", keywords: ["volunteer","volunteering","community service","help","discovery space","schlow","library","centre care","PVCA","Environment","AAUW","summer"], url: "volunteer.html" }
+  ];
+
+
+  const fuse = new Fuse(pages, {
+    keys: ["title","keywords"],
+    threshold: 0.4
+  });
+
+form.addEventListener("submit", e => {
+  e.preventDefault();
+
+  const query = input.value.trim();
+  if (!query) return;
+
+  const results = fuse.search(query);
+
+  // show loader ONLY here
+  loader.classList.add("active");
+
+  setTimeout(() => {
+    if (results.length > 0) {
+      window.location.assign(results[0].item.url);
+    } else {
+      loader.classList.remove("active"); // hide if no results
+      alert("No results found.");
+    }
+  }, 700);
+});
+
+});
+</script>
+
+
+  <section class="zero">
+<button id="pauseBtn" class="pause-btn">⏸</button>  <!-- NEW: image carousel -->
+  <div class="zero-carousel">
+  <div class="slide active"
+       style="background-image: url('https://bestselfmedia.com/wp-content/uploads/2020/02/JudithMarano.PerryGrone.jpg');"
+       data-text="Centre Supports offers an efficient and trustworthy way for Centre County residents to
+      explore resources, opportunities, and more!"
+      data-link="resources.html"
+      data-button="Explore Resources">
+  </div>
+
+  <div class="slide"
+       style="background-image: url('https://media.istockphoto.com/id/1139776668/photo/generous-people-helping-to-poor-people.jpg?b=1&s=612x612&w=0&k=20&c=kzlUlRPtS0sPR0_yDaLcSK3aIJgizQu34RQWBDo6XSY=');"
+       data-text="Find resources to support the hungry in our community through Centre Supports food services."
+      data-link="food.html"
+      data-button="Find More">
+  </div>
+
+  <div class="slide"
+       style="background-image: url('https://media.istockphoto.com/id/1349214017/photo/rear-view-of-son-and-elderly-father-sitting-together-at-home-son-caring-for-his-father.jpg?b=1&s=612x612&w=0&k=20&c=J88OPotlJby_gUKVDmCA-36SHo33kXN5IpdLQ2y7WS4=');"
+       data-text="Promote mental wellbeing in our community by exploring the various mental health services on Centre Supports."
+       data-link="mental.html"
+       data-button="Discover Sources">
+  </div>
+  
+  <div class="slide"
+       style="background-image: url('https://clairification.com/wp-content/uploads/2025/03/hands-together-hannah-busing-unsplash-2048x1365.jpg');"
+       data-text="Centre County isn't just a region; It's a community. Learn more about Centre Supports and our mission as Centre County's main community service hub."
+       data-link="mission.html"
+       data-button="Achieve Better">
+  </div>
+</div>
+
+  <div class="overlay"></div>
+
+  <div class="zero-content">
+  <h1 id="zeroText"></h1>
+  <a id="zeroBtn" class="zero-btn" href="#">Explore</a>
+</div>
+
+</section>
+<style>
+    .zero{
+  min-height: calc(100vh - 80px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+</style>
+<style>
+  .zero-carousel {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+.zero-btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 24px;
+
+  background: transparent;        /* no fill */
+  color: white;                   /* white text */
+  border: 2px solid white;        /* white outline */
+
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 6px;
+
+  transition: all 0.3s ease;
+}
+
+.zero-btn:hover {
+  background: white;
+  color: black;
+  transform: translateY(-2px);
+}
+.pause-btn {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  z-index: 3;
+
+  padding: 10px 16px;
+  font-size: 19px;
+
+  background: rgba(0,0,0,0.6);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.pause-btn {
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+
+.zero:hover .pause-btn {
+  opacity: 1;
+}
+
+.pause-btn:hover {
+  background: rgba(0,0,0,0.8);
+}
+.slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  background-size: cover;
+  background-position: center;
+
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+/* visible slide */
+.slide.active {
+  opacity: 1;
+}
+
+/* overlay stays above images */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.7),
+    rgba(0,0,0,0.6)
+  );
+}
+/* text on top */
+.zero-content {
+  font-size: 1.2rem;
+  position: relative;
+  z-index: 2;
+  color: white;
+  max-width: 800px;
+}
+
+
+</style>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const slides = document.querySelectorAll(".slide");
+  const heroText = document.getElementById("zeroText");
+  const heroBtn = document.getElementById("zeroBtn"); // ✅ GET BUTTON
+  heroBtn.target = "_blank";
+  const pauseBtn = document.getElementById("pauseBtn");
+
+  let index = 0;
+  let interval;
+  let isPaused = false;
+
+  // ✅ 1. INITIAL SETUP (runs once when page loads)
+  zeroText.textContent = slides[0].dataset.text;
+  zeroBtn.textContent = slides[0].dataset.button;
+  zeroBtn.href = slides[0].dataset.link;
+
+  function nextSlide() {
+    const nextIndex = (index + 1) % slides.length;
+
+    // ✅ 2. UPDATE BUTTON + TEXT HERE (before slide changes)
+    zeroText.textContent = slides[nextIndex].dataset.text;
+    zeroBtn.textContent = slides[nextIndex].dataset.button;
+    zeroBtn.href = slides[nextIndex].dataset.link;
+
+    // switch image
+    slides[index].classList.remove("active");
+    slides[nextIndex].classList.add("active");
+
+    index = nextIndex;
+  }
+
+  function startCarousel() {
+    if (!interval) {
+      interval = setInterval(nextSlide, 4000);
+    }
+  }
+
+  function stopCarousel() {
+    clearInterval(interval);
+    interval = null;
+  }
+
+  startCarousel();
+
+  // pause button
+  pauseBtn.addEventListener("click", () => {
+    if (isPaused) {
+      startCarousel();
+      pauseBtn.textContent = "⏸";
+    } else {
+      stopCarousel();
+      pauseBtn.textContent = "▶";
+    }
+    isPaused = !isPaused;
+  });
+  
+  const zeroContent = document.querySelector(".zero-content");
+
+// pause on hover
+zeroContent.addEventListener("mouseenter", () => {
+  stopCarousel();
+});
+
+// resume on leave (only if user didn't manually pause)
+zeroContent.addEventListener("mouseleave", () => {
+  if (!isPaused) {
+    startCarousel();
+  }
+});
+});
+</script>
+<section class="stats">
+  <div class="stats-container">
+
+    <div class="stat-box green">
+      <div class="stat-number" data-target="250">0</div>
+      <div class="stat-text">
+         local businesses supported<br> through outreach
+      </div>
+    </div>
+
+    <div class="stat-box gray">
+      <div class="stat-number" data-target="986">0</div>
+      <div class="stat-text">
+        dollars fundraised for<br>local charities in 2026
+      </div>
+    </div>
+
+    <div class="stat-box pink">
+      <div class="stat-number" data-target="70">0</div>
+      <div class="stat-text">
+        local networking partnerships made in the last 2 years
+      </div>
+    </div>
+
+  </div>
+</section>
+  <section>
+  <div class="tabs">
+
+  <div class="tab-buttons">
+    <button class="tab active" data-tab="meetings">Map</button>
+    <button class="tab" data-tab="recruitment">Recruitment</button>
+    <button class="tab" data-tab="users">User Experience</button>
+    <button class="tab" data-tab="staff">Staff</button>
+  </div>
+
+ <div class="tab-content active" id="meetings">
+  <h1 class="section-title">Map</h1>
+
+  <div class="map-container">
+
+    <!-- LEFT: MAP -->
+    <div class="map-card">
+      <h3> Business Spotlight Locations</h3>
+
+      <div class="map-image-wrapper">
+        <img src="cs.png" alt="Business Spotlight locations">
+      </div>
+
+      <p class="map-description">
+        Find nearby resources and explore businesses across Centre County using our newest app:
+        <a href="news.html#app">Centre Search</a>.
+      </p>
+    </div>
+    
+    <style>
+      .map-description a{
+        color: black;
+        text-decoration: none;
+        font-weight: bold;
+      }
+      
+      .map-description a:hover{
+        text-decoration: underline;
+      }
+    </style>
+
+    <!-- RIGHT: STATS -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <h4>60+</h4>
+        <h3 style="color: white;">Businesses Featured</h3>
+      </div>
+
+      <div class="stat-card">
+        <h4>2,000+</h4>
+        <h3 style="color: white;">Users Reached</h3>
+      </div>
+
+      <div class="stat-card">
+        <h4>5+</h4>
+        <h3 style="color: white;">Townships Covered</h3>
+      </div>
+
+      <div class="stat-card">
+        <h4>10,000+</h4>
+        <h3 style="color: white;">Lines of Code</h3>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+  <div class="tab-content" id="recruitment">
+    <h1>Recruitment</h1>
+    <h4>As a nonprofit dedicated to facilitating the exploration of Centre County's wonderful resources, we are currently looking for volunteers. Centre County residents over the age of 16 can apply for a volunteering position in one of the categories detailed below. 
+    <br><br>Want to help us without volunteering? Join our newsletter for community service updates and local partnerships!</h4><br>
+    <div class="image-row">
+  <img src="volunteer.png" alt="description of image">
+  <img src="internship.png" alt="volunteering opportunity">
+</div>
+  <br>
+  </div>
+  
+  
+  
+  <div class="tab-content" id="users">
+    <h1>User Experiences</h1>
+    <p>Centre Supports users say our services greatly improved their experience in Centre County.</p>
+    <br>
+    <div class="user-container">
+      <div class="box">
+        <img src="female2.png" alt="Jessica">
+        <p>Jessica M.</p>
+        <br>
+        <p>"When I was struggling with my home heating services, Centre Supports helped me communicate with my supplier efficiently! Thank you, Centre Supports!"</p>
+    </div>
+       <div class="box">
+         <img src="guy1.png" alt="Michael">
+        <p>Michael J.</p>
+        <br>
+        <p>"Honestly, I had no idea where to start when I first moved to State College. Centre Supports was a lifesaver in helping me get around town, find great nonprofits, and give back to the community!"  </p>
+    </div>
+       <div class="box">
+         <img src="female1.png" alt="Priya">
+        <p>Priya C.</p>
+        <br>
+        <p>"Their Youtube channel helped me understand where businesses are coming from and where to invest my money in the community! Great site, I would recommend it to to any Centre County citizen!"</p>
+    </div>
+    <div class="box">
+        <img src="guy2.png" alt="Justin">
+        <p>Justin L.</p>
+        <br>
+        <p>"Honestly, this is one of the best directories I've found for State College. With their help, I was able to coordinate my busing schedule as a new Penn State student!"</p>
+    </div>
+  </div>
+</div>
+  
+  <div class="tab-content" id="staff">
+  <h1>Our Staff</h1>
+  <div class="staff-container">
+    <div class="staff-card">
+      <img src="019.png" alt="2098-019">
+      <h3>2098-019</h3>
+      <p>Research Coordinator</p><br>
+      <p>"I was the main organization researcher during the coding of this website. Centre Supports is my passion!"</p>
+    </div>
+    <div class="staff-card">
+      <img src="013.png" alt="2098-013">
+      <h3>2098-013</h3>
+      <p>Logistics Manager</p><br>
+      <p>"My main contribution was helping with logistics on the coding team! I hope our website aids the community."</p>
+    </div>
+    <div class="staff-card">
+      <img src="011.png" alt="2098-011">
+      <h3>2098-011</h3>
+      <p>Coding Director</p><br>
+      <p>"Hi, I’m the main coder on the staff team! I hope our efforts pay off for the people of Centre County!"</p>
+    </div>
+    <div class="staff-card">
+      <img src="021.png" alt="2098-021">
+      <h3>2098-021</h3>
+      <p>Creative Designer</p><br>
+      <p>"Building this website was difficult! As our creative designer, I helped brainstorm new features!"</p>
+    </div>
+    <div class="staff-card">
+      <img src="030.png" alt="2098-030">
+      <h3>2098-030</h3>
+      <p>Interface Designer</p><br>
+      <p>"I helped with the color scheme and aesthetics of this website! I hope our users enjoy all the effort we put in!"</p>
+    </div>
+    <div class="staff-card">
+      <img src="036.png" alt="2098-036">
+      <h3>2098-036</h3>
+      <p>Content Manager</p><br>
+      <p>"Centre Supports is extremely important to me. As our main content designer, I helped with this website’s aesthetics!"</p>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* MAIN LAYOUT */
+.map-container {
+  display: flex;
+  gap: 40px;
+  align-items: stretch;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* MAP CARD */
+.map-card {
+  flex: 1.5;
+  background: white;
+  border-radius: 16px;
+  font-size: 23px;
+  padding: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+
+
+/* IMAGE */
+.map-image-wrapper {
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.map-image-wrapper img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* DESCRIPTION */
+.map-description {
+  margin-top: 15px;
+  line-height: 1.5;
+  font-size: 1rem;
+  text-align: left;
+}
+
+/* STATS GRID */
+.stats-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+/* STAT CARDS */
+.stat-card {
+  background: #2f5e99;
+  color: white;
+  border-radius: 14px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+}
+.stat-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 5px;
+}
+.stat-card h4 {
+  font-size: 2rem;
+  margin-bottom: 5px;
+}
+
+/* 📱 MOBILE FIX */
+@media (max-width: 768px) {
+  .map-container {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+}
+
+/* 📱 SMALL PHONES */
+@media (max-width: 480px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+#recruitment h1, h4{
+  padding: 20px;
+}
+#recruitment h4 {
+  font-weight: normal;
+  font-size: 1.3rem;
+}
+
+#recruitment h1{
+  text-align: center;
+}
+
+#users h1, #users p{
+  text-align: center;
+}
+#staff h1{
+  text-align: center;
+}
+
+body{
+  background: black;
+}
+
+
+.staff-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.staff-card {
+  background: #f5f5f5;
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.staff-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.staff-card img {
+  width: 100%;
+  height: 200px;       /* uniform height */
+  object-fit: cover;   /* prevents stretching */
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+.staff-card h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+.user-container{
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+
+}
+.user-container .box {
+  flex: 1 1 300px; 
+  max-width: 100%; 
+  background-color: #2f5e99;
+}
+.user-container .box img {
+  height: 200px;       
+  width: 100%;          
+  object-fit: cover;    
+  display: block;       
+  border-radius: 8px;   
+}
+
+</style> 
+</section>
+<section class="spotlight">
+  <h1>Media Entries: What Community Means to Us</h1>
+  <p>Sharing Centre County Stories with Pride since 2023</p>
+
+<div class="video-container">
+  <iframe 
+    src="https://www.youtube.com/embed/Fx24ppr6Ouo"
+    title="YouTube video"
+    allowfullscreen>
+  </iframe>
+</div>
+</section>
+<style>
+  .spotlight {
+  text-align: center;
+  padding: 20px;
+}
+.spotlight h1, .spotlight p{
+  color: white;
+}
+.spotlight p{
+  padding-bottom: 10px;
+  font-style: italic;
+}
+.video-container {
+  max-width: 750px;
+  margin: 0 auto;
+}
+
+/* Desktop only */
+@media (min-width: 768px) {
+  .video-container {
+    max-width: 900px;
+  }
+}
+
+.video-container iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9; 
+  border: none;
+  display: block;
+}
+</style>
+<button id="chatToggle">💬</button>
+
+<div id="chatContainer">
+  <button id="chatClose">✖</button>
+  
+  <iframe 
+    src="https://star7982luv-arch.github.io/centresupportschatbot/"
+    width="100%" 
+    height="100%" 
+    style="border: none;">
+  </iframe>
+</div>
+<script>
+const chatToggle = document.getElementById("chatToggle");
+const chatContainer = document.getElementById("chatContainer");
+const chatClose = document.getElementById("chatClose");
+
+// Open chat
+chatToggle.addEventListener("click", () => {
+  chatContainer.style.display = "block";
+  chatToggle.style.display = "none"; // hide icon
+});
+
+// Close chat
+chatClose.addEventListener("click", () => {
+  chatContainer.style.display = "none";
+  chatToggle.style.display = "block"; // show icon again
+});
+</script>
+<style>
+
+
+</style>
+<section class="partners-scroll-section">
+  <h2>Business Highlights:</h2>
+  <div class="partners-scroll">
+    <button class="carousel-btn left">&#10094;</button>
+
+    <div class="partners-track">
+      <a href="https://centrecountypa.gov/342/Aging" target="_blank" rel="noopener noreferrer">
+        <img src="https://centrecountypa.gov/ImageRepository/Document?documentID=32699" alt="Office of Aging">
+      </a>
+      <a href="https://childspacedaycarecenters.org/" target="_blank" rel="noopener noreferrer">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQP3xUP4vOeZo6OBQUqi1WKIUE9zVj9qjprdg&s" alt="Childspace">
+      </a>
+      <a href="https://scfoodbank.org/" target="_blank" rel="noopener noreferrer">
+        <img src="https://www.ccunitedway.org/sites/ccunitedway/files/styles/team/public/JaNae%20Camp%20Pages/PA%20Resize%20Logo/Food%20Bank.png?h=038a9462&itok=6cZI3ir0" alt="SC Food Bank">
+      </a>
+      <a href="https://www.outofthecoldcc.org/" target="_blank" rel="noopener noreferrer">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0ui1VKFd58B6tBnsvQj_5uG-AgM1xtBVWhw&s" alt="Out of the Cold">
+      </a>
+      <a href="https://www.goodwill.org/" target="_blank" rel="noopener noreferrer">
+        <img src="data:image/png;base64,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" alt="Goodwill">
+      </a>
+      <a href="https://www.crcog.net/employment" target="_blank" rel="noopener noreferrer">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSorrCXkTvxs0yXOFJFPc8B5GIxn9-TEjFn7A&s" alt="Partner 2">
+      </a>
+      <a href="https://catabus.com/" target="_blank" rel="noopener noreferrer">
+        <img src="https://pbs.twimg.com/profile_images/814138543757033473/lsfX-eDA_400x400.jpg" alt="CATA Bus services">
+      </a>
+      <a href="https://988lifeline.org/" target="_blank" rel="noopener noreferrer">
+        <img src="https://tse3.mm.bing.net/th/id/OIP.nQbUwZK5Jx7Yp1_j1fqJcgHaHf?pid=Api" alt="988 hotline services">
+      </a>
+      <a href="https://applegaterecovery.com/locations/pennsylvania/state-college/" target="_blank" rel="noopener noreferrer">
+        <img src="https://tse4.mm.bing.net/th/id/OIP.O7-RjVVS82m-o6iINP179wHaCX?pid=Api" alt="Applegate Corporations">
+      </a>
+      <a href="https://www.centrehelps.org/" target="_blank" rel="noopener noreferrer">
+        <img src="https://tse1.mm.bing.net/th/id/OIP.oe7wu6lc8ACcLZGnjAaqHgAAAA?pid=Api" alt="Centre Helps">
+      </a>
+      <a href="https://janamariefoundation.org/meet-us/" target="_blank" rel="noopener noreferrer">
+        <img src="https://tse2.mm.bing.net/th/id/OIP.Qr59Hm9z_MUQHsxOWRELMAAAAA?pid=Api" alt="Jana Marie Foundation">
+      </a>
+      <a href="https://discoveryspace.org/support/volunteer/" target="_blank" rel="noopener noreferrer">
+        <img src="https://tse3.mm.bing.net/th/id/OIP.zNSnog5yo3_UTbUgyuVwIAHaHa?pid=Api" alt="Discovery Space">
+      </a>
+      <a href="https://centrecountypa.gov/593/CrisisEmergency-Services#:~:text=The%20crisis%20line%20is%201,their%20safe%20and%20confidential%20location." target="_blank" rel="noopener noreferrer">
+        <img src="https://tse4.mm.bing.net/th/id/OIP.75gZ5S5c7eyYXAw4IASjswHaCQ?pid=Api" alt="988 hotline services">
+      </a>
+      <a href="https://www.cvim.net/" target="_blank" rel="noopener noreferrer">
+        <img src="https://es.readkong.com/static/ac/dd/acdd21146f441c526e7ba6a57d6072d0/a-centre-volunteers-in-medicine-antes-7161748-thumb-1.jpg" alt="Centre Volunteers in Medicine">
+      </a>
+      
+    </div>
+
+    <button class="carousel-btn right">&#10095;</button>
+  </div>
+</section>
+<section class="hub-section">
+
+  <!-- LEFT SIDE -->
+  <div class="hub-left">
+    <h2>SUPPORT THE COMMUNITY</h2>
+    <p>
+      We strive to showcase accessible resources in Centre County that benefit all residents. 
+      <br> Support our community by contributing a resource to add to our library!
+    </p>
+
+   <button class="submit-btn" onclick="window.location.href='feedback.html'">
+  ADD YOUR RESOURCES →
+</button>
+  </div>
+  
+  <style>
+
+  </style>
+
+  <!-- RIGHT SIDE -->
+  <div class="hub-right">
+    <h2>JOIN OUR<br>SEASONAL NEWSLETTER</h2>
+
+    <form id="signupForm" class="signup-form">
+      <input type="email" placeholder="EMAIL ADDRESS" required>
+      <button type="submit">JOIN</button>
+    </form>
+  </div>
+
+</section>
+<footer class="footer">
+  <div class="footer-container">
+
+    <!-- LEFT: Logo -->
+    <div class="footer-left">
+      <div class="logo-box">
+        <span>CENTRE<br>SUPPORTS</span>
+      </div>
+    </div>
+<style>
+  .footer-left img{
+    position: relative;
+    width: 150px;
+    height: 150px;
+  }
+</style>
+    <!-- CENTER: Links + Button -->
+    <div class="footer-center">
+      <div class="links">
+        <div class="col">
+          <a href="index.html">HOME</a>
+          <a href="resources.html">RESOURCES</a>
+        </div>
+        <div class="col">
+          <a href="news.html">NEWS</a>
+          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=centrespprts@gmail.com" target="_blank">CONTACT</a>
+        </div>
+      </div>
+      </div>
+
+    <!-- RIGHT: Social + Copyright -->
+    <div class="footer-right">
+      <h3>CONNECT WITH CS</h3>
+      <div class="socials">
+     <a href="https://www.facebook.com/people/Centre-Supports/61586017081439/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://x.com/CentreSupports" target="_blank"><i class="fab fa-twitter"></i></a>
+      <a href="https://www.instagram.com/centresupports/" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.linkedin.com/in/centre-supports-5114113a2/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+      <a href="https://www.youtube.com/playlist?list=PLQtjomygFu7FzsSw1Zo_9mo25dHefECaw" target= "_blank"><i class="fab fa-youtube"></i></a>
+      </div>
+<p>
+  © 2026 CS | 
+  <a href="privacy.html">Privacy Policy</a> | 
+  <a href="terms.html">Terms</a>
+</p>
+</div>
+
+  </div>
+</footer>
+
+<script>
+document.getElementById("signupForm").addEventListener("submit", function(e){
+
+  e.preventDefault()
+
+  const email = this.querySelector("input").value
+
+  alert("Thanks for joining! " + email)
+
+  this.reset()
+
+})
+</script>
+
+
+
+
+  
+  <script>
+  const navbar = document.querySelector('.navbar');
+
+  function handleScroll() {
+    if (window.pageYOffset > 50) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  }
+
+  window.addEventListener('scroll', handleScroll);
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const track = document.querySelector(".partners-track");
+  const container = document.querySelector(".partners-scroll");
+  const leftBtn = document.querySelector(".carousel-btn.left");
+  const rightBtn = document.querySelector(".carousel-btn.right");
+
+  let offset = 0;
+  const step = 200;
+  let autoScrollInterval = null;
+
+  function updateTransform() {
+    track.style.transform = `translateX(${offset}px)`;
+  }
+
+  function startAutoScroll() {
+    stopAutoScroll();
+
+    autoScrollInterval = setInterval(() => {
+      const maxOffset = track.scrollWidth - container.offsetWidth;
+
+      if (Math.abs(offset) >= maxOffset) {
+        offset = 0; // reset to start
+      } else {
+        offset -= step;
+      }
+
+      updateTransform();
+    }, 1500); // speed (ms)
+  }
+
+  function stopAutoScroll() {
+    if (autoScrollInterval) {
+      clearInterval(autoScrollInterval);
+      autoScrollInterval = null;
+    }
+  }
+
+  // Desktop controls
+  rightBtn.addEventListener("click", () => {
+    const maxOffset = track.scrollWidth - container.offsetWidth;
+    offset = Math.max(offset - step, -maxOffset);
+    updateTransform();
+  });
+
+  leftBtn.addEventListener("click", () => {
+    offset = Math.min(offset + step, 0);
+    updateTransform();
+  });
+
+  // Switch behavior based on screen size
+  function handleResponsive() {
+    if (window.matchMedia("(max-width: 768px)").matches) {
+      leftBtn.style.display = "none";
+      rightBtn.style.display = "none";
+      startAutoScroll();
+    } else {
+      leftBtn.style.display = "block";
+      rightBtn.style.display = "block";
+      stopAutoScroll();
+    }
+  }
+
+  handleResponsive();
+  window.addEventListener("resize", handleResponsive);
+});
+</script>
+<style>
+.partners-track{
+  transition: transform 0.6s ease-in-out;
+}
+.partners-scroll-section {
+  border-top: 5px solid #0f297d; /* line color + thickness */
+  padding: 60px 20px;
+  background: #FFFFFF;
+  text-align: center;
+  border-box: 16px;
+}
+
+.partners-scroll-section h2 {
+  margin-bottom: 30px;
+  font-size: 2rem;
+}
+
+/* Carousel container */
+.partners-scroll {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Track with images */
+.partners-track {
+  display: flex;
+  gap: 40px;
+  transition: transform 0.3s ease;
+}
+
+/* Images */
+.partners-track a img {
+  height: 80px; /* adjust to fit nicely */
+  width: auto;
+  object-fit: contain;
+  transition: filter 0.3s ease;
+}
+
+.partners-track a img:hover {
+  filter: grayscale(0%);
+}
+
+/* Arrow buttons */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.9);
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 8px 14px;
+  z-index: 1;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+@media (max-width: 768px){
+  .carousel-btn{
+    font-size: 28px;
+    padding: 14px 18px;
+    display: block;
+  }
+}
+.carousel-btn.left {
+  left: 10px;
+}
+
+.carousel-btn.right {
+  right: 10px;
+}
+
+
+</style>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const searchBar = document.querySelector('.search-bar');
+  const searchIcon = searchBar.querySelector('.search-icon');
+  const searchInput = searchBar.querySelector('input');
+
+  // Toggle search bar when clicking the icon
+  searchIcon.addEventListener('click', (e) => {
+    searchBar.classList.toggle('active');
+
+    if (searchBar.classList.contains('active')) {
+      searchInput.focus();
+    }
+
+    e.stopPropagation();
+  });
+
+  // Close search bar if click is outside
+  document.addEventListener('click', (e) => {
+    if (!searchBar.contains(e.target)) {
+      searchBar.classList.remove('active');
+    }
+  });
+
+});
+</script>
+<div id="pageLoader">
+  <div class="loader-content">
+  <img src="centrespprts.png" alt="logo">
+  <div class="spinner"></div>
+</div>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  const counters = document.querySelectorAll('.stat-number');
+const statsSection = document.querySelector('.stats');
+  let started = false;
+
+  function startCount() {
+    if (started) return;
+    started = true;
+
+    counters.forEach(counter => {
+      const target = +counter.getAttribute('data-target');
+      const duration = 2000;
+      const startTime = performance.now();
+
+      function updateCount(currentTime) {
+        const progress = Math.min((currentTime - startTime) / duration, 1);
+        const value = Math.floor(progress * target);
+        counter.textContent = value;
+
+        if (progress < 1) {
+          requestAnimationFrame(updateCount);
+        } else {
+          counter.textContent = target;
+        }
+      }
+
+      requestAnimationFrame(updateCount);
+    });
+  }
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        startCount();
+      }
+    });
+  }, { threshold: 0.3 });
+
+  if (statsSection) {
+    observer.observe(statsSection);
+  }
+
+});
+</script>
+<script>
+
+const tabs = document.querySelectorAll(".tab");
+const contents = document.querySelectorAll(".tab-content");
+
+tabs.forEach(tab => {
+  tab.addEventListener("click", () => {
+
+    const target = document.getElementById(tab.dataset.tab);
+
+    tabs.forEach(t => t.classList.remove("active"));
+    contents.forEach(c => c.classList.remove("active"));
+
+    tab.classList.add("active");
+    target.classList.add("active");
+
+  });
+});
+
+
+</script>
+<style>
+  @media(max-width: 768px){
+    .saved-email button{
+      appearance: none;
+  -webkit-appearance: none; /* iOS fix */
+    }
+  }
+  .no-scroll {
+  overflow: hidden;
+}
+
+html {
+  scrollbar-gutter: stable;
+}
+.saved-panel {
+  position: fixed;
+  top: 0;
+  right: 0; /* always anchored */
+
+  width: min(500px, calc(100dvw - 60px));
+  max-width: calc(100dvw - 60px);
+  height: 100vh;
+
+  background: white;
+  border-radius: 0;
+  box-shadow: -10px 0 30px rgba(0,0,0,0.2);
+
+  transform: translateX(100%); /* hidden off screen */
+  transition: transform 0.6s ease;
+
+  z-index: 2000;
+}
+
+.saved-panel.open {
+  transform: translateX(0); /* slide in */
+}
+
+#pageContent{
+  transition:transform 0.35s ease;
+}
+
+#pageContent.shift {
+  transform: translateX(-30px);
+}
+
+.page-overlay{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.4);
+  opacity:0;
+  visibility:hidden;
+  transition:opacity 0.3s ease;
+  z-index:1500;
+}
+.page-overlay{
+  transition: opacity 0.7s cubic-bezier(.22,1,.36,1);
+  transition-delay: 0.05s;
+}
+
+.page-overlay.show{
+  opacity:1;
+  visibility:visible;
+}
+</style>
+</div> <!--END OF PAGE CONTENT DIV-->
+
+<div id="pageOverlay" class="page-overlay"></div>
+<div id="savedPanel" class="saved-panel">
+
+  <div class="saved-header">
+    <h3>Your Pinned Resources</h3>
+    <span id="closeSaved">Close</span>
+  </div>
+
+  <div class="saved-body">
+
+    <p>Pinned resources will appear here:</p>
+
+    <div id="savedItems"></div>
+
+    <div class="saved-email">
+      <input type="email" placeholder="Email Address">
+      <button>Email Pinned Resources</button>
+    </div>
+
+  </div>
+
+</div>
+<script>
+const savedPanel = document.getElementById("savedPanel")
+const pinButton = document.getElementById("pinButton")
+const closeSaved = document.getElementById("closeSaved")
+const overlay = document.getElementById("pageOverlay")
+const page = document.getElementById("pageContent")
+
+let scrollPosition = 0;
+
+pinButton.addEventListener("click", e => {
+  e.preventDefault();
+
+  scrollPosition = window.scrollY;
+
+  document.body.style.position = "fixed";
+  document.body.style.top = `-${scrollPosition}px`;
+  document.body.style.width = "100%";
+
+  savedPanel.classList.add("open");
+  overlay.classList.add("show");
+  page.classList.add("shift");
+})
+
+closeSaved.addEventListener("click", closePanel)
+overlay.addEventListener("click", closePanel)
+
+function closePanel(){
+  savedPanel.classList.remove("open")
+  overlay.classList.remove("show")
+  page.classList.remove("shift")
+
+  // temporarily disable smooth scrolling (if any)
+  const scrollBehavior = document.documentElement.style.scrollBehavior
+  document.documentElement.style.scrollBehavior = "auto"
+
+  // restore body
+  document.body.style.position = ""
+  document.body.style.top = ""
+  document.body.style.width = ""
+
+  // instantly jump back WITHOUT animation
+  window.scrollTo(0, scrollPosition)
+
+  // restore scroll behavior
+  document.documentElement.style.scrollBehavior = scrollBehavior
+}
+
+function loadSaved(){
+
+  const savedItems = document.getElementById("savedItems")
+  const resources = JSON.parse(localStorage.getItem("pinnedItems")) || []
+
+  savedItems.innerHTML = ""
+
+  resources.forEach((r,index) => {
+
+    const div = document.createElement("div")
+    div.className = "saved-resource"
+
+    div.innerHTML = `
+      <a href="${r.url}" target="_blank">${r.title}</a>
+      <button class="delete-pin" data-index="${index}">✕</button>
+    `
+
+    savedItems.appendChild(div)
+
+  })
+}
+
+document.addEventListener("click", function(e){
+
+  if(e.target.classList.contains("delete-pin")){
+
+    let pins = JSON.parse(localStorage.getItem("pinnedItems")) || []
+
+    const index = parseInt(e.target.dataset.index, 10)
+    const removedItem = pins[index]
+
+    // remove safely
+    pins.splice(index, 1)
+    localStorage.setItem("pinnedItems", JSON.stringify(pins))
+
+    // only run if item exists (prevents crash)
+    if (removedItem && removedItem.url) {
+      document.querySelectorAll(".pin-item").forEach(btn => {
+        if (btn.dataset.url === removedItem.url) {
+          btn.classList.remove("pinned")
+        }
+      })
+    }
+
+    loadSaved()
+
+  }
+
+})
+
+document.querySelectorAll(".pin-item").forEach(btn=>{
+
+  btn.addEventListener("click", ()=>{
+
+    const title = btn.dataset.title
+    const url = btn.dataset.url
+
+    let pins = JSON.parse(localStorage.getItem("pinnedItems")) || []
+
+    const exists = pins.some(p => p.url === url)
+
+    if (exists) {
+  // UNPIN
+    pins = pins.filter(p => p.url !== url)
+    btn.classList.remove("pinned")
+}   else {
+  // PIN
+  pins.push({ title, url })
+  btn.classList.add("pinned")
+}
+
+    localStorage.setItem("pinnedItems", JSON.stringify(pins))
+
+    loadSaved()
+
+  })
+
+})
+
+loadSaved()
+
+
+</script>
+<style>
+
+</style>
+
+<script src="script.js"></script>
+
+
+<style>
+  html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.zero {
+  position: relative;
+  height: 100dvh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+</style>
+<script>
+window.addEventListener("load", () => {
+  const loader = document.getElementById("pageLoader");
+
+  if (loader) {
+    loader.classList.remove("active");
+  }
+});
+</script>
+</body>
+</html>
